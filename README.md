@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Threads app (Similar to Meta's Thread or X's Twitter )
 
-## Getting Started
+Project to learn NextJs 14 more in depth. Route Groups,
 
-First, run the development server:
+### 🔹 Installation:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- npx create-next-app@latest ./
+- npm install tailwindcss-animate
+- npm install @clerk/nextjs
+- npm install @uploadthing/react uploadthing
+- npm install mongoose
+- npm install svix
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[Clerk Docs](https://clerk.com/docs/quickstarts/nextjs) - They are very good and easy to follow!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🔹 Route Groups:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+In Next.js, route groups allow you to organize your routes into logical groups without affecting the URL path structure. By marking a folder as a route group, you can prevent it from being included in the route's URL path. This is useful for organizing routes, creating nested layouts, opting specific segments into a layout, and creating multiple root layouts.
 
-## Learn More
+Route groups are useful for:
 
-To learn more about Next.js, take a look at the following resources:
+- Organizing routes into groups e.g. by site section, intent, or team.
+- Enabling nested layouts in the same route segment level:
+  *- *Creating multiple nested layouts in the same segment, including multiple root layouts
+  *- *Adding a layout to a subset of routes in a common segment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To create a route group, wrap the folder's name in parentheses. For example, (marketing) or (shop). This will omit the folder name from the URL path.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+So, in this app, there are two route groups, `(auth)` and `(root)`. So, for example, this is not going to happen: http://localhost:3000/auth or http://localhost:3000/root
 
-## Deploy on Vercel
+### 🔹 Tips:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Autoimport of components/libraries: `Ctrl + space` or Cmd + Space
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- The components folder is outside of the app folder because in the app we only put the files and folders which we want NextJS to render on the home page: there's no problem because `NextJS supports file based routing.`
+
+- Specify the kinds of text in the `tailwind.config.js` file, because, unlike in the globals.css file even using 'layer-components', then, in any part of the app you can hover the class and it tells you what it is made of.
+
+- Go to https://favicon.io/favicon-converter/ to create your own.
