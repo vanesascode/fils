@@ -8,18 +8,26 @@ import { SignOutButton, SignedIn, useAuth } from "@clerk/nextjs";
 import { sidebarLinks } from "@/constants";
 
 const LeftSidebar = () => {
+  // navigation:
+
   const router = useRouter();
   const pathname = usePathname();
 
+  // clerk:
+
   const { userId } = useAuth();
+
+  console.log(userId);
 
   return (
     <section className="custom-scrollbar leftsidebar">
       <div className="flex w-full flex-1 flex-col gap-6 px-6">
         {sidebarLinks.map((link) => {
           const isActive =
-            (pathname.includes(link.route) && link.route.length > 1) ||
-            pathname === link.route;
+            (pathname.includes(link.route) && link.route.length > 1) || // any of the other routes, but not home which is just 1 ('/')
+            pathname === link.route; // otherwise, home, which is ('/')
+
+          console.log(pathname);
 
           if (link.route === "/profile") link.route = `${link.route}/${userId}`;
 
