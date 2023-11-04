@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Form,
   FormControl,
@@ -15,14 +14,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
 import { useUploadThing } from "@/lib/uploadthing";
 import { isBase64Image } from "@/lib/utils";
-
 import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
 
@@ -46,6 +42,42 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   const [files, setFiles] = useState<File[]>([]);
   //The File type comes from the File interface defined in the File API provided by the browser. The File interface represents a file (or blob) and provides information about the file, such as its name, size, type, and last modified date.
 
+  const [errorMessageGeneral, setErrorMessageGeneral] = useState("");
+  const [errorMessageUsername, setErrorMessageUsername] = useState("");
+
+  //// the order of the name, path, username, userId, bio, and image values in the object passed to the updateUser function does not matter. The function is designed to extract those values from the object and use them in the correct order, regardless of the order in which they were passed.
+
+  // This is because the function is using object destructuring to extract the values of those properties from the object. Object destructuring allows you to extract values from objects by specifying the property names you want to extract, and the order of the property names in the destructuring statement does not matter.
+
+  const onSubmit = async (values: z.infer<typeof UserValidation>) => {
+    try {
+      await updateUser({
+        name: values.name,
+        path: pathname,
+        username: values.username,
+        userId: user.id,
+        bio: values.bio,
+        image: values.profile_photo,
+      });
+
+      if (pathname === "/profile/edit") {
+        router.back();
+      } else {
+        router.push("/");
+      }
+    } catch (error: any) {
+      if (error.message.includes("username")) {
+        setErrorMessageUsername(
+          "This username is already taken. Please choose a different one."
+        );
+      } else {
+        setErrorMessageGeneral(
+          "An error occurred while updating your profile. Please try again."
+        );
+      }
+    }
+  };
+
   const form = useForm<z.infer<typeof UserValidation>>({
     resolver: zodResolver(UserValidation),
     defaultValues: {
@@ -55,34 +87,6 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       bio: user?.bio ? user.bio : "",
     },
   });
-
-  const onSubmit = async (values: z.infer<typeof UserValidation>) => {
-    const blob = values.profile_photo;
-
-    const hasImageChanged = isBase64Image(blob);
-    if (hasImageChanged) {
-      const imgRes = await startUpload(files);
-
-      if (imgRes && imgRes[0].fileUrl) {
-        values.profile_photo = imgRes[0].fileUrl;
-      }
-    }
-
-    await updateUser({
-      name: values.name,
-      path: pathname,
-      username: values.username,
-      userId: user.id,
-      bio: values.bio,
-      image: values.profile_photo,
-    });
-
-    if (pathname === "/profile/edit") {
-      router.back();
-    } else {
-      router.push("/");
-    }
-  };
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
@@ -197,6 +201,10 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           )}
         />
 
+        {errorMessageUsername && (
+          <p className="text-red-500">{errorMessageUsername}</p>
+        )}
+
         <FormField
           control={form.control}
           name="bio"
@@ -216,6 +224,10 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             </FormItem>
           )}
         />
+
+        {errorMessageGeneral && (
+          <p className="text-red-500">{errorMessageGeneral}</p>
+        )}
 
         <Button type="submit" className="bg-primary-500">
           {btnTitle}

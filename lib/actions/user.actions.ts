@@ -9,18 +9,7 @@ import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";
 
-export async function fetchUser(userId: string) {
-  try {
-    connectToDB();
-
-    return await User.findOne({ id: userId }).populate({
-      path: "communities",
-      model: Community,
-    });
-  } catch (error: any) {
-    throw new Error(`Failed to fetch user: ${error.message}`);
-  }
-}
+// Several functions related to fetching and updating the user data:
 
 interface Params {
   userId: string;
@@ -30,6 +19,10 @@ interface Params {
   image: string;
   path: string;
 }
+
+// the order of the name, path, username, userId, bio, and image values in the object passed to the updateUser function does not matter. The function is designed to extract those values from the object and use them in the correct order, regardless of the order in which they were passed.
+
+// This is because the function is using object destructuring to extract the values of those properties from the object. Object destructuring allows you to extract values from objects by specifying the property names you want to extract, and the order of the property names in the destructuring statement does not matter.
 
 export async function updateUser({
   userId,
@@ -44,6 +37,7 @@ export async function updateUser({
 
     await User.findOneAndUpdate(
       { id: userId },
+
       {
         username: username.toLowerCase(),
         name,
@@ -51,16 +45,38 @@ export async function updateUser({
         image,
         onboarded: true,
       },
-      { upsert: true }
+
+      { upsert: true } //The upsert: true option ensures that a new document is created if no matching document is found.
     );
 
     if (path === "/profile/edit") {
-      revalidatePath(path);
+      revalidatePath(path); //The revalidatePath function is responsible for triggering a revalidation of the specified path, which will cause the page to be regenerated and updated with the latest data.
     }
   } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`);
   }
 }
+
+//The findOneAndUpdate method is a Mongoose method that is used to find a document in a MongoDB collection and update it. It takes three arguments: the first argument is an object that specifies the query to find the document to update, the second argument is an object that specifies the properties to update, and the third argument is an options object that specifies additional options for the update operation.
+
+////////////////////////////////////////////////////////////////////////////////////
+
+//This function fetches a user from the database based on the provided userId. It uses the User model from the ../models/user.model file and populates the communities field with data from the Community model:
+
+export async function fetchUser(userId: string) {
+  try {
+    connectToDB();
+
+    return await User.findOne({ id: userId }).populate({
+      path: "communities",
+      model: Community,
+    });
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user: ${error.message}`);
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchUserPosts(userId: string) {
   try {
@@ -93,6 +109,8 @@ export async function fetchUserPosts(userId: string) {
     throw error;
   }
 }
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 // Almost similar to Thead (search + pagination) and Community (search + pagination)
 export async function fetchUsers({
@@ -152,6 +170,8 @@ export async function fetchUsers({
     throw error;
   }
 }
+
+//////////////////////////////////////////////////////////////////////////////////////
 
 export async function getActivity(userId: string) {
   try {

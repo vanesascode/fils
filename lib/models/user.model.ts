@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   threads: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Thread",
+      ref: "Thread", //refer to documents in the collection called "Thread"
     },
   ],
   onboarded: {
@@ -29,10 +29,14 @@ const userSchema = new mongoose.Schema({
   communities: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Community",
+      ref: "Community", //refer to documents in the collection called "Community"
     },
   ],
 });
+
+// The mongoose.models.User property checks if a model with the name "User" already exists, and if so, assigns it to the User variable. If no such model exists, the mongoose.model("User", userSchema) method creates a new model with the name "User" and the userSchema as its schema.
+
+// for the first time the Mongoose models is not going to exist so it's going to fall back to creating a mongoose model user based on the user schema. But every second time we call it it's already going to have a mongoose model in the database.
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);
 

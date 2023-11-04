@@ -56,6 +56,14 @@ So, in this app, there are two route groups, `(auth)` and `(root)`. So, for exam
 
 ---
 
+### 🔹 NextJS: Server Actions.
+
+Server actions are used to handle form submissions, mutations, and other server-side operations in Next.js applications. They provide a convenient way to create server-side endpoints to, for example, handle data mutation through user interacting with forms (as in the case of this app), `without the need to create separate API routes`.
+
+With server actions, you can define server-side functions that are executed when the form is submitted. These functions can access the form data and perform the necessary server-side operations, such as updating the database.
+
+In this project, inside the `lib` folder, you have a folder called `actions`. In it, you have the files with functions that perform server actions. These functions are used to fetch and update user data. for example, in the app.
+
 ### 🔹 Design:
 
 Threds is prepared to be both a `desktop` and a `native mobile` web application. When on the desktop, you are able to see the left and right sidebars, and when on mobile, all the buttons are on the bottom, so it is easier to navigate the app with the thumb of the hand of the user.

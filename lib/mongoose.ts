@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 let isConnected = false; // Variable to track the connection status
 
 export const connectToDB = async () => {
-  // Set strict query mode for Mongoose to prevent unknown field queries.
+  // Set strict query mode for Mongoose to prevent unknown field queries (not defined in the schema)
   mongoose.set("strictQuery", true);
 
   if (!process.env.MONGODB_URL) return console.log("Missing MongoDB URL");
