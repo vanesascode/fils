@@ -9,7 +9,11 @@ import User from "../models/user.model";
 
 import { connectToDB } from "../mongoose";
 
-// Several functions related to fetching and updating the user data:
+// Several functions related to fetching and updating the user data without needing an endpoint in the api folder:
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// 1 - UPDATE USER - Once they have logged in and go to the Onboarding Form /////////////////////////////////////////////////////////////////
 
 interface Params {
   userId: string;
@@ -59,9 +63,7 @@ export async function updateUser({
 
 //The findOneAndUpdate method is a Mongoose method that is used to find a document in a MongoDB collection and update it. It takes three arguments: the first argument is an object that specifies the query to find the document to update, the second argument is an object that specifies the properties to update, and the third argument is an options object that specifies additional options for the update operation.
 
-////////////////////////////////////////////////////////////////////////////////////
-
-//This function fetches a user from the database based on the provided userId. It uses the User model from the ../models/user.model file and populates the communities field with data from the Community model:
+// 2 - FETCH USER ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchUser(userId: string) {
   try {
@@ -76,7 +78,7 @@ export async function fetchUser(userId: string) {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////
+// 3 - FETCH USER POSTS ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchUserPosts(userId: string) {
   try {
@@ -110,7 +112,7 @@ export async function fetchUserPosts(userId: string) {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////
+// 4 - FETCH USERS ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Almost similar to Thead (search + pagination) and Community (search + pagination)
 export async function fetchUsers({
@@ -171,7 +173,7 @@ export async function fetchUsers({
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////
+// 5 - GET ACTIVITY ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function getActivity(userId: string) {
   try {

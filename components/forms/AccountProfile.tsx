@@ -49,6 +49,16 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
   // This is because the function is using object destructuring to extract the values of those properties from the object. Object destructuring allows you to extract values from objects by specifying the property names you want to extract, and the order of the property names in the destructuring statement does not matter.
 
+  const form = useForm<z.infer<typeof UserValidation>>({
+    resolver: zodResolver(UserValidation),
+    defaultValues: {
+      profile_photo: user?.image ? user.image : "",
+      name: user?.name ? user.name : "",
+      username: user?.username ? user.username : "",
+      bio: user?.bio ? user.bio : "",
+    },
+  });
+
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
     try {
       await updateUser({
@@ -72,21 +82,11 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         );
       } else {
         setErrorMessageGeneral(
-          "An error occurred while updating your profile. Please try again."
+          "An error occurred while updating your profile. Please try again. Remember that images cannot be bigger than 2MB"
         );
       }
     }
   };
-
-  const form = useForm<z.infer<typeof UserValidation>>({
-    resolver: zodResolver(UserValidation),
-    defaultValues: {
-      profile_photo: user?.image ? user.image : "",
-      name: user?.name ? user.name : "",
-      username: user?.username ? user.username : "",
-      bio: user?.bio ? user.bio : "",
-    },
-  });
 
   const handleImage = (
     e: ChangeEvent<HTMLInputElement>,
