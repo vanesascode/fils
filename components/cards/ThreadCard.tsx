@@ -9,17 +9,22 @@ interface Props {
   currentUserId: string;
   parentId: string | null;
   content: string;
+
   author: {
     name: string;
     image: string;
     id: string;
   };
+
   community: {
     id: string;
     name: string;
     image: string;
   } | null;
+
   createdAt: string;
+
+  //the children:
   comments: {
     author: {
       image: string;
@@ -57,6 +62,7 @@ function ThreadCard({
               />
             </Link>
 
+            {/* a line pointing down that indicates that we can have later on more comments attached to this thread: */}
             <div className="thread-card_bar" />
           </div>
 

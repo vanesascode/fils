@@ -20,7 +20,9 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   // Calculate the number of posts to skip based on the page number and page size.
   const skipAmount = (pageNumber - 1) * pageSize;
 
-  // Create a query to fetch the posts that have no parent (top-level threads) (a thread that is not a comment/reply).
+  //SQL: The OFFSET clause is used in conjunction with the LIMIT clause to skip a specified number of rows in a query result. It allows you to retrieve a subset of rows from a query, starting from a specific position.
+
+  // Create a query to fetch the posts that have no parent (top-level threads) (a thread that is not a comment/reply):
   const postsQuery = Thread.find({ parentId: { $in: [null, undefined] } })
     .sort({ createdAt: "desc" })
     .skip(skipAmount)
@@ -42,13 +44,16 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
       },
     });
 
-  // Count the total number of top-level posts (threads) i.e., threads that are not comments.
+  //POPULATION is a powerful feature in Mongoose that simplifies working with related documents. It helps in reducing the need for additional queries and provides a convenient way to retrieve the data you need from different collections in a single query.
+
+  // Count the total number of top-level posts (threads) i.e., threads that are not comments:
   const totalPostsCount = await Thread.countDocuments({
     parentId: { $in: [null, undefined] },
-  }); // Get the total count of posts
+  }); // Get the total count of posts that are not comments
 
   const posts = await postsQuery.exec();
 
+  //If the total count is greater than the skip amount and the lenght of the current posts array, it means that there are more posts available beyond the retrieved posts in the current page. In this case, the isNext variable will be set to true, indicating that there are more posts to fetch in the next page:
   const isNext = totalPostsCount > skipAmount + posts.length;
 
   return { posts, isNext };
