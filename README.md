@@ -64,9 +64,41 @@ With server actions, you can define server-side functions that are executed when
 
 In this project, inside the `lib` folder, you have a folder called `actions`. In it, you have the files with functions that perform server actions. These functions are used to fetch and update user data. for example, in the app.
 
+---
+
+### 🔹 NextJS: searchParams and Pagination.
+
+In Next.js, the searchParams property is derived from the `query parameters in the URL`. It allows you to access and manipulate these parameters. So, to deal with the pagination, I was able to pass the searchParams object to the fetchPosts server action function in order to retrieve posts based on the page number. This server action function also gives me access to a variable I called `isNext`, which determines if there are more posts to show on the next page.
+
+To enable or disable the pagination buttons, I created a Pagination component. In there, there is a `handleNavigation` function that handles the navigation logic based on the button clicked and updates the URL accordingly.
+
+The initial pagination value is set to 1, of course, and the searchParams object is updated with the new page value when the 'Next' button is clicked. This allows you to navigate through the pages and update the URL accordingly.
+
+---
+
+### 🔹 Parent & Children Threads, to create social media comments.
+
+Users can post comments on existing threads. By using the parentId and children properties, it is possible to create a nested structure of comments, allowing for threaded conversations in a social media app. Each comment can have multiple replies, and these replies can have their own replies, creating a tree-like structure of comments.
+
+This is the process:
+
+In the `thread.model.ts`, there are ‘parentID’ and possible ‘children’ properties that are created when comments are saved. So, when the comment is created, it takes the id of the original thread as the parentID. This way I have it easy to render either original threads in the client’s (the ones that don’t have a parentID) and the comments (the ones that do have a parentID)
+
+Then, in the same `"addCommentToThread" server action`, I am pushing the comment as children to the original thread. So, while I am creating the comment, I am also updating the original thread with this new property in the database. This way, I can render together all the comments that are related to a particular original thread.
+
+Since this is made `recursive`, once I create a comment from another comment, This second comment gets the ID of the first comment( which is the ID of the original comment) and sets it as its parentID.
+
+Each thread is rendered in the `ThreadCard` card component, which in the case of comments, has a boolean true `isComment` prop. This makes it possible to conditionally render or apply different styles or behaviors based on whether the component represents the original thread or a comment.
+
+And how is it that the comment passes to be kind of an ‘original thread’ in the individual thread page, when I create a comment of the comment? Because the Link that the button of replying holds, is going to `/thread/${id}` , thanks to `params`. And when clicking, then the individual thread page renders again, but placing each thread id into the Thread component that it has to go to.
+
+---
+
 ### 🔹 Design:
 
 Threds is prepared to be both a `desktop` and a `native mobile` web application. When on the desktop, you are able to see the left and right sidebars, and when on mobile, all the buttons are on the bottom, so it is easier to navigate the app with the thumb of the hand of the user.
+
+---
 
 #### 👉 CSS properties I learned:
 
@@ -90,5 +122,3 @@ Threds is prepared to be both a `desktop` and a `native mobile` web application.
   ![image](https://github.com/vanesascode/shadcn-ui-crash-course-recipe-app-json-server/assets/131259155/8875ff49-b207-4434-91b4-e3cfabe92039)
 
   ![image](https://github.com/vanesascode/shadcn-ui-crash-course-recipe-app-json-server/assets/131259155/f7c7cd50-dc85-4c55-b316-772b1d139c2c)
-
--
