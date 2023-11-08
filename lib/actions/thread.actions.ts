@@ -257,6 +257,7 @@ export async function addCommentToThread(
     // Save the updated original thread to the database
     await originalThread.save();
 
+    //The revalidatePath(path) function tells the website to remove the cached version of that specific page and fetch the latest version from the server.
     revalidatePath(path);
   } catch (err) {
     console.error("Error while adding comment:", err);

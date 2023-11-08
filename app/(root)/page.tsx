@@ -12,16 +12,25 @@ async function Home({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
+  console.log("searchParams", searchParams); // searchParams { page: '2' }
+
+  //It is like this as long as you have an URL such as: http://localhost:3000/?page=2
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const user = await currentUser();
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  //FETCH POSTS:
+  //FETCH POSTS///////////////////////////////////////////////////////////////////////////////////////////////
 
   // remember the function is:  fetchPosts(pageNumber = 1, pageSize = 20). Also, it returns 'posts' and 'isNext'. So will have access to those with the syntax: 'result.posts' & 'result.isNext':
+
   const result = await fetchPosts(
+    // if searchParams.page is truthy, it means that the page parameter is present in the URL and has a value. (example: ?page=2) --- +searchParams.page expression is used to convert the value to a number.
+
     searchParams.page ? +searchParams.page : 1,
     5
   );

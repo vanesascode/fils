@@ -33,6 +33,7 @@ interface Props {
   isComment?: boolean;
 }
 
+//All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
 function ThreadCard({
   id,
   currentUserId,
@@ -50,6 +51,10 @@ function ThreadCard({
         isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
       }`}
     >
+      {/*ALL CARDS********************************************************************************************************************************************/}
+
+      {/*PROFILE IMAGE */}
+
       <div className="flex items-start justify-between">
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
@@ -62,9 +67,13 @@ function ThreadCard({
               />
             </Link>
 
+            {/*THE VERTICAL LINE */}
+
             {/* a line pointing down that indicates that we can have later on more comments attached to this thread: */}
             <div className="thread-card_bar" />
           </div>
+
+          {/*THE USERNAME */}
 
           <div className="flex w-full flex-col">
             <Link href={`/profile/${author.id}`} className="w-fit">
@@ -73,7 +82,11 @@ function ThreadCard({
               </h4>
             </Link>
 
+            {/*THE TEXT OF THE THREAD */}
+
             <p className="mt-2 text-small-regular text-light-2">{content}</p>
+
+            {/*THE FOUR ICONS  */}
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-3.5">
@@ -85,6 +98,8 @@ function ThreadCard({
                   className="cursor-pointer object-contain"
                 />
                 <Link href={`/thread/${id}`}>
+                  {" "}
+                  {/* The id comes from the props above */}
                   <Image
                     src="/assets/reply.svg"
                     alt="heart"
@@ -109,13 +124,17 @@ function ThreadCard({
                 />
               </div>
 
-              {isComment && comments.length > 0 && (
+              {/*DEPENDING WHETHER IT IS ORIGINAL OR COMMENT**********************************************************************************************************/}
+
+              {/*THE NUMBER OF REPLIES IF IT IS A COMMENT*/}
+
+              {/* {isComment && comments.length > 0 && (
                 <Link href={`/thread/${id}`}>
                   <p className="mt-1 text-subtle-medium text-gray-1">
                     {comments.length} repl{comments.length > 1 ? "ies" : "y"}
                   </p>
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -129,7 +148,9 @@ function ThreadCard({
         /> */}
       </div>
 
-      {!isComment && comments.length > 0 && (
+      {/*THE NUMBER OF REPLIES IF IT IS AN ORIGINAL THREAD*/}
+
+      {/* {!isComment && comments.length > 0 && (
         <div className="ml-1 mt-3 flex items-center gap-2">
           {comments.slice(0, 2).map((comment, index) => (
             <Image
@@ -148,9 +169,11 @@ function ThreadCard({
             </p>
           </Link>
         </div>
-      )}
+      )} */}
 
-      {!isComment && community && (
+      {/*THE COMMUNITY IF IT IS AN ORIGINAL THREAD*/}
+
+      {/* {!isComment && community && (
         <Link
           href={`/communities/${community.id}`}
           className="mt-5 flex items-center"
@@ -168,7 +191,7 @@ function ThreadCard({
             className="ml-1 rounded-full object-cover"
           />
         </Link>
-      )}
+      )} */}
     </article>
   );
 }
