@@ -35,14 +35,14 @@ interface Props {
 
 //All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
 function ThreadCard({
-  id,
-  currentUserId,
-  parentId,
-  content,
-  author,
-  community,
-  createdAt,
-  comments,
+  id, //mongoDB
+  currentUserId, //clerk
+  parentId, //mongoDB
+  content, //mongoDB
+  author, //mongoDB
+  community, //mongoDB
+  createdAt, //mongoDB
+  comments, //mongoDB
   isComment,
 }: Props) {
   return (
@@ -59,11 +59,12 @@ function ThreadCard({
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
             <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
+              {/* See that is it not '_id', but 'id'. So, it is the Clerk id! */}
               <Image
                 src={author.image}
                 alt="user_community_image"
                 fill
-                className="cursor-pointer rounded-full"
+                className="cursor-pointer rounded-full object-cover"
               />
             </Link>
 
