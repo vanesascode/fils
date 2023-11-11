@@ -31,6 +31,8 @@ async function Home({
   const result = await fetchPosts(
     // if searchParams.page is truthy, it means that the page parameter is present in the URL and has a value. (example: ?page=2) --- +searchParams.page expression is used to convert the value to a number.
 
+    // Why is it ".page" ? Because we are using it in the URL and it's between "?"" and "=" (?page=) We are sending it like this from the Pagination.tsx component.
+
     searchParams.page ? +searchParams.page : 1,
     5
   );

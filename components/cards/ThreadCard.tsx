@@ -99,8 +99,6 @@ function ThreadCard({
                   className="cursor-pointer object-contain"
                 />
                 <Link href={`/thread/${id}`}>
-                  {" "}
-                  {/* The id comes from the props above */}
                   <Image
                     src="/assets/reply.svg"
                     alt="heart"
