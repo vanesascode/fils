@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDateString } from "@/lib/utils";
+import { communityTabs } from "@/constants";
 // import DeleteThread from "../forms/DeleteThread";
 
 interface Props {
@@ -172,7 +173,7 @@ function ThreadCard({
 
       {/*THE COMMUNITY IF IT IS AN ORIGINAL THREAD*/}
 
-      {/* {!isComment && community && (
+      {!isComment && community && (
         <Link
           href={`/communities/${community.id}`}
           className="mt-5 flex items-center"
@@ -190,7 +191,7 @@ function ThreadCard({
             className="ml-1 rounded-full object-cover"
           />
         </Link>
-      )} */}
+      )}
     </article>
   );
 }

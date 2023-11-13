@@ -80,11 +80,14 @@ export const POST = async (request: Request) => {
         created_by
       );
 
-      return NextResponse.json({ message: "User created" }, { status: 201 });
+      return NextResponse.json(
+        { message: "Community created" },
+        { status: 201 }
+      );
     } catch (err) {
       console.log(err);
       return NextResponse.json(
-        { message: "Internal Server Error" },
+        { message: "Internal Server Error, community wasn't created" },
         { status: 500 }
       );
     }

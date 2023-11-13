@@ -77,15 +77,17 @@ export async function createThread({
   try {
     connectToDB();
 
-    // const communityIdObject = await Community.findOne(
-    //   { id: communityId },
-    //   { _id: 1 }
-    // );
+    const communityIdObject = await Community.findOne(
+      { id: communityId },
+      { _id: 1 } // only the _id field should be returned in the result.
+    );
+
+    console.log(communityId);
 
     const createdThread = await Thread.create({
       text,
       author,
-      community: null, // communityIdObject ---- Assign communityId if provided, or leave it null for personal account
+      community: communityIdObject,
     });
 
     // Update User model with a particular user's own Threads
@@ -93,12 +95,14 @@ export async function createThread({
       $push: { threads: createdThread._id },
     });
 
-    // if (communityIdObject) {
-    //   // Update Community model
-    //   await Community.findByIdAndUpdate(communityIdObject, {
-    //     $push: { threads: createdThread._id },
-    //   });
-    // }
+    if (communityIdObject) {
+      // Update Community model
+      await Community.findByIdAndUpdate(communityIdObject, {
+        $push: { threads: createdThread._id },
+      });
+    } else {
+      console.log("Community not found");
+    }
 
     revalidatePath(path);
   } catch (error: any) {

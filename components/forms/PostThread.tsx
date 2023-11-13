@@ -39,6 +39,8 @@ function PostThread({ userId }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
+    console.log(organization?.id); //////////////////////////////////////////////////////// it exists
+
     await createThread({
       text: values.thread,
       author: userId,
