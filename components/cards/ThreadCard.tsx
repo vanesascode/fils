@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDateString } from "@/lib/utils";
-import { communityTabs } from "@/constants";
-// import DeleteThread from "../forms/DeleteThread";
+import DeleteThread from "../forms/DeleteThread";
 
 interface Props {
   id: string;
@@ -128,29 +127,29 @@ function ThreadCard({
 
               {/*THE NUMBER OF REPLIES IF IT IS A COMMENT*/}
 
-              {/* {isComment && comments.length > 0 && (
+              {isComment && comments.length > 0 && (
                 <Link href={`/thread/${id}`}>
                   <p className="mt-1 text-subtle-medium text-gray-1">
                     {comments.length} repl{comments.length > 1 ? "ies" : "y"}
                   </p>
                 </Link>
-              )} */}
+              )}
             </div>
           </div>
         </div>
 
-        {/* <DeleteThread
+        <DeleteThread
           threadId={JSON.stringify(id)}
           currentUserId={currentUserId}
           authorId={author.id}
           parentId={parentId}
           isComment={isComment}
-        /> */}
+        />
       </div>
 
       {/*THE NUMBER OF REPLIES IF IT IS AN ORIGINAL THREAD*/}
 
-      {/* {!isComment && comments.length > 0 && (
+      {!isComment && comments.length > 0 && (
         <div className="ml-1 mt-3 flex items-center gap-2">
           {comments.slice(0, 2).map((comment, index) => (
             <Image
@@ -169,7 +168,7 @@ function ThreadCard({
             </p>
           </Link>
         </div>
-      )} */}
+      )}
 
       {/*THE COMMUNITY IF IT IS AN ORIGINAL THREAD*/}
 
