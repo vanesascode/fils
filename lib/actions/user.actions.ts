@@ -191,11 +191,13 @@ export async function getActivity(userId: string) {
     const replies = await Thread.find({
       _id: { $in: childThreadIds },
       author: { $ne: userId }, // Exclude threads authored by the same user
-    }).populate({
-      path: "author",
-      model: User,
-      select: "name image _id",
-    });
+    })
+      .sort({ createdAt: -1 }) // Sort by createdAt field in descending order
+      .populate({
+        path: "author",
+        model: User,
+        select: "name image _id",
+      });
 
     return replies;
   } catch (error) {
