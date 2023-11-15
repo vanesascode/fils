@@ -122,6 +122,11 @@ function ThreadCard({
                   className="cursor-pointer object-contain"
                 />
               </div>
+              {!community && isComment && (
+                <p className="text-subtle-medium text-gray-1 mt-5">
+                  {formatDateString(createdAt)}
+                </p>
+              )}
 
               {/*DEPENDING WHETHER IT IS ORIGINAL OR COMMENT**********************************************************************************************************/}
 
@@ -168,6 +173,14 @@ function ThreadCard({
             </p>
           </Link>
         </div>
+      )}
+
+      {/*DATE */}
+
+      {!community && !isComment && (
+        <p className="text-subtle-medium text-gray-1 mt-5">
+          {formatDateString(createdAt)}
+        </p>
       )}
 
       {/*THE COMMUNITY IF IT IS AN ORIGINAL THREAD*/}
