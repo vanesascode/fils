@@ -1,7 +1,6 @@
 "use server";
 
 import { FilterQuery, SortOrder } from "mongoose";
-import { revalidatePath } from "next/cache";
 
 import Community from "../models/community.model";
 import Thread from "../models/thread.model";
@@ -21,7 +20,6 @@ interface Params {
   name: string;
   bio: string;
   image: string;
-  path: string;
 }
 
 // the order of the name, path, username, userId, bio, and image values in the object passed to the updateUser function does not matter. The function is designed to extract those values from the object and use them in the correct order, regardless of the order in which they were passed.
@@ -32,7 +30,6 @@ export async function updateUser({
   userId,
   bio,
   name,
-  path,
   username,
   image,
 }: Params): Promise<void> {
@@ -45,6 +42,7 @@ export async function updateUser({
       {
         username: username.toLowerCase(),
         name,
+
         bio,
         image,
         onboarded: true,
@@ -52,10 +50,6 @@ export async function updateUser({
 
       { upsert: true } //The upsert: true option ensures that a new document is created if no matching document is found.
     );
-
-    if (path === "/profile/edit") {
-      revalidatePath(path); //The revalidatePath function is responsible for triggering a revalidation of the specified path, which will cause the page to be regenerated and updated with the latest data.
-    }
   } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`);
   }

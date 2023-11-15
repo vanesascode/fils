@@ -21,7 +21,7 @@ async function Page({ params }: { params: { id: string } }) {
     <section>
       <ProfileHeader
         accountId={userInfo.id}
-        authUserId={user.id} // this one is to know if this is the profile of another user
+        authUserId={user.id} // current user from Clerk // this one is to know if this is the profile of another user
         name={userInfo.name}
         username={userInfo.username}
         imgUrl={userInfo.image}

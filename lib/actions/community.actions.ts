@@ -269,6 +269,42 @@ export async function updateCommunityInfo(
   }
 }
 
+interface UpdateDatabaseCommunityInfoParams {
+  communityId: string;
+  name: string;
+  username: string;
+  image: string;
+  bio: string;
+}
+
+export async function updateDatabaseCommunityInfo({
+  communityId,
+  name,
+  username,
+  image,
+  bio,
+}: UpdateDatabaseCommunityInfoParams): Promise<void> {
+  try {
+    connectToDB();
+    // Find the community by its ID and update the information
+    const updatedCommunity = await Community.findOneAndUpdate(
+      { id: communityId },
+      { name, username: username.toLowerCase(), image, bio },
+      { new: true }
+    );
+
+    if (!updatedCommunity) {
+      throw new Error("Community not found");
+    }
+
+    return updatedCommunity;
+  } catch (error) {
+    // Handle any errors
+    console.error("Error updating community information:", error);
+    throw error;
+  }
+}
+
 export async function deleteCommunity(communityId: string) {
   try {
     connectToDB();
