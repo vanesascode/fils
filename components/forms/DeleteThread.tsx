@@ -4,6 +4,7 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 import { deleteThread } from "@/lib/actions/thread.actions";
+import { removeLikedThread } from "@/lib/actions/user.actions";
 
 interface Props {
   threadId: string;
@@ -25,6 +26,9 @@ function DeleteThread({
 
   if (currentUserId !== authorId || pathname === "/") return null;
 
+  console.log("what is currentUserId", currentUserId);
+  console.log("what is authorId", authorId);
+
   return (
     <Image
       src="/assets/delete.svg"
@@ -37,6 +41,7 @@ function DeleteThread({
         if (!parentId || !isComment) {
           router.push("/");
         }
+        await removeLikedThread(JSON.parse(threadId), currentUserId); //// I NEED TO PASS THE USERID not the CLERK
       }}
     />
   );

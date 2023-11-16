@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import ThreadCard from "@/components/cards/ThreadCard";
 import Pagination from "@/components/shared/Pagination";
 
-import { fetchPosts } from "@/lib/actions/thread.actions";
+import { fetchPosts, fetchThreadIDs } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 
 async function Home({
@@ -37,7 +37,9 @@ async function Home({
     5
   );
 
-  console.log(result);
+  const threadsWithIDs = await fetchThreadIDs();
+
+  console.log("threadID in Home", threadsWithIDs);
 
   return (
     <>
@@ -60,6 +62,9 @@ async function Home({
                 community={post.community}
                 createdAt={post.createdAt}
                 comments={post.children}
+                likes={post.likes}
+                threadId={post.threadId}
+                threadsWithIDs={threadsWithIDs}
               />
             ))}
           </>

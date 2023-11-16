@@ -59,6 +59,16 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   return { posts, isNext };
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function fetchThreadIDs(): Promise<string[]> {
+  connectToDB();
+
+  const threadIDs = await Thread.find().distinct("_id");
+
+  return threadIDs;
+}
+
 // 2 - CREATE THREADS ////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface Params {
@@ -266,5 +276,53 @@ export async function addCommentToThread(
   } catch (err) {
     console.error("Error while adding comment:", err);
     throw new Error("Unable to add comment");
+  }
+}
+
+// 7 - UPDATE POST  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// export const updateThread = async ({
+//   threadId,
+//   likes,
+//   userId,
+// }: {
+//   threadId: string;
+//   likes: number;
+//   userId: string;
+// }) => {
+//   // Find the current user
+//   const currentUser = await User.findOne({ id: userId });
+
+//   // Check if the thread is already liked by the user
+//   const isLiked = currentUser.likedThreads.includes(threadId);
+
+//   // If the thread is liked and the user unlikes it, remove the thread ID from the likedThreads array
+//   if (isLiked && likes === 0) {
+//     currentUser.likedThreads = currentUser.likedThreads.filter(
+//       (id: string) => id !== threadId
+//     );
+//   }
+//   // If the thread is not liked and the user likes it, add the thread ID to the likedThreads array
+//   else if (!isLiked && likes > 0) {
+//     currentUser.likedThreads.push(threadId);
+//   }
+
+//   // Save the updated user
+//   await currentUser.save();
+// };
+
+// 7 - UPDATE LIKES OF THREAD ////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function updateThreadLikes(threadId: string, likes: number) {
+  try {
+    connectToDB();
+
+    await Thread.findOneAndUpdate(
+      { id: threadId },
+
+      { likes }
+    );
+  } catch (error: any) {
+    throw new Error(`Failed to create/update user: ${error.message}`);
   }
 }

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
+import Likes from "../Likes";
 
 interface Props {
   id: string;
@@ -31,10 +32,13 @@ interface Props {
     };
   }[];
   isComment?: boolean;
+  likes: number;
+  threadId: string;
+  threadsWithIDs: string[];
 }
 
 //All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
-function ThreadCard({
+async function ThreadCard({
   id, //mongoDB
   currentUserId, //clerk
   parentId, //mongoDB
@@ -44,7 +48,14 @@ function ThreadCard({
   createdAt, //mongoDB
   comments, //mongoDB
   isComment,
+  likes, //mongoDB
+  threadId, //mongoDB
+  threadsWithIDs,
 }: Props) {
+  //////////////////////////////////////////////////////////////////
+  console.log("threadId in ThreadCard", threadsWithIDs);
+
+  ////////////////////////////////////////////////////////////
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -91,13 +102,14 @@ function ThreadCard({
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-3.5">
-                <Image
-                  src="/assets/heart-gray.svg"
-                  alt="heart"
-                  width={24}
-                  height={24}
-                  className="cursor-pointer object-contain"
+                {/* LIKES */}
+                <Likes
+                  threadsWithIDs={threadsWithIDs}
+                  userId={author.id}
+                  likes={likes}
                 />
+
+                {/*REPLIES */}
                 <Link href={`/thread/${id}`}>
                   <Image
                     src="/assets/reply.svg"
