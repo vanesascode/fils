@@ -1,8 +1,10 @@
-# `Threds` social media app to 'twit' with short texts
+# `Fils` is a social media app to share short posts.
 
-(Similar to Meta's Thread or X's Twitter ) 1.53h
+IN PROGRESS
 
-Project to learn NextJs 14 more in depth (route groups,... ), and also other external APIs suchs a Clerks.
+(Inspired on Meta's Thread & X's Twitter )
+
+Project to learn NextJs 14 more in depth (route groups,... ), other external APIs suchs a Clerks, go in depth with applying new full stack features, and getting more experience with Typescript.
 
 ### 🔹 Installation & Libraries used:
 
@@ -101,7 +103,7 @@ Threds is prepared to be both a `desktop` and a `native mobile` web application.
 
 ---
 
-#### Icons come from [google icons](https://fonts.google.com/icons)
+#### Icons come from [google icons](https://fonts.google.com/icons), the rounded ones.
 
 ---
 

@@ -136,7 +136,22 @@ export async function fetchUserPosts(userId: string) {
   }
 }
 
-// 4 - FETCH USERS ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 3 - FETCH USERS  FOR THE RIGHT SIDEBAR ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function fetchSuggestedUsers({ userId }: { userId: string }) {
+  try {
+    connectToDB();
+
+    const users = await User.find({ id: { $ne: userId } });
+
+    return { users };
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
+}
+
+// 4 - FETCH USERS FOR THE SEARCH PAGE ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Almost similar to Thead (search + pagination) and Community (search + pagination)
 export async function fetchUsers({

@@ -32,9 +32,9 @@ interface Props {
     };
   }[];
   isComment?: boolean;
-  likes: number;
-  threadId: string;
-  threadsWithIDs: string[];
+  likes?: number;
+  threadId?: string;
+  threadsWithIDs?: string[];
 }
 
 //All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
@@ -103,11 +103,11 @@ async function ThreadCard({
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-3.5">
                 {/* LIKES */}
-                <Likes
+                {/* <Likes
                   threadsWithIDs={threadsWithIDs}
                   userId={author.id}
                   likes={likes}
-                />
+                /> */}
 
                 {/*REPLIES */}
                 <Link href={`/thread/${id}`}>
