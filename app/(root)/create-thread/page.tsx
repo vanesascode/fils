@@ -19,7 +19,7 @@ async function Page() {
 
   return (
     <>
-      <h1 className="head-text text-left">Create Thread</h1>
+      <h1 className="head-text ">Create Thread</h1>
 
       {/*We are sending the user id of the mongodb database to the FORM - How do I know that it is exactly "_id" ?? Well, look at what property MongoDBAtlas has used to save the id of the user */}
 

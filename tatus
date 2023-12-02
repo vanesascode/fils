@@ -1,0 +1,95 @@
+[33mcommit 92c3121f8ceb14bfd34e35f3b10f6eea0bd6d5d4[m[33m ([m[1;36mHEAD -> [m[1;32madd_feature_likes[m[33m, [m[1;32mmain[m[33m)[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Thu Nov 16 20:43:05 2023 +0100
+
+    added first server actions to try connect like button with database
+
+[33mcommit 42315c17515aadb160a5cbe69ab9951b010662fe[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Wed Nov 15 14:42:29 2023 +0100
+
+    date and time added to all threads and comments
+
+[33mcommit 0739002c4d50d344b63e53f95f0c307844a34064[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Wed Nov 15 14:20:55 2023 +0100
+
+    profile and community info can be now updated by the user in the app's interface
+
+[33mcommit 6bb711db6130c49849f05c5321918fa155f3ce31[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Mon Nov 13 23:53:08 2023 +0100
+
+    communities pages added
+
+[33mcommit 89b5a60b62bd846f4e65f549adf91a984ab7c5a8[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Mon Nov 13 22:36:55 2023 +0100
+
+    community info added to create thread
+
+[33mcommit 39613895ec08fb18eb8cfcf2796ef80fa25a3f01[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Mon Nov 13 12:56:33 2023 +0100
+
+    webhook route created
+
+[33mcommit aad569c837c966d63243aec08affa7fa8c80592e[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Sat Nov 11 11:19:28 2023 +0100
+
+    search users implemented
+
+[33mcommit c0d7066963dfa2d6164d1458091d030e4e543283[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Thu Nov 9 17:36:35 2023 +0100
+
+    profile page added
+
+[33mcommit bac8d15eeed2d492d48ff9104cb961c1c245142c[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Wed Nov 8 14:30:22 2023 +0100
+
+    readme updated
+
+[33mcommit a859afdb94b599afde4950e6c6d46d74e0ceb88f[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Wed Nov 8 14:18:16 2023 +0100
+
+    comments of the threads added
+
+[33mcommit a2975642db15a2ea8c91ecbcdb0f1577cc66b579[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Mon Nov 6 13:11:32 2023 +0100
+
+    pagination added
+
+[33mcommit 937c40593d1e10230ae276fb1c4acd1df4d62892[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Sun Nov 5 18:36:27 2023 +0100
+
+    fetch and render threads started
+
+[33mcommit ef3fc0772bfc1c864f2eb9dfecadf374ad0b1113[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Sat Nov 4 19:38:04 2023 +0100
+
+    models and updateUser server action created
+
+[33mcommit 0680e2e56e02c6ddec92d601e4c6829efde9fa95[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Fri Nov 3 22:02:59 2023 +0100
+
+    mongoDB connected
+
+[33mcommit 9f92d6763cf452da11c3e5ffbd87e9a91b7ff3e1[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Fri Oct 27 18:16:17 2023 +0200
+
+    folders structure
+
+[33mcommit ff0887e55997f943cd555f4bb23f471686854ae7[m
+Author: vanesascode <vanesa.juarez.paris@gmail.com>
+Date:   Fri Oct 27 10:31:24 2023 +0200
+
+    Initial commit from Create Next App
