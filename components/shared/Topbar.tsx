@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
-import { neobrutalism } from "@clerk/themes";
 
 export default function Topbar() {
   return (
@@ -29,10 +28,9 @@ export default function Topbar() {
 
         <OrganizationSwitcher
           appearance={{
-            baseTheme: neobrutalism,
             elements: {
               organizationSwitcherTrigger:
-                "py-2 px-4 bg-dark-2 rounded-lg text-light-1 hover:text-dark-1 hover:bg-light-1 rounded-lg ms-2",
+                "py-2 px-4 bg-dark-2 rounded-lg text-light-1 hover:text-dark-1 hover:bg-light-1 rounded-lg ms-2 box-shadow-small outline-none",
             },
           }}
         />

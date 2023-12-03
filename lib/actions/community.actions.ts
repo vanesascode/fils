@@ -173,7 +173,7 @@ export async function fetchSuggestedCommunities() {
   try {
     connectToDB();
 
-    const communities = await Community.find().sort({ _id: -1 });
+    const communities = await Community.find().sort({ _id: -1 }).limit(5);
 
     return { communities };
   } catch (error) {
