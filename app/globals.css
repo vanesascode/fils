@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.dsdf {
+  color: #850808;
+}
+
 @layer components {
   /* main */
   .main-container {

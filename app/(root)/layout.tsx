@@ -12,9 +12,37 @@ import Topbar from "@/components/shared/Topbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Fils",
-  description: "Fils is a social media app by vanesascode",
+export const metadata = {
+  title: {
+    template: "%s | Fils",
+    default: "Fils | Join the conversation with your friends",
+  },
+  description: "Join the conversation with your friends 👋 Join Fils!",
+  applicationName: "Fils social media app",
+  authors: [{ name: "vanesascode" }],
+  generator: "Next.js",
+  keywords: [
+    "vnesascode",
+    "code",
+    "web development",
+    "typescript",
+    "react",
+    "node.js",
+    "next.js",
+    "web dev",
+    "html",
+    "css",
+    "python",
+    "typescript",
+    "social media",
+    "conversation",
+    "chat",
+    "vanesa juarez paris",
+    "vanesa juarez",
+  ],
+  referrer: "origin-when-cross-origin",
+  creator: "Vanesa Juarez Paris",
+  publisher: "Vanesa Juarez Paris",
 };
 
 export default function RootLayout({

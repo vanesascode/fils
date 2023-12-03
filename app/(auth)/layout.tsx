@@ -2,11 +2,39 @@
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
+import { neobrutalism } from "@clerk/themes";
 
 export const metadata = {
-  title: "Threds",
-  description:
-    "A Next.js 14 Threads Application similar to Meta's Thread or X's Twitter",
+  title: {
+    template: "%s | Fils",
+    default: "Fils | Join the conversation with your friends",
+  },
+  description: "Join the conversation with your friends 👋 Join Fils!",
+  applicationName: "Fils social media app",
+  authors: [{ name: "vanesascode" }],
+  generator: "Next.js",
+  keywords: [
+    "vnesascode",
+    "code",
+    "web development",
+    "typescript",
+    "react",
+    "node.js",
+    "next.js",
+    "web dev",
+    "html",
+    "css",
+    "python",
+    "typescript",
+    "social media",
+    "conversation",
+    "chat",
+    "vanesa juarez paris",
+    "vanesa juarez",
+  ],
+  referrer: "origin-when-cross-origin",
+  creator: "Vanesa Juarez Paris",
+  publisher: "Vanesa Juarez Paris",
 };
 
 import "../globals.css";
@@ -19,10 +47,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
       <html lang="en">
-        <body className={`${inter.className} bg-dark-1`}>
-          <div className="w-full flex justify-center items-center min-h-screen">
+        <body className={`${inter.className} bg-dark-2`}>
+          <div className="w-full flex justify-center items-center ">
             {children}
           </div>
         </body>
