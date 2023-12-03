@@ -59,7 +59,7 @@ async function ThreadCard({
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
-        isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
+        isComment ? "px-0 xs:px-7" : "bg-dark-1 p-7"
       }`}
     >
       {/*ALL CARDS********************************************************************************************************************************************/}
@@ -96,7 +96,7 @@ async function ThreadCard({
 
             {/*THE TEXT OF THE THREAD */}
 
-            <p className="mt-2 text-small-regular text-light-2">{content}</p>
+            <p className="mt-2 text-small-regular text-light-1">{content}</p>
 
             {/*THE FOUR ICONS  */}
 
@@ -146,7 +146,7 @@ async function ThreadCard({
 
               {isComment && comments.length > 0 && (
                 <Link href={`/thread/${id}`}>
-                  <p className="mt-1 text-subtle-medium text-gray-1">
+                  <p className="mt-1 text-subtle-medium text-light-1">
                     {comments.length} repl{comments.length > 1 ? "ies" : "y"}
                   </p>
                 </Link>
@@ -180,17 +180,17 @@ async function ThreadCard({
           ))}
 
           <Link href={`/thread/${id}`}>
-            <p className="mt-1 text-subtle-medium text-gray-1">
+            <p className="mt-1 text-subtle-medium text-light-1">
               {comments.length} repl{comments.length > 1 ? "ies" : "y"}
             </p>
           </Link>
         </div>
       )}
 
-      {/*DATE */}
+      {/*DATE OF ORIGINAL THREAD*/}
 
       {!community && !isComment && (
-        <p className="text-subtle-medium text-gray-1 mt-5">
+        <p className="text-subtle-medium text-light-2 mt-5">
           {formatDateString(createdAt)}
         </p>
       )}
@@ -202,16 +202,19 @@ async function ThreadCard({
           href={`/communities/${community.id}`}
           className="mt-5 flex items-center"
         >
-          <p className="text-subtle-medium text-gray-1">
+          <p className="text-subtle-medium text-light-2">
             {formatDateString(createdAt)}
-            {community && ` - ${community.name} Community`}
+            <span className="text-light-1 ms-2">
+              {" "}
+              {community && `  ${community.name} Community`}
+            </span>
           </p>
 
           <Image
             src={community.image}
             alt={community.name}
-            width={14}
-            height={14}
+            width={20}
+            height={20}
             className="ml-1 rounded-full object-cover"
           />
         </Link>

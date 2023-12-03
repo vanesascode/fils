@@ -27,7 +27,9 @@ const LeftSidebar = () => {
             <Link
               href={link.route}
               key={link.label}
-              className={`leftsidebar_link ${isActive && "bg-primary-500 "}`}
+              className={`leftsidebar_link hover:bg-dark-2  ${
+                isActive && "bg-dark-2 "
+              }`}
             >
               <Image
                 src={link.imgURL}
@@ -53,7 +55,7 @@ const LeftSidebar = () => {
                 height={24}
               />
 
-              <p className="text-light-2 max-lg:hidden">Logout</p>
+              <p className="text-light-1 max-lg:hidden">Logout</p>
             </div>
           </SignOutButton>
         </SignedIn>

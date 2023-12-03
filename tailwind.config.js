@@ -142,6 +142,14 @@ module.exports = {
           fontWeight: "600",
         },
       ],
+      "subtle-regular": [
+        "12px",
+        {
+          lineHeight: "16px",
+          fontWeight: "400",
+        },
+      ],
+
       "subtle-medium": [
         "12px",
         {
@@ -175,18 +183,18 @@ module.exports = {
       colors: {
         "primary-500": "#877EFF",
         "secondary-500": "#FFB620",
-        blue: "#0095F6",
+        blue: "#000000",
         "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
-        "dark-1": "#000000",
-        "dark-2": "#850808", /* dark red */
-        "dark-3": "#520505", /* darker red */
+        "dark-1": "#000000", /* black */
+        "dark-2": "#520505", /* dark red */
+        "dark-3": "#170101", /* red black */
         "dark-4": "#530019",
-        "light-1": "#FFFFFF",
-        "light-2": "#EFEFEF",
+        "light-1": "#FFFFFF", /* white */
+        "light-2": "#ff3d3d", /* light red */
         "light-3": "#7878A3",
         "light-4": "#5C5C7B",
-        "gray-1": "#697C89",
+        "gray-1": "#ec9d9d",
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       fontFamily: {

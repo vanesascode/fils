@@ -43,7 +43,7 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
             {/*INFO*/}
 
             <h4 className="text-base-semibold text-light-1">{name}</h4>
-            <p className="text-small-medium text-gray-1">@{username}</p>
+            <p className="text-subtle-regular text-light-1">@{username}</p>
           </div>
         </div>
       </article>

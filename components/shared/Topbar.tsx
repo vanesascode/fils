@@ -27,14 +27,16 @@ export default function Topbar() {
           </SignedIn>
         </div>
 
-        <OrganizationSwitcher
-          appearance={{
-            baseTheme: dark,
-            elements: {
-              organizationSwitcherTrigger: "py-2 px-4",
-            },
-          }}
-        />
+        <div className="hover:bg-dark-2 rounded-lg">
+          <OrganizationSwitcher
+            appearance={{
+              baseTheme: dark,
+              elements: {
+                organizationSwitcherTrigger: "py-2 px-4",
+              },
+            }}
+          />
+        </div>
       </div>
     </nav>
   );
