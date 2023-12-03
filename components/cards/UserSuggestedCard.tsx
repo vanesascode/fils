@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { Button } from "../ui/button";
-
 interface Props {
   id: string;
   name: string;

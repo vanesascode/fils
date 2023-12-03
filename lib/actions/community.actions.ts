@@ -26,6 +26,8 @@ export async function createCommunity(
       throw new Error("User not found"); // Handle the case if the user with the id is not found
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
     const newCommunity = new Community({
       id,
       name,
@@ -49,6 +51,8 @@ export async function createCommunity(
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export async function fetchCommunityDetails(id: string) {
   try {
     connectToDB();
@@ -69,6 +73,8 @@ export async function fetchCommunityDetails(id: string) {
     throw error;
   }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchCommunityPosts(id: string) {
   try {
@@ -102,6 +108,8 @@ export async function fetchCommunityPosts(id: string) {
     throw error;
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchCommunities({
   searchString = "",
@@ -159,6 +167,23 @@ export async function fetchCommunities({
   }
 }
 
+////////FETCH COMMUNITIES  FOR THE RIGHT SIDEBAR ///////////////////////////////////////////////////////
+
+export async function fetchSuggestedCommunities() {
+  try {
+    connectToDB();
+
+    const communities = await Community.find();
+
+    return { communities };
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export async function addMemberToCommunity(
   communityId: string,
   memberId: string
@@ -201,6 +226,8 @@ export async function addMemberToCommunity(
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export async function removeUserFromCommunity(
   userId: string,
   communityId: string
@@ -242,6 +269,8 @@ export async function removeUserFromCommunity(
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 export async function updateCommunityInfo(
   communityId: string,
   name: string,
@@ -268,6 +297,8 @@ export async function updateCommunityInfo(
     throw error;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface UpdateDatabaseCommunityInfoParams {
   communityId: string;
@@ -304,6 +335,8 @@ export async function updateDatabaseCommunityInfo({
     throw error;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function deleteCommunity(communityId: string) {
   try {
