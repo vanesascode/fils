@@ -51,11 +51,25 @@ module.exports = {
           fontWeight: "700",
         },
       ],
+      "heading4-regular": [
+        "20px",
+        {
+          lineHeight: "140%",
+          fontWeight: "400",
+        },
+      ],
       "heading4-medium": [
         "20px",
         {
           lineHeight: "140%",
           fontWeight: "500",
+        },
+      ],
+      "heading4-semibold": [
+        "20px",
+        {
+          lineHeight: "140%",
+          fontWeight: "600",
         },
       ],
       "body-bold": [
@@ -187,11 +201,11 @@ module.exports = {
         "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
         "dark-1": "#000000", /* black */
-        "dark-2": "#520505", /* dark red */
+        "dark-2": "#6a0808", /* dark red */
         "dark-3": "#170101", /* red black */
         "dark-4": "#530019",
         "light-1": "#FFFFFF", /* white */
-        "light-2": "#ff3d3d", /* light red */
+        "light-2": "#b44343", /* light red */
         "light-3": "#7878A3",
         "light-4": "#5C5C7B",
         "gray-1": "#ec9d9d",

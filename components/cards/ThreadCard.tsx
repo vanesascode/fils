@@ -59,7 +59,7 @@ async function ThreadCard({
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
-        isComment ? "px-0 xs:px-7" : "bg-dark-1 p-7"
+        isComment ? "px-0 xs:px-7" : "bg-light-1 p-7 box-shadow-big"
       }`}
     >
       {/*ALL CARDS********************************************************************************************************************************************/}
@@ -75,7 +75,7 @@ async function ThreadCard({
                 src={author.image}
                 alt="user_community_image"
                 fill
-                className="cursor-pointer rounded-full object-cover"
+                className="cursor-pointer rounded-full object-cover "
               />
             </Link>
 
@@ -89,14 +89,14 @@ async function ThreadCard({
 
           <div className="flex w-full flex-col">
             <Link href={`/profile/${author.id}`} className="w-fit">
-              <h4 className="cursor-pointer text-base-semibold text-light-1">
+              <h4 className="cursor-pointer text-base-semibold text-dark-1">
                 {author.name}
               </h4>
             </Link>
 
             {/*THE TEXT OF THE THREAD */}
 
-            <p className="mt-2 text-small-regular text-light-1">{content}</p>
+            <p className="mt-2 text-small-regular text-dark-1">{content}</p>
 
             {/*THE FOUR ICONS  */}
 
@@ -204,7 +204,7 @@ async function ThreadCard({
         >
           <p className="text-subtle-medium text-light-2">
             {formatDateString(createdAt)}
-            <span className="text-light-1 ms-2">
+            <span className="text-dark-1 ms-2">
               {" "}
               {community && `  ${community.name} Community`}
             </span>

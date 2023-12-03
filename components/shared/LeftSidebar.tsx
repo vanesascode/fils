@@ -24,22 +24,30 @@ const LeftSidebar = () => {
           if (link.route === "/profile") link.route = `${link.route}/${userId}`;
 
           return (
-            <Link
-              href={link.route}
-              key={link.label}
-              className={`leftsidebar_link hover:bg-dark-2  ${
-                isActive && "bg-dark-2 "
-              }`}
-            >
-              <Image
-                src={link.imgURL}
-                alt={link.label}
-                width={24}
-                height={24}
-              />
+            <div className=" hover-black-text">
+              <Link
+                href={link.route}
+                key={link.label}
+                className={`leftsidebar_link hover:bg-light-1  ${
+                  isActive && "bg-light-1 "
+                } `}
+              >
+                <Image
+                  src={link.imgURL}
+                  alt={link.label}
+                  width={24}
+                  height={24}
+                />
 
-              <p className="text-light-1 max-lg:hidden">{link.label}</p>
-            </Link>
+                <p
+                  className={`${
+                    isActive ? "text-dark-1" : "text-light-1"
+                  }  max-lg:hidden text-base-semibold`}
+                >
+                  {link.label}
+                </p>
+              </Link>
+            </div>
           );
         })}
       </div>
