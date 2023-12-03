@@ -21,6 +21,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { isBase64Image } from "@/lib/utils";
 import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
+import { SignOutButton, SignedIn, useAuth } from "@clerk/nextjs";
 
 interface Props {
   user: {
@@ -147,7 +148,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                   />
                 )}
               </FormLabel>
-              <FormControl className="flex-1 text-base-semibold text-gray-200">
+              <FormControl className="flex-1 text-base-semibold text-dark-2">
                 <Input
                   type="file"
                   accept="image/*"
@@ -165,7 +166,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="name"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
-              <FormLabel className="text-base-semibold text-light-2">
+              <FormLabel className="text-base-semibold text-dark-1">
                 Name
               </FormLabel>
               <FormControl>
@@ -185,7 +186,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="username"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
-              <FormLabel className="text-base-semibold text-light-2">
+              <FormLabel className="text-base-semibold text-dark-1">
                 Username
               </FormLabel>
               <FormControl>
@@ -209,7 +210,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="bio"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
-              <FormLabel className="text-base-semibold text-light-2">
+              <FormLabel className="text-base-semibold text-dark-1">
                 Bio
               </FormLabel>
               <FormControl>
@@ -228,10 +229,23 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           <p className="text-red-500">{errorMessageGeneral}</p>
         )}
 
-        <Button type="submit" className="bg-primary-500">
+        <Button
+          type="submit"
+          className="bg-light-2 hover:bg-dark-2 box-shadow-small"
+        >
           {btnTitle}
         </Button>
       </form>
+
+      <div className="bg-light-2 hover:bg-dark-2 box-shadow-small rounded-lg mt-5">
+        <SignedIn>
+          <SignOutButton signOutCallback={() => router.push("/sign-in")}>
+            <div className="cursor-pointer  text-center p-[6px]">
+              <p className="text-light-1 font-medium">Change account</p>
+            </div>
+          </SignOutButton>
+        </SignedIn>
+      </div>
     </Form>
   );
 };

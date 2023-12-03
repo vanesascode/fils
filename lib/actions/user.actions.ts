@@ -142,7 +142,7 @@ export async function fetchSuggestedUsers({ userId }: { userId: string }) {
   try {
     connectToDB();
 
-    const users = await User.find({ id: { $ne: userId } });
+    const users = await User.find({ id: { $ne: userId } }).sort({ _id: -1 });
 
     return { users };
   } catch (error) {
