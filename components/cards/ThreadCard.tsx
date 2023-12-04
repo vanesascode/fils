@@ -103,6 +103,13 @@ async function ThreadCard({
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-3.5">
                 {/* LIKES */}
+                <Image
+                  src="/assets/heart-black.svg"
+                  alt="heart"
+                  width={24}
+                  height={24}
+                  className="cursor-pointer object-contain"
+                />
                 {/* <Likes
                   threadsWithIDs={threadsWithIDs}
                   userId={author.id}
@@ -122,12 +129,19 @@ async function ThreadCard({
                 <Image
                   src="/assets/repost.svg"
                   alt="heart"
+                  width={26}
+                  height={26}
+                  className="cursor-pointer object-contain"
+                />
+                <Image
+                  src="/assets/share.svg"
+                  alt="heart"
                   width={24}
                   height={24}
                   className="cursor-pointer object-contain"
                 />
                 <Image
-                  src="/assets/share.svg"
+                  src="/assets/save.svg"
                   alt="heart"
                   width={24}
                   height={24}

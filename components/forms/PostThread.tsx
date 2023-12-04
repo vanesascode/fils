@@ -13,6 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -61,20 +62,24 @@ function PostThread({ userId }: Props) {
           control={form.control}
           name="thread"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3">
-              <FormLabel className="text-base-semibold text-light-2">
-                Content
-              </FormLabel>
-              <FormControl className="no-focus border border-dark-4 bg-dark-3 text-light-1">
+            <FormItem className="flex w-full flex-col gap-3 ">
+              <FormControl
+                className="no-focus border border-dark-4 bg-light-1 text-dark-1 box-shadow-big "
+                placeholder="Write here what you want to tell the world..."
+              >
                 <Textarea rows={15} {...field} />
               </FormControl>
+
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="bg-primary-500">
-          Post Thread
+        <Button
+          type="submit"
+          className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1"
+        >
+          Post
         </Button>
       </form>
     </Form>
