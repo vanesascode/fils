@@ -32,7 +32,11 @@ async function Page({ params }: { params: { id: string } }) {
         <Tabs defaultValue="threads" className="w-full">
           <TabsList className="tab">
             {profileTabs.map((tab) => (
-              <TabsTrigger key={tab.label} value={tab.value} className="tab">
+              <TabsTrigger
+                key={tab.label}
+                value={tab.value}
+                className="tab rounded-lg box-shadow-small"
+              >
                 <Image
                   src={tab.icon}
                   alt={tab.label}
@@ -42,12 +46,12 @@ async function Page({ params }: { params: { id: string } }) {
                 />
                 {/*Label shown only in big screens */}
 
-                <p className="max-sm:hidden">{tab.label}</p>
+                <p className="max-sm:hidden text-light-1">{tab.label}</p>
 
                 {/* How many threads the user has :  */}
 
                 {tab.label === "Threads" && (
-                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                  <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
                     {userInfo.threads.length}
                   </p>
                 )}

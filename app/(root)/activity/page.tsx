@@ -34,11 +34,14 @@ async function Page() {
                       height={25}
                       className="rounded-full object-cover"
                     />
-                    <p className="!text-small-regular text-light-1">
-                      <span className="mr-1 text-primary-500">
+                    <p className=" text-light-1">
+                      <span className="mr-1 text-dark-1 text-small-bold">
                         {activity.author.name}
                       </span>
-                      replied to your thread
+                      <span className="text-small-regular">
+                        {" "}
+                        replied to your thread
+                      </span>
                     </p>
                   </div>
                   <div>

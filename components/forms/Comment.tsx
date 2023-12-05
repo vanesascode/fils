@@ -64,19 +64,22 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
                   className="rounded-full object-cover"
                 />
               </FormLabel>
-              <FormControl className="border-none bg-transparent">
+              <FormControl className="border-none bg-transparent text-light-1">
                 <Input
                   type="text"
                   {...field}
                   placeholder="Comment..."
-                  className="no-focus text-light-1 outline-none"
+                  className="no-focus text-light-1 outline-none placeholder:text-light-1"
                 />
               </FormControl>
             </FormItem>
           )}
         />
 
-        <Button type="submit" className="comment-form_btn">
+        <Button
+          type="submit"
+          className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1"
+        >
           Reply
         </Button>
       </form>

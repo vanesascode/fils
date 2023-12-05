@@ -82,21 +82,35 @@ async function ThreadCard({
             {/*THE VERTICAL LINE */}
 
             {/* a line pointing down that indicates that we can have later on more comments attached to this thread: */}
-            <div className="thread-card_bar" />
+            <div
+              className={`thread-card_bar ${
+                isComment ? "bg-light-1" : "bg-dark-1"
+              }`}
+            />
           </div>
 
           {/*THE USERNAME */}
 
           <div className="flex w-full flex-col">
             <Link href={`/profile/${author.id}`} className="w-fit">
-              <h4 className="cursor-pointer text-base-semibold text-dark-1">
+              <h4
+                className={`cursor-pointer ${
+                  isComment ? "text-base-bold" : "text-base-semibold"
+                } text-dark-1`}
+              >
                 {author.name}
               </h4>
             </Link>
 
             {/*THE TEXT OF THE THREAD */}
 
-            <p className="mt-2 text-small-regular text-dark-1">{content}</p>
+            <p
+              className={`mt-2 text-small-regular ${
+                isComment ? "text-light-1" : "text-dark-1"
+              }`}
+            >
+              {content}
+            </p>
 
             {/*THE FOUR ICONS  */}
 
@@ -104,7 +118,11 @@ async function ThreadCard({
               <div className="flex gap-3.5">
                 {/* LIKES */}
                 <Image
-                  src="/assets/heart-black.svg"
+                  src={
+                    isComment
+                      ? "/assets/heart-white.svg"
+                      : "/assets/heart-black.svg"
+                  }
                   alt="heart"
                   width={24}
                   height={24}
@@ -119,7 +137,11 @@ async function ThreadCard({
                 {/*REPLIES */}
                 <Link href={`/thread/${id}`}>
                   <Image
-                    src="/assets/reply.svg"
+                    src={
+                      isComment
+                        ? "/assets/reply-white.svg"
+                        : "/assets/reply-black.svg"
+                    }
                     alt="heart"
                     width={24}
                     height={24}
@@ -127,21 +149,33 @@ async function ThreadCard({
                   />
                 </Link>
                 <Image
-                  src="/assets/repost.svg"
+                  src={
+                    isComment
+                      ? "/assets/repost-white.svg"
+                      : "/assets/repost-black.svg"
+                  }
                   alt="heart"
                   width={26}
                   height={26}
                   className="cursor-pointer object-contain"
                 />
                 <Image
-                  src="/assets/share.svg"
+                  src={
+                    isComment
+                      ? "/assets/share-white.svg"
+                      : "/assets/share-black.svg"
+                  }
                   alt="heart"
                   width={24}
                   height={24}
                   className="cursor-pointer object-contain"
                 />
                 <Image
-                  src="/assets/save.svg"
+                  src={
+                    isComment
+                      ? "/assets/save-white.svg"
+                      : "/assets/save-black.svg"
+                  }
                   alt="heart"
                   width={24}
                   height={24}
@@ -149,7 +183,7 @@ async function ThreadCard({
                 />
               </div>
               {!community && isComment && (
-                <p className="text-subtle-medium text-gray-1 mt-5">
+                <p className="text-subtle-medium text-light-1 mt-5">
                   {formatDateString(createdAt)}
                 </p>
               )}
@@ -160,7 +194,7 @@ async function ThreadCard({
 
               {isComment && comments.length > 0 && (
                 <Link href={`/thread/${id}`}>
-                  <p className="mt-1 text-subtle-medium text-dark-1">
+                  <p className="mt-1 text-subtle-medium text-light-1">
                     {comments.length} repl{comments.length > 1 ? "ies" : "y"}
                   </p>
                 </Link>

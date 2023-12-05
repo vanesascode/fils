@@ -231,17 +231,19 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
         <Button
           type="submit"
-          className="bg-light-2 hover:bg-dark-2 box-shadow-small"
+          className="bg-light-1 hover:bg-dark-1 text-dark-1 hover:text-light-1 box-shadow-small"
         >
           {btnTitle}
         </Button>
       </form>
 
-      <div className="bg-light-2 hover:bg-dark-2 box-shadow-small rounded-lg mt-5">
+      <div className="bg-light-1 hover:bg-dark-1  box-shadow-small rounded-lg mt-5">
         <SignedIn>
           <SignOutButton signOutCallback={() => router.push("/sign-in")}>
             <div className="cursor-pointer  text-center p-[6px]">
-              <p className="text-light-1 font-medium">Change account</p>
+              <p className="text-dark-1 font-medium hover:text-light-1">
+                Change account
+              </p>
             </div>
           </SignOutButton>
         </SignedIn>

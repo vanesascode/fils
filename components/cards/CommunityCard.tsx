@@ -16,7 +16,7 @@ interface Props {
 
 function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
   return (
-    <article className="community-card">
+    <article className="community-card box-shadow-small">
       <div className="flex flex-wrap items-center gap-3">
         <Link href={`/communities/${id}`} className="relative h-12 w-12">
           <Image
@@ -29,17 +29,20 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
 
         <div>
           <Link href={`/communities/${id}`}>
-            <h4 className="text-base-semibold text-light-1">{name}</h4>
+            <h4 className="text-base-semibold text-dark-1">{name}</h4>
           </Link>
-          <p className="text-small-medium text-gray-1">@{username}</p>
+          <p className="text-small-medium text-dark-1">@{username}</p>
         </div>
       </div>
 
-      <p className="mt-4 text-subtle-medium text-gray-1">{bio}</p>
+      <p className="mt-4 text-subtle-medium text-dark-1">{bio}</p>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
         <Link href={`/communities/${id}`}>
-          <Button size="sm" className="community-card_btn">
+          <Button
+            size="sm"
+            className="community-card_btn box-shadow-small hover:bg-light-1 hover:text-dark-1"
+          >
             View
           </Button>
         </Link>

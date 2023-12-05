@@ -28,8 +28,8 @@ const LeftSidebar = () => {
               <Link
                 href={link.route}
                 key={link.label}
-                className={`leftsidebar_link hover:bg-light-1  ${
-                  isActive && "bg-light-1 "
+                className={`leftsidebar_link hover:bg-light-1 box-shadow-small-hovered  ${
+                  isActive && "bg-light-1 box-shadow-small"
                 } `}
               >
                 <Image

@@ -111,15 +111,15 @@ function ProfileHeader({
               <h2 className="text-left text-heading3-bold text-light-1">
                 <input
                   defaultValue={name}
-                  className="rounded-lg bg-dark-3 px-4 py-2 w-full outline-none"
+                  className="rounded-lg bg-dark-1 px-4 py-1 w-full outline-none text-light-1"
                   onChange={(e) => setNewName(e.target.value)}
                 ></input>
               </h2>
-              <div className="text-base-medium text-gray-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-3 px-4 py-2 w-full">
+              <div className="text-base-medium text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
                 <p>@ </p>
                 <input
                   defaultValue={username}
-                  className=" bg-dark-3  w-full outline-none ml-1"
+                  className=" bg-dark-1  w-full outline-none ml-1"
                   onChange={(e) => setNewUsername(e.target.value)}
                 ></input>
               </div>
@@ -129,7 +129,7 @@ function ProfileHeader({
               <h2 className="text-left text-heading3-bold text-light-1">
                 {name}
               </h2>
-              <p className="text-base-medium text-gray-1">@{username}</p>
+              <p className="text-base-medium text-light-1">@{username}</p>
             </div>
           )}
         </div>
@@ -140,33 +140,33 @@ function ProfileHeader({
           ? accountId === authUserId &&
             type !== "Community" && (
               <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-dark-3 px-4 py-2"
+                className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 max-sm:hidden"
                 onClick={handleSaveProfileClick}
               >
                 <Image
-                  src="/assets/edit.svg"
+                  src="/assets/edit-black.svg"
                   alt="logout"
                   width={16}
                   height={16}
                 />
 
-                <p className="text-light-2 max-sm:hidden">Save</p>
+                <p className="text-dark-1 max-sm:hidden">Save</p>
               </div>
             )
           : accountId === authUserId &&
             type !== "Community" && (
               <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-dark-3 px-4 py-2"
+                className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
                 onClick={handleEditProfileClick}
               >
                 <Image
-                  src="/assets/edit.svg"
+                  src="/assets/edit-white.svg"
                   alt="logout"
                   width={16}
                   height={16}
                 />
 
-                <p className="text-light-2 max-sm:hidden">Edit</p>
+                <p className="text-light-1 max-sm:hidden">Edit</p>
               </div>
             )}
 
@@ -176,33 +176,33 @@ function ProfileHeader({
           ? accountId === authUserId &&
             type === "Community" && (
               <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-dark-3 px-4 py-2"
+                className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 max-sm:hidden"
                 onClick={handleSaveCommunityClick}
               >
                 <Image
-                  src="/assets/edit.svg"
+                  src="/assets/edit-black.svg"
                   alt="logout"
                   width={16}
                   height={16}
                 />
 
-                <p className="text-light-2 max-sm:hidden">Save</p>
+                <p className="text-dark-1 max-sm:hidden">Save</p>
               </div>
             )
           : accountId === authUserId &&
             type === "Community" && (
               <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-dark-3 px-4 py-2"
+                className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
                 onClick={handleEditCommunityClick}
               >
                 <Image
-                  src="/assets/edit.svg"
+                  src="/assets/edit-white.svg"
                   alt="logout"
                   width={16}
                   height={16}
                 />
 
-                <p className="text-light-2 max-sm:hidden">Edit</p>
+                <p className="text-light-1 max-sm:hidden">Edit</p>
               </div>
             )}
       </div>
@@ -210,19 +210,53 @@ function ProfileHeader({
       {/*PROFILE & COMMUNITY BIO*/}
 
       {editMode ? (
-        <div className="mt-6  text-base-regular text-light-2 w-full">
+        <div className="mt-5 text-base-regular text-light-1 w-full">
           <textarea
             defaultValue={bio}
-            className="rounded-lg bg-dark-3 px-4 py-2 w-full outline-none"
+            className="rounded-lg bg-dark-1 px-4 py-2 w-full outline-none"
             style={{ height: "200px", overflow: "auto" }}
             onChange={(e) => setNewBio(e.target.value)}
           ></textarea>
         </div>
       ) : (
-        <div className="mt-6  text-base-regular text-light-2 w-full">{bio}</div>
+        <div className="mt-5 ps-2 text-base-regular text-light-1 w-full">
+          {bio}
+        </div>
       )}
 
-      <div className="mt-5 h-0.5 w-full bg-dark-3" />
+      {editMode && accountId === authUserId && type !== "Community" && (
+        <div
+          className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
+          onClick={handleSaveProfileClick}
+        >
+          <Image
+            src="/assets/edit-black.svg"
+            alt="logout"
+            width={16}
+            height={16}
+          />
+
+          <p className="text-dark-1 text-center">Save</p>
+        </div>
+      )}
+
+      {editMode && accountId === authUserId && type === "Community" && (
+        <div
+          className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
+          onClick={handleSaveCommunityClick}
+        >
+          <Image
+            src="/assets/edit-black.svg"
+            alt="logout"
+            width={16}
+            height={16}
+          />
+
+          <p className="text-dark-1 ">Save</p>
+        </div>
+      )}
+
+      {/* <div className="mt-5 h-0.5 w-full bg-dark-1" /> */}
     </div>
   );
 }

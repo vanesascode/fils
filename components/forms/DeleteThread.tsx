@@ -31,11 +31,11 @@ function DeleteThread({
 
   return (
     <Image
-      src="/assets/delete.svg"
+      src={isComment ? "/assets/delete-black.svg" : "/assets/delete-red.svg"}
       alt="delete"
       width={18}
       height={18}
-      className="cursor-pointer object-contain"
+      className="cursor-pointer object-contain pt-1"
       onClick={async () => {
         await deleteThread(JSON.parse(threadId), pathname);
         if (!parentId || !isComment) {
