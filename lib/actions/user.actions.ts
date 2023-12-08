@@ -136,6 +136,41 @@ export async function fetchUserPosts(userId: string) {
   }
 }
 
+// 3 - FETCH USER POSTS ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function fetchChildrenOfThreads(userId: string) {
+  try {
+    connectToDB();
+
+    // Find the user with the given userId and populate the 'threads' property
+    const user = await User.findOne({ id: userId }).populate({
+      path: "threads",
+      model: Thread,
+      populate: [
+        {
+          path: "community",
+          model: Community,
+          select: "name id image _id",
+        },
+        {
+          path: "children",
+          model: Thread,
+          populate: {
+            path: "author",
+            model: User,
+            select: "name image id",
+          },
+        },
+      ],
+    });
+
+    return user.threads; // Return the populated 'threads' array
+  } catch (error) {
+    console.error("Error fetching user threads:", error);
+    throw error;
+  }
+}
+
 // 3 - FETCH USERS  FOR THE RIGHT SIDEBAR ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchSuggestedUsers({ userId }: { userId: string }) {

@@ -7,6 +7,7 @@ import { connectToDB } from "../mongoose";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
+import Saved from "../models/saved.model";
 
 // Several functions related to fetching and updating the user data without needing an endpoint in the api folder:
 
@@ -324,5 +325,51 @@ export async function updateThreadLikes(threadId: string, likes: number) {
     );
   } catch (error: any) {
     throw new Error(`Failed to create/update user: ${error.message}`);
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function fetchThreadsWithChildren(threadIds: string[]) {
+  try {
+    connectToDB();
+    const threadsWithChildren = await Thread.find({
+      _id: { $in: threadIds },
+    }).populate("children");
+
+    if (!threadsWithChildren || threadsWithChildren.length === 0) {
+      throw new Error("No threads found with the provided IDs");
+    }
+
+    return threadsWithChildren;
+  } catch (error) {
+    console.error("Error fetching children of threads:", error);
+    throw error;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function saveThread(threadId: string, userId: string) {
+  console.log("threadid getting to the saveThread function:", threadId);
+
+  console.log("userid getting to the saveThread function:", userId);
+  try {
+    /// WORKS
+
+    connectToDB();
+
+    // Create new instance:
+
+    const savedThread = new Saved({
+      userId: userId,
+      threadId: threadId,
+    });
+
+    await savedThread.save();
+    console.log(`Successfully saved thread ${threadId}`);
+  } catch (error) {
+    console.error("Error saving thread:", error);
+    throw error;
   }
 }

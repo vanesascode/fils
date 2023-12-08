@@ -26,8 +26,8 @@ function DeleteThread({
 
   if (currentUserId !== authorId || pathname === "/") return null;
 
-  console.log("what is currentUserId", currentUserId);
-  console.log("what is authorId", authorId);
+  // console.log("what is currentUserId", currentUserId);
+  // console.log("what is authorId", authorId);
 
   return (
     <Image

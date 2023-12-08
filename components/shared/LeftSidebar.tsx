@@ -24,10 +24,9 @@ const LeftSidebar = () => {
           if (link.route === "/profile") link.route = `${link.route}/${userId}`;
 
           return (
-            <div className=" hover-black-text">
+            <div className=" hover-black-text" key={link.label}>
               <Link
                 href={link.route}
-                key={link.label}
                 className={`leftsidebar_link hover:bg-light-1 box-shadow-small-hovered  ${
                   isActive && "bg-light-1 box-shadow-small"
                 } `}

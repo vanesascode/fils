@@ -22,7 +22,7 @@ async function Page({
     userId: user.id, // we add the current user id, to exclude it from the rendering cards or the search.
     searchString: searchParams.q, // however, if there are no searchString, all users will be included in 'result' (except from the current user) // Why is it ".q" ? Because we are using it in the URL and it's between "?"" and "=" (?q=) We are sending it like this from the Searchbar.tsx component.
     pageNumber: searchParams?.page ? +searchParams.page : 1,
-    pageSize: 2,
+    pageSize: 4,
   });
 
   return (

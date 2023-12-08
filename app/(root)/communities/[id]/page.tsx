@@ -31,6 +31,8 @@ async function Page({ params }: { params: { id: string } }) {
 
       <div className="mt-9">
         <Tabs defaultValue="threads" className="w-full">
+          {/* TABS LIST*/}
+
           <TabsList className="tab">
             {communityTabs.map((tab) => (
               <TabsTrigger
@@ -55,6 +57,8 @@ async function Page({ params }: { params: { id: string } }) {
               </TabsTrigger>
             ))}
           </TabsList>
+
+          {/* TABS CONTENT*/}
 
           <TabsContent value="threads" className="w-full text-light-1">
             {/* @ts-ignore */}

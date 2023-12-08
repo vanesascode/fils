@@ -3,7 +3,9 @@ import Link from "next/link";
 
 import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
+
 import Likes from "../Likes";
+import SaveThread from "../forms/SaveThread";
 
 interface Props {
   id: string;
@@ -32,30 +34,27 @@ interface Props {
     };
   }[];
   isComment?: boolean;
-  likes?: number;
-  threadId?: string;
-  threadsWithIDs?: string[];
+
+  threadId?: string | null | undefined;
 }
 
 //All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
 async function ThreadCard({
-  id, //mongoDB
-  currentUserId, //clerk
-  parentId, //mongoDB
-  content, //mongoDB
-  author, //mongoDB
-  community, //mongoDB
-  createdAt, //mongoDB
-  comments, //mongoDB
+  id,
+  currentUserId,
+  parentId,
+  content,
+  author,
+  community,
+  createdAt,
+  comments,
   isComment,
-  likes, //mongoDB
-  threadId, //mongoDB
-  threadsWithIDs,
 }: Props) {
-  //////////////////////////////////////////////////////////////////
-  console.log("threadId in ThreadCard", threadsWithIDs);
+  / /; //////////////////////////////////////////////////////////
 
   ////////////////////////////////////////////////////////////
+
+  ////////////////////////////////////////////////////////
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
@@ -115,7 +114,7 @@ async function ThreadCard({
             {/*THE FOUR ICONS  */}
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
-              <div className="flex gap-3.5">
+              <div className="flex gap-5">
                 {/* LIKES */}
                 <Image
                   src={
@@ -148,17 +147,9 @@ async function ThreadCard({
                     className="cursor-pointer object-contain"
                   />
                 </Link>
-                <Image
-                  src={
-                    isComment
-                      ? "/assets/repost-white.svg"
-                      : "/assets/repost-black.svg"
-                  }
-                  alt="heart"
-                  width={26}
-                  height={26}
-                  className="cursor-pointer object-contain"
-                />
+
+                {/*SHARE THREAD ICON */}
+
                 <Image
                   src={
                     isComment
@@ -170,16 +161,12 @@ async function ThreadCard({
                   height={24}
                   className="cursor-pointer object-contain"
                 />
-                <Image
-                  src={
-                    isComment
-                      ? "/assets/save-white.svg"
-                      : "/assets/save-black.svg"
-                  }
-                  alt="heart"
-                  width={24}
-                  height={24}
-                  className="cursor-pointer object-contain"
+
+                {/*SAVE THREAD ICON */}
+                <SaveThread
+                  isComment={isComment}
+                  threadId={id}
+                  currentUserId={currentUserId}
                 />
               </div>
               {!community && isComment && (

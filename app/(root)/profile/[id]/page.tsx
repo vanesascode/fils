@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import { profileTabs } from "@/constants";
 
 import ThreadsTab from "@/components/shared/ThreadsTab";
+import RepliesTab from "@/components/shared/RepliesTab";
+import SavedTab from "@/components/shared/SavedTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -30,6 +32,8 @@ async function Page({ params }: { params: { id: string } }) {
 
       <div className="mt-9">
         <Tabs defaultValue="threads" className="w-full">
+          {/* TABS LIST*/}
+
           <TabsList className="tab">
             {profileTabs.map((tab) => (
               <TabsTrigger
@@ -59,20 +63,34 @@ async function Page({ params }: { params: { id: string } }) {
             ))}
           </TabsList>
 
-          {profileTabs.map((tab) => (
-            <TabsContent
-              key={`content-${tab.label}`}
-              value={tab.value}
-              className="w-full text-light-1"
-            >
-              {/* @ts-ignore */}
-              <ThreadsTab
-                currentUserId={user.id}
-                accountId={userInfo.id}
-                accountType="User"
-              />
-            </TabsContent>
-          ))}
+          {/* TABS CONTENT*/}
+
+          <TabsContent value="threads" className="w-full text-light-1">
+            {/* @ts-ignore */}
+            <ThreadsTab
+              currentUserId={user.id}
+              accountId={userInfo.id}
+              accountType="User"
+            />
+          </TabsContent>
+
+          <TabsContent value="replies" className="w-full text-light-1">
+            {/* @ts-ignore */}
+            <RepliesTab
+              currentUserId={user.id}
+              accountId={userInfo.id}
+              accountType="User"
+            />
+          </TabsContent>
+
+          <TabsContent value="saved" className="w-full text-light-1">
+            {/* @ts-ignore */}
+            <SavedTab
+              currentUserId={user.id}
+              accountId={userInfo.id}
+              accountType="User"
+            />
+          </TabsContent>
         </Tabs>
       </div>
     </section>
