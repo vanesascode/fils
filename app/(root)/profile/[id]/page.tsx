@@ -76,20 +76,12 @@ async function Page({ params }: { params: { id: string } }) {
 
           <TabsContent value="replies" className="w-full text-light-1">
             {/* @ts-ignore */}
-            <RepliesTab
-              currentUserId={user.id}
-              accountId={userInfo.id}
-              accountType="User"
-            />
+            <RepliesTab currentUserId={user.id} />
           </TabsContent>
 
           <TabsContent value="saved" className="w-full text-light-1">
             {/* @ts-ignore */}
-            <SavedTab
-              currentUserId={user.id}
-              accountId={userInfo.id}
-              accountType="User"
-            />
+            <SavedTab currentUserId={user.id} />
           </TabsContent>
         </Tabs>
       </div>

@@ -12,6 +12,7 @@ In process:
 
 - Adding saved posts
 - Adding replies list
+- Making posts editable
 - Adding likes
 
 (Inspired on Meta's Thread & X's Twitter )

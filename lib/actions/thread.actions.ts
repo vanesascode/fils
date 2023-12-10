@@ -328,7 +328,32 @@ export async function addCommentToThread(
 //   }
 // }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////REPLIES TAB:
+
+export async function getAllThreadsByUserId(userId: string) {
+  try {
+    connectToDB();
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const threads = [];
+    for (const threadId of user.threads) {
+      const thread = await Thread.findOne({ _id: threadId });
+      if (thread) {
+        threads.push(thread);
+      }
+    }
+
+    return threads;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////REPLIES TAB:
 
 export async function fetchThreadsWithChildren(threadIds: string[]) {
   try {
@@ -348,19 +373,93 @@ export async function fetchThreadsWithChildren(threadIds: string[]) {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////REPLIES TAB
+
+// interface Thread {
+//   _id: string;
+//   text: string;
+//   author: string;
+//   parentId?: string | null;
+//   community?: string | null;
+//   createdAt: Date;
+//   children: Thread[] | null;
+//   likes: number;
+// }
+
+// export async function getCompleteThreadsfromChildren(threadIds: string[]) {
+//   try {
+//     const threads: Thread[] = [];
+//     for (const threadId of threadIds) {
+//       const thread = await Thread.findById(threadId);
+//       if (thread) {
+//         threads.push(thread);
+//       }
+//     }
+//     return threads;
+//   } catch (error) {
+//     console.error("Error fetching replies:", error);
+//     throw error;
+//   }
+// }
+
+interface Thread {
+  _id: string;
+  text: string;
+  author: {
+    _id: string;
+    username: string;
+    name: string;
+    image: string;
+  };
+  parentId?: string | null;
+  community?: string | null;
+  createdAt: Date;
+  children: Thread[] | null;
+  likes: number;
+}
+
+export async function getCompleteThreadsfromThreadsIds(threadIds: string[]) {
+  try {
+    const threads: Thread[] = [];
+    const populatedThreads = await Thread.find({ _id: { $in: threadIds } })
+      .populate("author", ["username", "name", "image"])
+      .exec();
+
+    populatedThreads.forEach((thread: any) => {
+      threads.push({
+        _id: thread._id,
+        text: thread.text,
+        author: {
+          _id: thread.author._id,
+          username: thread.author.username,
+          name: thread.author.name,
+          image: thread.author.image,
+        },
+        parentId: thread.parentId,
+        community: thread.community,
+        createdAt: thread.createdAt,
+        children: thread.children,
+        likes: thread.likes,
+      });
+    });
+
+    return threads;
+  } catch (error) {
+    console.error("Error fetching replies:", error);
+    throw error;
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// TO SAVE THE FAVOURITE (SAVED ) THREADS OF A USER
 
 export async function saveThread(threadId: string, userId: string) {
   console.log("threadid getting to the saveThread function:", threadId);
 
   console.log("userid getting to the saveThread function:", userId);
   try {
-    /// WORKS
-
     connectToDB();
-
-    // Create new instance:
-
     const savedThread = new Saved({
       userId: userId,
       threadId: threadId,
@@ -370,6 +469,46 @@ export async function saveThread(threadId: string, userId: string) {
     console.log(`Successfully saved thread ${threadId}`);
   } catch (error) {
     console.error("Error saving thread:", error);
+    throw error;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// TO GET THE FAVOURITE (SAVED ) THREADS OF A USER
+
+// export async function fetchSavedThreads(userId: string) {
+//   try {
+//     const savedDocuments = await Saved.find({ userId });
+//     const threadIds = [];
+//     for (const savedDocument of savedDocuments) {
+//       threadIds.push(savedDocument.threadId);
+//     }
+
+//     const threads = [];
+//     for (const threadId of threadIds) {
+//       const thread = await Thread.findOne({ _id: threadId });
+//       if (thread) {
+//         threads.push(thread);
+//       }
+//     }
+
+//     return threads;
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// }
+
+export async function fetchSavedThreadsIds(userId: string) {
+  try {
+    const savedDocuments = await Saved.find({ userId });
+    const threadIds = savedDocuments.map(
+      (savedDocument) => savedDocument.threadId
+    );
+    return threadIds;
+  } catch (error) {
+    console.error(error);
     throw error;
   }
 }
