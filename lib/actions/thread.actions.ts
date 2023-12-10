@@ -314,19 +314,19 @@ export async function addCommentToThread(
 
 // 7 - UPDATE LIKES OF THREAD ////////////////////////////////////////////////////////////////////////////////////////////
 
-export async function updateThreadLikes(threadId: string, likes: number) {
-  try {
-    connectToDB();
+// export async function updateThreadLikes(threadId: string, likes: number) {
+//   try {
+//     connectToDB();
 
-    await Thread.findOneAndUpdate(
-      { id: threadId },
+//     await Thread.findOneAndUpdate(
+//       { id: threadId },
 
-      { likes }
-    );
-  } catch (error: any) {
-    throw new Error(`Failed to create/update user: ${error.message}`);
-  }
-}
+//       { likes }
+//     );
+//   } catch (error: any) {
+//     throw new Error(`Failed to create/update user: ${error.message}`);
+//   }
+// }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 

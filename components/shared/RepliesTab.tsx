@@ -41,7 +41,7 @@ interface ThreadsWithChildren {
   author: string;
   community: string | null;
   children: string[];
-  likes: number;
+  // likes: number;
   createdAt: Date;
   __v: number;
 }
