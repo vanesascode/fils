@@ -1,10 +1,20 @@
-# `Fils` is a social media app to share short posts.
+# `Fils` social media
 
-IN PROGRESS
+- Fils connects people through microblogging and social networking. It accommodates up to 10,000 active users and 100 active organizations.
+
+- It is implemented with Next.js for both frontend and backend. It utilizes MongoDB with Mongoose for scalable data management, Zod for data integrity, Clerk for streamlined authentication, and Shadcn/ui, Tailwind, and CSS to enhance the interface.
+
+- Coded with TypeScript and tested with Jest, it ensures project quality and reliability.
+
+- User experience remains a priority throughout the project.
+
+In process:
+
+- Adding saved posts
+- Adding replies list
+- Adding likes
 
 (Inspired on Meta's Thread & X's Twitter )
-
-Project to learn NextJs 14 more in depth (route groups,... ), other external APIs suchs a Clerks, go in depth with applying new full stack features, and getting more experience with Typescript.
 
 ### 🔹 Installation & Libraries used:
 
