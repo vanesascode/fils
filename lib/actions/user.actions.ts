@@ -281,3 +281,24 @@ export async function getActivity(userId: string) {
     throw error;
   }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+// Get user._id thanks to the user.id
+
+export async function getUserId(providedId: string): Promise<string> {
+  try {
+    await connectToDB();
+
+    const user = await User.findOne({ id: providedId });
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const userId = user._id;
+    return userId;
+  } catch (error) {
+    console.error("Error fetching replies: ", error);
+    throw error;
+  }
+}

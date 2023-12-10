@@ -7,6 +7,8 @@ import DeleteThread from "../forms/DeleteThread";
 import Likes from "../Likes";
 import SaveThread from "../forms/SaveThread";
 
+import { getUserId } from "@/lib/actions/user.actions";
+
 interface Props {
   id: string;
   currentUserId: string;
@@ -50,9 +52,14 @@ async function ThreadCard({
   comments,
   isComment,
 }: Props) {
-  / /; //////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////
 
-  ////////////////////////////////////////////////////////////
+  console.log("currentUserId in ThreadCard", currentUserId); //user_2YDmo498seTopzVzPejYayif20n
+
+  const userId = await getUserId(currentUserId);
+  // const userIdString = userId.toString();
+
+  // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!", userIdString);
 
   ////////////////////////////////////////////////////////
   return (
@@ -166,7 +173,8 @@ async function ThreadCard({
                 <SaveThread
                   isComment={isComment}
                   threadId={id}
-                  currentUserId={currentUserId}
+                  currentUserId={currentUserId} //clerk id
+                  userId={userId} //user _id
                 />
               </div>
               {!community && isComment && (
