@@ -17,7 +17,7 @@ export const sidebarLinks = [
   {
     imgURL: "/assets/post.svg",
     route: "/create-thread",
-    label: "Create Thread",
+    label: "Create Fil",
   },
   {
     imgURL: "/assets/community.svg",
@@ -32,12 +32,12 @@ export const sidebarLinks = [
 ];
 
 export const profileTabs = [
-  { value: "threads", label: "Threads", icon: "/assets/reply-white.svg" },
+  { value: "fils", label: "Fils", icon: "/assets/reply-white.svg" },
   { value: "saved", label: "Saved", icon: "/assets/save-white.svg" },
 ];
 
 export const communityTabs = [
-  { value: "threads", label: "Threads", icon: "/assets/reply-white.svg" },
+  { value: "fils", label: "Fils", icon: "/assets/reply-white.svg" },
   { value: "members", label: "Members", icon: "/assets/members.svg" },
 
 ];

@@ -22,7 +22,7 @@ async function Page({ params }: { params: { id: string } }) {
 
   const savedThreads = await fetchSavedThreadsIds(userInfo._id);
 
-  console.log("!!!!!!!!!!!!!!!!", userInfo._id); //new ObjectId("656f20a08f82b5ecf6f1e2fd")
+  // console.log(userInfo._id); //new ObjectId("656f20a08f82b5ecf6f1e2fd")
 
   // const searchParams = useSearchParams();
 
@@ -63,7 +63,7 @@ async function Page({ params }: { params: { id: string } }) {
 
                 {/* How many threads the user has :  */}
 
-                {tab.label === "Threads" && (
+                {tab.label === "Fils" && (
                   <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
                     {userInfo.threads.length}
                   </p>
@@ -79,7 +79,7 @@ async function Page({ params }: { params: { id: string } }) {
 
           {/* TABS CONTENT*/}
 
-          <TabsContent value="threads" className="w-full text-light-1">
+          <TabsContent value="fils" className="w-full text-light-1">
             {/* @ts-ignore */}
             <ThreadsTab
               currentUserId={user.id}

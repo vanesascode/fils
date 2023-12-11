@@ -59,7 +59,7 @@ async function ThreadCard({
   const userId = await getUserId(currentUserId);
   // const userIdString = userId.toString();
 
-  // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!", userIdString);
+  // console.log(userIdString);
 
   ////////////////////////////////////////////////////////
   return (

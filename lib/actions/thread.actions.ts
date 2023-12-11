@@ -496,6 +496,38 @@ export async function saveThread(
     throw error;
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// TO REMOVE THE FAVOURITE (SAVED ) THREADS OF A USER
+
+export async function unSaveThread(
+  threadId: string,
+  userId: string,
+  path: string
+) {
+  // console.log("threadid getting to the saveThread function:", threadId);
+  // console.log("userid getting to the saveThread function:", userId);
+
+  try {
+    connectToDB();
+
+    // Check if an instance already exists with the same userId and threadId
+    const existingThread = await Saved.findOneAndRemove({ userId, threadId });
+
+    if (existingThread) {
+      console.log(`Successfully unsaved thread ${threadId}`);
+      revalidatePath(path);
+      return `Successfully unsaved thread ${threadId}`;
+    } else {
+      console.log(`Thread ${threadId} is not saved for user ${userId}`);
+    }
+  } catch (error) {
+    console.error("Error saving thread:", error);
+    throw error;
+  }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TO GET THE FAVOURITE (SAVED ) THREADS OF A USER

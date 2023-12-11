@@ -5,7 +5,7 @@ import { formatDateString } from "@/lib/utils";
 import DeleteSaved from "../forms/DeleteThread";
 
 import Likes from "../Likes";
-import SaveThread from "../forms/SaveThread";
+import UnSaveThread from "../forms/UnSaveThread";
 
 import { getUserId } from "@/lib/actions/user.actions";
 
@@ -40,7 +40,6 @@ interface Props {
   threadId?: string | null | undefined;
 }
 
-//All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
 async function ThreadCard({
   id,
   currentUserId,
@@ -105,24 +104,30 @@ async function ThreadCard({
             >
               {content}
             </p>
+            {/*THE NUMBER OF REPLIES IF IT IS AN ORIGINAL THREAD*/}
+
+            <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
+              <div className="flex gap-5">
+                {/*SAVE THREAD ICON */}
+                <Link href={`/thread/${id}`}>
+                  <Image
+                    src={"/assets/go.svg"}
+                    alt="go to thread button"
+                    width={24}
+                    height={24}
+                    className="cursor-pointer object-contain"
+                  />
+                </Link>
+                <UnSaveThread
+                  isComment={isComment}
+                  threadId={id ? id.toString() : ""}
+                  currentUserId={currentUserId.toString()}
+                  userId={userId ? userId.toString() : ""}
+                />
+              </div>
+            </div>
           </div>
         </div>
-
-        <DeleteSaved
-          threadId={JSON.stringify(id)}
-          currentUserId={currentUserId}
-          authorId={author.id}
-          parentId={parentId}
-          isComment={isComment}
-        />
-      </div>
-
-      {/*THE NUMBER OF REPLIES IF IT IS AN ORIGINAL THREAD*/}
-
-      <div className="ml-1 mt-5 flex items-center gap-2">
-        <p className="text-subtle-medium text-light-2 ">
-          {formatDateString(createdAt)}
-        </p>
       </div>
     </article>
   );

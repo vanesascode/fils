@@ -49,7 +49,7 @@ async function Page({ params }: { params: { id: string } }) {
                 />
                 <p className="max-sm:hidden  text-light-1">{tab.label}</p>
 
-                {tab.label === "Threads" && (
+                {tab.label === "Fils" && (
                   <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
                     {communityDetails.threads.length}
                   </p>
@@ -60,7 +60,7 @@ async function Page({ params }: { params: { id: string } }) {
 
           {/* TABS CONTENT*/}
 
-          <TabsContent value="threads" className="w-full text-light-1">
+          <TabsContent value="fils" className="w-full text-light-1">
             {/* @ts-ignore */}
             <ThreadsTab
               currentUserId={user.id}
