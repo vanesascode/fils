@@ -12,8 +12,8 @@ import { getUserId } from "@/lib/actions/user.actions";
 interface Props {
   id: string;
   currentUserId: string;
-  parentId: string | null;
   content: string;
+  parentId: string | null | undefined;
 
   author: {
     name: string;

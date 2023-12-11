@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import { profileTabs } from "@/constants";
 
@@ -11,6 +11,7 @@ import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchSavedThreadsIds } from "@/lib/actions/thread.actions";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -18,6 +19,14 @@ async function Page({ params }: { params: { id: string } }) {
 
   const userInfo = await fetchUser(params.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
+
+  const savedThreads = await fetchSavedThreadsIds(userInfo._id);
+
+  console.log("!!!!!!!!!!!!!!!!", userInfo._id); //new ObjectId("656f20a08f82b5ecf6f1e2fd")
+
+  // const searchParams = useSearchParams();
+
+  // const profileUser = searchParams.get("profile");
 
   return (
     <section>
@@ -59,6 +68,11 @@ async function Page({ params }: { params: { id: string } }) {
                     {userInfo.threads.length}
                   </p>
                 )}
+                {tab.label === "Saved" && (
+                  <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
+                    {savedThreads.length}
+                  </p>
+                )}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -81,7 +95,7 @@ async function Page({ params }: { params: { id: string } }) {
 
           <TabsContent value="saved" className="w-full text-light-1">
             {/* @ts-ignore */}
-            <SavedTab currentUserId={user.id} />
+            <SavedTab currentUserId={user.id} savedThreads={savedThreads} />
           </TabsContent>
         </Tabs>
       </div>

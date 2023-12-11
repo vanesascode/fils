@@ -412,9 +412,9 @@ interface Thread {
     image: string;
   };
   parentId?: string | null;
-  community?: string | null;
+  community?: { id: string; name: string; image: string } | string | null;
   createdAt: Date;
-  children: Thread[] | null;
+  children: { author: { image: string } }[];
   likes: number;
 }
 
@@ -423,6 +423,7 @@ export async function getCompleteThreadsfromThreadsIds(threadIds: string[]) {
     const threads: Thread[] = [];
     const populatedThreads = await Thread.find({ _id: { $in: threadIds } })
       .populate("author", ["username", "name", "image"])
+      .populate("community", ["id", "name", "image"])
       .exec();
 
     populatedThreads.forEach((thread: any) => {
@@ -436,9 +437,17 @@ export async function getCompleteThreadsfromThreadsIds(threadIds: string[]) {
           image: thread.author.image,
         },
         parentId: thread.parentId,
-        community: thread.community,
+        community: {
+          id: thread.community?.id,
+          name: thread.community?.name,
+          image: thread.community?.image,
+        },
         createdAt: thread.createdAt,
-        children: thread.children,
+        children: thread.children.map((child: any) => ({
+          author: {
+            image: child.author?.image,
+          },
+        })),
         likes: thread.likes,
       });
     });

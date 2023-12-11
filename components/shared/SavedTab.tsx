@@ -1,34 +1,27 @@
-import { redirect } from "next/navigation";
 import { getUserId } from "@/lib/actions/user.actions";
 import {
   fetchSavedThreadsIds,
   getCompleteThreadsfromThreadsIds,
 } from "@/lib/actions/thread.actions";
 
-// interface Thread {
-//   _id: string;
-//   text: string;
-//   author: string;
-//   parentId?: string | null;
-//   community?: string | null;
-//   createdAt: Date;
-//   children: Thread[] | null;
-//   likes: number;
-// }
+import SavedCard from "../cards/SavedCard";
 
-// interface SavedThreadsList {
-//   totalThreads: number;
-//   threads: Thread[];
-// }
+// import { currentUser } from "@clerk/nextjs";
 
 interface Props {
   currentUserId: string;
+  savedThreads: string[];
 }
 
-async function SavedTab({ currentUserId }: Props) {
-  const userId = await getUserId(currentUserId);
+async function SavedTab({ currentUserId, savedThreads }: Props) {
+  // const currentUserNow = await currentUser();
+  // console.log("currentUserId", currentUserId); //user_2YDmo498seTopzVzPejYayif20n
 
-  const savedThreadsIds = await fetchSavedThreadsIds(userId);
+  // console.log("currentUserId", currentUserNow?.id); //user_2YDmo498seTopzVzPejYayif20n
+
+  // const userId = await getUserId(currentUserId);
+
+  // const savedThreadsIds = await fetchSavedThreadsIds(userId);
 
   // console.log("  results - savedTab component:", results);
 
@@ -37,50 +30,68 @@ async function SavedTab({ currentUserId }: Props) {
   //   new ObjectId("6575da806a8cefef206c1d21")
   // ]
 
-  const threadsIds = savedThreadsIds.map((item) => item.toString());
+  // const threadsIds = savedThreadsIds.map((item) => item.toString());
 
   // [
   //   "656f33310b0b77515576060d",
   //   "6575da806a8cefef206c1d21"
   // ]
 
-  const threads = await getCompleteThreadsfromThreadsIds(threadsIds);
+  const threads = await getCompleteThreadsfromThreadsIds(savedThreads);
 
   // console.log("  threads - savedTab component:", threads);
 
   // [
+
   //   {
   //     _id: new ObjectId("656f33310b0b77515576060d"),
   //     text: '\n' +
-  //       'Cats are fascinating creatures that have captivated humans for centuries. They are independent, curious, and
-  // intelligent animals that come in a wide variety of breeds. ',
+  //       'Cats are fascinating creatures that have captivated humans for centuries. They are independent, curious, and intelligent animals that come in a wide variety of breeds. ',
   //     author: {
   //       _id: new ObjectId("656cc645d5da3bae5cc79782"),
   //       username: 'walter',
   //       name: 'Walter',
-  //       image: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4RDK 60503 more characters
+  //       image: 'data:image/jpeg;bamore characters
   //     },
   //     parentId: undefined,
-  //     community: new ObjectId("656cc959c2f2b4c2d042b477"),
+  //     community: {
+  //       id: 'org_2Z2lqvtaFJFFvIp67LrsGBRjtNc',
+  //       name: "Nina's fans",
+  //       image: 'https://images.clerk.dev/uploaded/img_2Z2lquLKVAwWro2Jttkjt9LEBt4'
+  //     },
   //     createdAt: 2023-12-05T14:26:57.590Z,
-  //     children: [
-  //       new ObjectId("656f3b400b0b77515576073a"),
-  //       new ObjectId("6574fb737e35f151521e986a")
-  //     ],
+  //     children: [ [Object], [Object], [Object] ],
   //     likes: 0
   //   },
+
   //   {
-  //     _id: new ObjectId("6575da806a8cefef206c1d21"),
-  //     text: 'The potential benefits of AI are immense, but it is important to use it responsibly and ethically. We need to ensure that AI is used to enhance human lives, not replace them. We also need to be aware of the potential risks of AI, such as bias and discrimination.',
+  //     _id: new ObjectId("656f3b400b0b77515576073a"),
+  //     text: 'Yes, cats are great',
   //     author: {
-  //       _id: new ObjectId("65566bd3fe922aa5c1add5f9"),
-  //       username: 'vanesa',
+  //       _id: new ObjectId("656e69abd5da3bae5cca843a"),
+  //       username: 'paris',
   //       name: 'Vanesa',
-  //       image: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yWURkQVYyc3MzUzkzdGRteHlpSGhWTkJWVEYifQ'
+  //       image: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yWXljbGJ5MHZFaWxadWNONkdkN3hQNEk2SlkifQ'
   //     },
-  //     parentId: undefined,
-  //     community: null,
-  //     createdAt: 2023-12-10T15:34:24.426Z,
+  //     parentId: '656f33310b0b77515576060d',
+  //     community: { id: undefined, name: undefined, image: undefined },
+  //     createdAt: 2023-12-05T15:01:20.686Z,
+  //     children: [],
+  //     likes: 0
+  //   },
+
+  //   {
+  //     _id: new ObjectId("6576b4a4cb927fa515a4f6f1"),
+  //     text: "I'm glad you like them ❤️",
+  //     author: {
+  //       _id: new ObjectId("656cc645d5da3bae5cc79782"),
+  //       username: 'walter',
+  //       name: 'Walter',
+  //       image: 'data:imag 60503 more characters
+  //     },
+  //     parentId: '656f33310b0b77515576060d',
+  //     community: { id: undefined, name: undefined, image: undefined },
+  //     createdAt: 2023-12-11T07:05:08.341Z,
   //     children: [],
   //     likes: 0
   //   }
@@ -90,15 +101,26 @@ async function SavedTab({ currentUserId }: Props) {
 
   return (
     <section className="mt-9 flex flex-col gap-10">
-      <h1>Saved threads:</h1>
       {threads.map((thread) => (
-        <div key={thread._id}>
-          <div>
-            {" "}
-            {thread.text} {thread.author.username}
-          </div>
-          <img src={thread.author.image} alt="user_community_image" />
-        </div>
+        <SavedCard
+          key={thread._id}
+          id={thread._id}
+          currentUserId={currentUserId} // id of Clerk user
+          parentId={thread.parentId}
+          content={thread.text}
+          author={{
+            name: thread.author.name,
+            image: thread.author.image,
+            id: thread.author._id,
+          }}
+          community={{
+            name: thread.author.name,
+            image: thread.author.image,
+            id: thread.author._id,
+          }}
+          createdAt={thread.createdAt.toISOString()}
+          comments={thread.children}
+        />
       ))}
     </section>
   );
