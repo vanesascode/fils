@@ -71,7 +71,7 @@ async function RepliesTab({ currentUserId }: Props) {
   //   new ObjectId("656f3b940b0b775155760779")
   // ]
 
-  // const childrenIds = childrenArray.map((item) => item.toString());
+  const childrenIds = childrenArray.map((item) => item.toString());
 
   // console.log("childrenIds:", childrenIds);
 
@@ -81,7 +81,7 @@ async function RepliesTab({ currentUserId }: Props) {
   //   '656f3b940b0b775155760779'
   // ]
 
-  const threads = await getCompleteThreadsfromThreadsIds(childrenArray);
+  const threads = await getCompleteThreadsfromThreadsIds(childrenIds);
 
   // console.log("getCompleteThreadsfromChildren", threads);
 

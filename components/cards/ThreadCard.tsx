@@ -54,7 +54,7 @@ async function ThreadCard({
 }: Props) {
   //////////////////////////////////////////////////////////
 
-  console.log("currentUserId in ThreadCard", currentUserId); //user_2YDmo498seTopzVzPejYayif20n
+  // console.log("currentUserId in ThreadCard", currentUserId); //user_2YDmo498seTopzVzPejYayif20n
 
   const userId = await getUserId(currentUserId);
   // const userIdString = userId.toString();
@@ -172,9 +172,9 @@ async function ThreadCard({
                 {/*SAVE THREAD ICON */}
                 <SaveThread
                   isComment={isComment}
-                  threadId={id}
-                  currentUserId={currentUserId} //clerk id
-                  userId={userId} //user _id
+                  threadId={id ? id.toString() : ""}
+                  currentUserId={currentUserId.toString()}
+                  userId={userId ? userId.toString() : ""}
                 />
               </div>
               {!community && isComment && (

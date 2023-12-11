@@ -454,25 +454,39 @@ export async function getCompleteThreadsfromThreadsIds(threadIds: string[]) {
 
 // TO SAVE THE FAVOURITE (SAVED ) THREADS OF A USER
 
-export async function saveThread(threadId: string, userId: string) {
-  console.log("threadid getting to the saveThread function:", threadId);
+export async function saveThread(
+  threadId: string,
+  userId: string,
+  path: string
+) {
+  // console.log("threadid getting to the saveThread function:", threadId);
+  // console.log("userid getting to the saveThread function:", userId);
 
-  console.log("userid getting to the saveThread function:", userId);
   try {
     connectToDB();
-    const savedThread = new Saved({
-      userId: userId,
-      threadId: threadId,
-    });
 
-    await savedThread.save();
-    console.log(`Successfully saved thread ${threadId}`);
+    // Check if an instance already exists with the same userId and threadId
+    const existingThread = await Saved.findOne({ userId, threadId });
+
+    if (existingThread) {
+      console.log(`Thread ${threadId} already saved for user ${userId}`);
+      return `Thread ${threadId} already saved for user ${userId}`;
+    } else {
+      const savedThread = new Saved({
+        userId: userId,
+        threadId: threadId,
+      });
+
+      await savedThread.save();
+      console.log(`Successfully saved thread ${threadId}`);
+      revalidatePath(path);
+      return `Successfully saved thread ${threadId}`;
+    }
   } catch (error) {
     console.error("Error saving thread:", error);
     throw error;
   }
 }
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // TO GET THE FAVOURITE (SAVED ) THREADS OF A USER

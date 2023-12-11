@@ -37,7 +37,14 @@ async function SavedTab({ currentUserId }: Props) {
   //   new ObjectId("6575da806a8cefef206c1d21")
   // ]
 
-  const threads = await getCompleteThreadsfromThreadsIds(savedThreadsIds);
+  const threadsIds = savedThreadsIds.map((item) => item.toString());
+
+  // [
+  //   "656f33310b0b77515576060d",
+  //   "6575da806a8cefef206c1d21"
+  // ]
+
+  const threads = await getCompleteThreadsfromThreadsIds(threadsIds);
 
   // console.log("  threads - savedTab component:", threads);
 

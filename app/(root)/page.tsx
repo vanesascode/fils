@@ -39,7 +39,18 @@ async function Home({
 
   const threadsWithIDs = await fetchThreadIDs();
 
-  console.log("threadID in Home", threadsWithIDs);
+  // console.log("threadID in Home", threadsWithIDs);
+  // [
+  //   new ObjectId("656f29cabd15bef8ad674b8d"),
+  //   new ObjectId("656f33310b0b77515576060d"),
+  //   new ObjectId("656f33590b0b775155760621"),
+  //   new ObjectId("656f3b400b0b77515576073a"),
+  //   new ObjectId("656f3b740b0b775155760755"),
+  //   new ObjectId("656f3b940b0b775155760779"),
+  //   new ObjectId("6575d9d16a8cefef206c1ce8"),
+  //   new ObjectId("6575da416a8cefef206c1d11"),
+  //   new ObjectId("6575da806a8cefef206c1d21")
+  // ]
 
   return (
     <>
