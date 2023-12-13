@@ -12,8 +12,7 @@ async function Home({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
-  console.log("searchParams", searchParams); // searchParams { page: '2' }
-
+  // console.log("searchParams", searchParams); // searchParams { page: '2' }
   //It is like this as long as you have an URL such as: http://localhost:3000/?page=2
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +73,7 @@ async function Home({
                 createdAt={post.createdAt}
                 comments={post.children}
                 threadId={post.threadId}
+                // likes={post.likes}
               />
             ))}
           </>

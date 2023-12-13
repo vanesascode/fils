@@ -30,7 +30,7 @@ async function Page({ params }: { params: { id: string } }) {
       />
 
       <div className="mt-9">
-        <Tabs defaultValue="threads" className="w-full">
+        <Tabs defaultValue="fils" className="w-full">
           {/* TABS LIST*/}
 
           <TabsList className="tab">

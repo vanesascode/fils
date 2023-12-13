@@ -5,7 +5,7 @@ import { redirect, useSearchParams } from "next/navigation";
 import { profileTabs } from "@/constants";
 
 import ThreadsTab from "@/components/shared/ThreadsTab";
-import RepliesTab from "@/components/shared/RepliesTab";
+// import RepliesTab from "@/components/shared/RepliesTab";
 import SavedTab from "@/components/shared/SavedTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -22,17 +22,11 @@ async function Page({ params }: { params: { id: string } }) {
 
   const savedThreads = await fetchSavedThreadsIds(userInfo._id);
 
-  // console.log(userInfo._id); //new ObjectId("656f20a08f82b5ecf6f1e2fd")
-
-  // const searchParams = useSearchParams();
-
-  // const profileUser = searchParams.get("profile");
-
   return (
     <section>
       <ProfileHeader
         accountId={userInfo.id}
-        authUserId={user.id} // current user from Clerk // this one is to know if this is the profile of another user
+        authUserId={user.id}
         name={userInfo.name}
         username={userInfo.username}
         imgUrl={userInfo.image}
@@ -40,7 +34,7 @@ async function Page({ params }: { params: { id: string } }) {
       />
 
       <div className="mt-9">
-        <Tabs defaultValue="threads" className="w-full">
+        <Tabs defaultValue="fils" className="w-full">
           {/* TABS LIST*/}
 
           <TabsList className="tab">
@@ -88,10 +82,10 @@ async function Page({ params }: { params: { id: string } }) {
             />
           </TabsContent>
 
-          <TabsContent value="replies" className="w-full text-light-1">
-            {/* @ts-ignore */}
-            <RepliesTab currentUserId={user.id} />
-          </TabsContent>
+          {/* <TabsContent value="replies" className="w-full text-light-1"> */}
+          {/* @ts-ignore */}
+          {/* <RepliesTab currentUserId={user.id} />
+          </TabsContent> */}
 
           <TabsContent value="saved" className="w-full text-light-1">
             {/* @ts-ignore */}

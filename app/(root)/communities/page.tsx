@@ -11,7 +11,7 @@ import { fetchCommunities } from "@/lib/actions/community.actions";
 async function Page({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: { [key: string]: string };
 }) {
   const user = await currentUser();
   if (!user) return null;

@@ -41,7 +41,7 @@ function DeleteThread({
         if (!parentId || !isComment) {
           router.push("/");
         }
-        await removeLikedThread(JSON.parse(threadId), currentUserId); //// I NEED TO PASS THE USERID not the CLERK
+        // await removeLikedThread(JSON.parse(threadId), currentUserId); //// I NEED TO PASS THE USERID not the CLERK
       }}
     />
   );

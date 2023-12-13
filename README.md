@@ -1,4 +1,4 @@
-# `Fils` social media
+# `Fils` threaded conversations platform
 
 - Fils connects people through microblogging and social networking. It accommodates up to 10,000 active users and 100 active organizations.
 
@@ -10,12 +10,10 @@
 
 In process:
 
-- Adding saved posts
-- Adding replies list
 - Making posts editable
 - Adding likes
-
-(Inspired on Meta's Thread & X's Twitter )
+- Adding sharing links
+- Adding About page (and other links when logging in)
 
 ### 🔹 Installation & Libraries used:
 

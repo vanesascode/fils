@@ -57,36 +57,6 @@ export async function updateUser({
 
 //The findOneAndUpdate method is a Mongoose method that is used to find a document in a MongoDB collection and update it. It takes three arguments: the first argument is an object that specifies the query to find the document to update, the second argument is an object that specifies the properties to update, and the third argument is an options object that specifies additional options for the update operation.
 
-////////////////////// ADD LIKED THREADS //////////////////////////////////////////////////////////////////////
-
-export async function addLikedThread(threadId: string, userId: string) {
-  try {
-    connectToDB();
-
-    await User.findOneAndUpdate(
-      { id: userId },
-
-      { $push: { likedThreads: threadId } }
-    );
-  } catch (error: any) {
-    throw new Error(`Failed to create/update user: ${error.message}`);
-  }
-}
-
-////////////////////// REMOVE LIKED THREADS //////////////////////////////////////////////////////////////////////
-export async function removeLikedThread(threadId: string, userId: string) {
-  try {
-    connectToDB();
-
-    await User.findOneAndUpdate(
-      { id: userId },
-      { $pull: { likedThreads: threadId } }
-    );
-  } catch (error: any) {
-    throw new Error(`Failed to remove liked thread: ${error.message}`);
-  }
-}
-
 // 2 - FETCH USER ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchUser(userId: string) {
@@ -282,9 +252,7 @@ export async function getActivity(userId: string) {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////
-
-// Get user._id thanks to the user.id
+// 6 - Get user._id thanks to the user.id ////////////////////////////////////////////////////////
 
 export async function getUserId(providedId: string): Promise<string> {
   try {
@@ -300,5 +268,38 @@ export async function getUserId(providedId: string): Promise<string> {
   } catch (error) {
     console.error("Error fetching replies: ", error);
     throw error;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////// ADD LIKED THREADS //////////////////////////////////////////////////////////////////////
+
+export async function addLikedThread(threadId: string, userId: string) {
+  try {
+    connectToDB();
+
+    await User.findOneAndUpdate(
+      { id: userId },
+
+      { $push: { likedThreads: threadId } }
+    );
+  } catch (error: any) {
+    throw new Error(`Failed to create/update user: ${error.message}`);
+  }
+}
+
+////////////////////// REMOVE LIKED THREADS //////////////////////////////////////////////////////////////////
+
+export async function removeLikedThread(threadId: string, userId: string) {
+  try {
+    connectToDB();
+
+    await User.findOneAndUpdate(
+      { id: userId },
+      { $pull: { likedThreads: threadId } }
+    );
+  } catch (error: any) {
+    throw new Error(`Failed to remove liked thread: ${error.message}`);
   }
 }

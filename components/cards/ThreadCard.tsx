@@ -4,10 +4,12 @@ import Link from "next/link";
 import { formatDateString } from "@/lib/utils";
 import DeleteThread from "../forms/DeleteThread";
 
-import Likes from "../Likes";
+import Likes from "../forms/Likes";
 import SaveThread from "../forms/SaveThread";
 
 import { getUserId } from "@/lib/actions/user.actions";
+
+import { countLikes } from "@/lib/actions/thread.actions";
 
 interface Props {
   id: string;
@@ -36,8 +38,8 @@ interface Props {
     };
   }[];
   isComment?: boolean;
-
-  threadId?: string | null | undefined;
+  // likes: number;
+  threadId?: string;
 }
 
 //All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
@@ -50,7 +52,9 @@ async function ThreadCard({
   community,
   createdAt,
   comments,
+  // likes,
   isComment,
+  threadId,
 }: Props) {
   //////////////////////////////////////////////////////////
 
@@ -60,6 +64,10 @@ async function ThreadCard({
   // const userIdString = userId.toString();
 
   // console.log(userIdString);
+
+  ////////////////////////////////////////////////////////////////
+
+  const likes = await countLikes(id);
 
   ////////////////////////////////////////////////////////
   return (
@@ -123,7 +131,7 @@ async function ThreadCard({
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-5">
                 {/* LIKES */}
-                <Image
+                {/* <Image
                   src={
                     isComment
                       ? "/assets/heart-white.svg"
@@ -133,12 +141,14 @@ async function ThreadCard({
                   width={24}
                   height={24}
                   className="cursor-pointer object-contain"
-                />
-                {/* <Likes
-                  threadsWithIDs={threadsWithIDs}
-                  userId={author.id}
-                  likes={likes}
                 /> */}
+                <Likes
+                  isComment={isComment}
+                  threadId={id ? id.toString() : ""}
+                  currentUserId={currentUserId.toString()}
+                  userId={userId ? userId.toString() : ""}
+                  likes={likes}
+                />
 
                 {/*REPLIES */}
                 <Link href={`/thread/${id}`}>

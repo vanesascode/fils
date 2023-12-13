@@ -24,6 +24,7 @@ interface Result {
       image: string;
     } | null;
     createdAt: string;
+    // likes: number;
     children: {
       author: {
         image: string;
@@ -127,6 +128,7 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
           }
           createdAt={thread.createdAt}
           comments={thread.children}
+          // likes={thread.likes}
         />
       ))}
     </section>

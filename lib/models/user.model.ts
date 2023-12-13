@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   id: {
-    // this id is to give it to the children as the parentID, this is the Clerk id! (then, MongoDB has its own ObjectId, so in the table, you'll see 2 ids!)
     type: String,
     required: true,
   },
@@ -26,7 +25,7 @@ const userSchema = new mongoose.Schema({
   threads: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Thread", //refer to documents in the collection called "Thread"
+      ref: "Thread",
     },
   ],
   onboarded: {
@@ -36,7 +35,7 @@ const userSchema = new mongoose.Schema({
   communities: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Community", //refer to documents in the collection called "Community"
+      ref: "Community",
     },
   ],
 });

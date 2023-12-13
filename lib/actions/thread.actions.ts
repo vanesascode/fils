@@ -1,17 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-
 import { connectToDB } from "../mongoose";
-
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
 import Saved from "../models/saved.model";
+import Like from "../models/like.model";
 
-// Several functions related to fetching and updating the user data without needing an endpoint in the api folder:
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// THREADS //////////////////////////////////////////////////////////
 
 // 1 - FETCH THREADS & implement the pagination /////////////////////////////////////////////////////////////
 
@@ -45,8 +44,6 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
       },
     });
 
-  //POPULATION is a powerful feature in Mongoose that simplifies working with related documents. It helps in reducing the need for additional queries and provides a convenient way to retrieve the data you need from different collections in a single query.
-
   // Count the total number of top-level posts (threads) i.e., threads that are not comments:
   const totalPostsCount = await Thread.countDocuments({
     parentId: { $in: [null, undefined] },
@@ -60,17 +57,7 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   return { posts, isNext };
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-export async function fetchThreadIDs(): Promise<string[]> {
-  connectToDB();
-
-  const threadIDs = await Thread.find().distinct("_id");
-
-  return threadIDs;
-}
-
-// 2 - CREATE THREADS ////////////////////////////////////////////////////////////////////////////////////////////////
+// 2 - CREATE THREADS ////////////////////////////////////////////////////////////////////////
 
 interface Params {
   text: string;
@@ -121,7 +108,7 @@ export async function createThread({
   }
 }
 
-// 3 - FETCH ALL CHILD THREADS ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 3 - FETCH ALL CHILD THREADS ///////////////////////////////////////////////////////////////////////
 
 async function fetchAllChildThreads(threadId: string): Promise<any[]> {
   const childThreads = await Thread.find({ parentId: threadId });
@@ -135,7 +122,7 @@ async function fetchAllChildThreads(threadId: string): Promise<any[]> {
   return descendantThreads;
 }
 
-// 4 - DELETE THREAD ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 4 - DELETE THREAD /////////////////////////////////////////////////////////////////////////////
 
 export async function deleteThread(id: string, path: string): Promise<void> {
   try {
@@ -193,7 +180,7 @@ export async function deleteThread(id: string, path: string): Promise<void> {
   }
 }
 
-// 5 - FETCH A THREAD ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 5 - FETCH A THREAD //////////////////////////////////////////////////////////////////////////////
 
 export async function fetchThreadById(threadId: string) {
   connectToDB();
@@ -238,7 +225,7 @@ export async function fetchThreadById(threadId: string) {
   }
 }
 
-// 6 - ADD COMMENT TO THREAD ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 6 - ADD COMMENT TO THREAD ////////////////////////////////////////////////////////////////////////////
 
 export async function addCommentToThread(
   threadId: string,
@@ -280,7 +267,7 @@ export async function addCommentToThread(
   }
 }
 
-// 7 - UPDATE POST  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 7 - UPDATE POST  ///////////////////////////////////////////////////////////////////////////
 
 // export const updateThread = async ({
 //   threadId,
@@ -312,95 +299,127 @@ export async function addCommentToThread(
 //   await currentUser.save();
 // };
 
-// 7 - UPDATE LIKES OF THREAD ////////////////////////////////////////////////////////////////////////////////////////////
+////////REVISE ////???????//////////////////////////////////////////////////////////////////
 
-// export async function updateThreadLikes(threadId: string, likes: number) {
+export async function fetchThreadIDs(): Promise<string[]> {
+  connectToDB();
+
+  const threadIDs = await Thread.find().distinct("_id");
+
+  return threadIDs;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////// LIKES ///////////////////////////////////////////////////////
+
+// SAVE A LIKE IN THE DATABASE //////////////////////////////////
+
+export async function saveLike(threadId: string, userId: string, path: string) {
+  try {
+    connectToDB();
+
+    // Check if an instance already exists with the same userId and threadId
+    const existingLike = await Like.findOne({ userId, threadId });
+
+    if (existingLike) {
+      console.log(
+        `Like of thread ${threadId} already saved for user ${userId}`
+      );
+      return `Like of thread ${threadId} already saved for user ${userId}`;
+    } else {
+      const savedLike = new Like({
+        userId: userId,
+        threadId: threadId,
+      });
+
+      await savedLike.save();
+      console.log(`Successfully saved like ${threadId}`);
+      revalidatePath(path);
+      return `Successfully saved like ${threadId}`;
+    }
+  } catch (error) {
+    console.error("Error saving like:", error);
+    throw error;
+  }
+}
+
+// COUNT LIKES OF A THREAD /////////////////////////////////////////
+
+export async function countLikes(threadId: string) {
+  try {
+    connectToDB();
+
+    const likes = await Like.countDocuments({ threadId });
+    return likes;
+  } catch (error) {
+    console.error("Error fetching likes:", error);
+    throw error;
+  }
+}
+
+// UPDATE LIKES OF A THREAD ////////////////////////////////////////////////////////////////////////////
+
+export async function updateThreadLikes(threadId: string, likes: number) {
+  try {
+    connectToDB();
+
+    await Thread.findOneAndUpdate({ id: threadId }, { likes });
+  } catch (error: any) {
+    throw new Error(`Failed to create/update user: ${error.message}`);
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////REVISE REPLIES TAB:
+
+// export async function getAllThreadsByUserId(userId: string) {
 //   try {
 //     connectToDB();
+//     const user = await User.findOne({ _id: userId });
+//     if (!user) {
+//       throw new Error("User not found");
+//     }
 
-//     await Thread.findOneAndUpdate(
-//       { id: threadId },
-
-//       { likes }
-//     );
-//   } catch (error: any) {
-//     throw new Error(`Failed to create/update user: ${error.message}`);
-//   }
-// }
-
-/////////////////////////////////////////////////////////////////////////////////////////////////REPLIES TAB:
-
-export async function getAllThreadsByUserId(userId: string) {
-  try {
-    connectToDB();
-    const user = await User.findOne({ _id: userId });
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    const threads = [];
-    for (const threadId of user.threads) {
-      const thread = await Thread.findOne({ _id: threadId });
-      if (thread) {
-        threads.push(thread);
-      }
-    }
-
-    return threads;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////REPLIES TAB:
-
-export async function fetchThreadsWithChildren(threadIds: string[]) {
-  try {
-    connectToDB();
-    const threadsWithChildren = await Thread.find({
-      _id: { $in: threadIds },
-    }).populate("children");
-
-    if (!threadsWithChildren || threadsWithChildren.length === 0) {
-      throw new Error("No threads found with the provided IDs");
-    }
-
-    return threadsWithChildren;
-  } catch (error) {
-    console.error("Error fetching children of threads:", error);
-    throw error;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////REPLIES TAB
-
-// interface Thread {
-//   _id: string;
-//   text: string;
-//   author: string;
-//   parentId?: string | null;
-//   community?: string | null;
-//   createdAt: Date;
-//   children: Thread[] | null;
-//   likes: number;
-// }
-
-// export async function getCompleteThreadsfromChildren(threadIds: string[]) {
-//   try {
-//     const threads: Thread[] = [];
-//     for (const threadId of threadIds) {
-//       const thread = await Thread.findById(threadId);
+//     const threads = [];
+//     for (const threadId of user.threads) {
+//       const thread = await Thread.findOne({ _id: threadId });
 //       if (thread) {
 //         threads.push(thread);
 //       }
 //     }
+
 //     return threads;
 //   } catch (error) {
-//     console.error("Error fetching replies:", error);
+//     console.error(error);
 //     throw error;
 //   }
 // }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+// export async function fetchThreadsWithChildren(threadIds: string[]) {
+//   try {
+//     connectToDB();
+//     const threadsWithChildren = await Thread.find({
+//       _id: { $in: threadIds },
+//     }).populate("children");
+
+//     if (!threadsWithChildren || threadsWithChildren.length === 0) {
+//       throw new Error("No threads found with the provided IDs");
+//     }
+
+//     return threadsWithChildren;
+//   } catch (error) {
+//     console.error("Error fetching children of threads:", error);
+//     throw error;
+//   }
+// }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////// SAVED POSTS ///////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface Thread {
   _id: string;
@@ -529,31 +548,6 @@ export async function unSaveThread(
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// TO GET THE FAVOURITE (SAVED ) THREADS OF A USER
-
-// export async function fetchSavedThreads(userId: string) {
-//   try {
-//     const savedDocuments = await Saved.find({ userId });
-//     const threadIds = [];
-//     for (const savedDocument of savedDocuments) {
-//       threadIds.push(savedDocument.threadId);
-//     }
-
-//     const threads = [];
-//     for (const threadId of threadIds) {
-//       const thread = await Thread.findOne({ _id: threadId });
-//       if (thread) {
-//         threads.push(thread);
-//       }
-//     }
-
-//     return threads;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// }
 
 export async function fetchSavedThreadsIds(userId: string) {
   try {
