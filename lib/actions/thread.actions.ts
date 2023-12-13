@@ -323,10 +323,10 @@ export async function saveLike(threadId: string, userId: string, path: string) {
     const existingLike = await Like.findOne({ userId, threadId });
 
     if (existingLike) {
-      console.log(
-        `Like of thread ${threadId} already saved for user ${userId}`
-      );
-      return `Like of thread ${threadId} already saved for user ${userId}`;
+      await Like.findOneAndDelete({ userId, threadId });
+      revalidatePath(path);
+      console.log(`Like of thread ${threadId} removed for user ${userId}`);
+      return `Like of thread ${threadId} removed for user ${userId}`;
     } else {
       const savedLike = new Like({
         userId: userId,
@@ -354,6 +354,19 @@ export async function countLikes(threadId: string) {
     return likes;
   } catch (error) {
     console.error("Error fetching likes:", error);
+    throw error;
+  }
+}
+
+// GET ALL LIKED THREAD IDS /////////////////////////////////////////
+export async function getAllLikedThreadIds(userId: string) {
+  try {
+    connectToDB();
+
+    const threadIds = await Like.distinct("threadId", { userId });
+    return threadIds;
+  } catch (error) {
+    console.error("Error fetching threadIds:", error);
     throw error;
   }
 }
