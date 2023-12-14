@@ -18,13 +18,6 @@ const SaveThread = ({ threadId, currentUserId, isComment, userId }: Props) => {
 
   const pathname = usePathname();
 
-  // console.log("the threadID getting to the SaveThread component", threadId);
-  // console.log(
-  //   "the currentUserId getting to the SaveThread component",
-  //   currentUserId
-  // );
-  // console.log("the UserId getting to the SaveThread component", userId);
-
   const HandleSaveThread = async () => {
     try {
       const response = await saveThread(threadId, userId, pathname);
@@ -53,7 +46,11 @@ const SaveThread = ({ threadId, currentUserId, isComment, userId }: Props) => {
         className="cursor-pointer object-contain"
       />
       {saveMessage && (
-        <div className={isComment ? "text-light-1" : "text-dark-1"}>
+        <div
+          className={`text-small-regular ${
+            isComment ? "text-light-1" : "text-dark-1"
+          }`}
+        >
           {saveMessage}
         </div>
       )}

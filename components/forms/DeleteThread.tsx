@@ -26,9 +26,6 @@ function DeleteThread({
 
   if (currentUserId !== authorId || pathname === "/") return null;
 
-  // console.log("what is currentUserId", currentUserId);
-  // console.log("what is authorId", authorId);
-
   return (
     <Image
       src={isComment ? "/assets/delete-black.svg" : "/assets/delete-red.svg"}
@@ -39,9 +36,8 @@ function DeleteThread({
       onClick={async () => {
         await deleteThread(JSON.parse(threadId), pathname);
         if (!parentId || !isComment) {
-          router.push("/");
+          router.push(pathname);
         }
-        // await removeLikedThread(JSON.parse(threadId), currentUserId); //// I NEED TO PASS THE USERID not the CLERK
       }}
     />
   );

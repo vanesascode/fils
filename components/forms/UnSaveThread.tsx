@@ -29,7 +29,7 @@ const SaveThread = ({
     try {
       const response = await unSaveThread(threadId, userId, pathname);
       if (response === `Successfully unsaved thread ${threadId}`) {
-        setSaveMessage(`Removed from saved list`);
+        setSaveMessage(`Removed`);
       } else {
         setSaveMessage(`Saved`);
       }
@@ -54,7 +54,11 @@ const SaveThread = ({
           className="cursor-pointer object-contain"
         />
         {saveMessage && (
-          <div className={isComment ? "text-light-1" : "text-dark-1"}>
+          <div
+            className={`text-small-regular ${
+              isComment ? "text-light-1" : "text-dark-1"
+            }`}
+          >
             {saveMessage}
           </div>
         )}

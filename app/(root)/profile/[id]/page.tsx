@@ -86,11 +86,6 @@ async function Page({ params }: { params: { id: string } }) {
             />
           </TabsContent>
 
-          {/* <TabsContent value="replies" className="w-full text-light-1"> */}
-          {/* @ts-ignore */}
-          {/* <RepliesTab currentUserId={user.id} />
-          </TabsContent> */}
-
           {user.id === params.id && (
             <TabsContent value="saved" className="w-full text-light-1">
               {/* @ts-ignore */}

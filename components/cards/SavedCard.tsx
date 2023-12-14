@@ -53,6 +53,8 @@ async function SavedCard({
 }: Props) {
   const userId = await getUserId(currentUserId);
 
+  console.log(currentUserId);
+
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
