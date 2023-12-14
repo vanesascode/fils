@@ -456,6 +456,7 @@ export async function getCompleteThreadsfromThreadsIds(threadIds: string[]) {
     const populatedThreads = await Thread.find({ _id: { $in: threadIds } })
       .populate("author", ["username", "name", "image"])
       .populate("community", ["id", "name", "image"])
+      .sort({ createdAt: -1 })
       .exec();
 
     populatedThreads.forEach((thread: any) => {

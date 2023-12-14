@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
-import { redirect, useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { profileTabs } from "@/constants";
 
@@ -38,37 +38,41 @@ async function Page({ params }: { params: { id: string } }) {
           {/* TABS LIST*/}
 
           <TabsList className="tab">
-            {profileTabs.map((tab) => (
-              <TabsTrigger
-                key={tab.label}
-                value={tab.value}
-                className="tab rounded-lg box-shadow-small"
-              >
-                <Image
-                  src={tab.icon}
-                  alt={tab.label}
-                  width={24}
-                  height={24}
-                  className="object-contain"
-                />
-                {/*Label shown only in big screens */}
+            {profileTabs
+              .filter(
+                (tab) => !(tab.label === "Saved" && user.id !== params.id)
+              )
+              .map((tab) => (
+                <TabsTrigger
+                  key={tab.label}
+                  value={tab.value}
+                  className="tab rounded-lg box-shadow-small"
+                >
+                  <Image
+                    src={tab.icon}
+                    alt={tab.label}
+                    width={24}
+                    height={24}
+                    className="object-contain"
+                  />
+                  {/*Label shown only in big screens */}
 
-                <p className="max-sm:hidden text-light-1">{tab.label}</p>
+                  <p className="max-sm:hidden text-light-1">{tab.label}</p>
 
-                {/* How many threads the user has :  */}
+                  {/* How many threads the user has :  */}
 
-                {tab.label === "Fils" && (
-                  <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
-                    {userInfo.threads.length}
-                  </p>
-                )}
-                {tab.label === "Saved" && (
-                  <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
-                    {savedThreads.length}
-                  </p>
-                )}
-              </TabsTrigger>
-            ))}
+                  {tab.label === "Fils" && (
+                    <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
+                      {userInfo.threads.length}
+                    </p>
+                  )}
+                  {tab.label === "Saved" && (
+                    <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
+                      {savedThreads.length}
+                    </p>
+                  )}
+                </TabsTrigger>
+              ))}
           </TabsList>
 
           {/* TABS CONTENT*/}
@@ -87,10 +91,12 @@ async function Page({ params }: { params: { id: string } }) {
           {/* <RepliesTab currentUserId={user.id} />
           </TabsContent> */}
 
-          <TabsContent value="saved" className="w-full text-light-1">
-            {/* @ts-ignore */}
-            <SavedTab currentUserId={user.id} savedThreads={savedThreads} />
-          </TabsContent>
+          {user.id === params.id && (
+            <TabsContent value="saved" className="w-full text-light-1">
+              {/* @ts-ignore */}
+              <SavedTab currentUserId={user.id} savedThreads={savedThreads} />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </section>

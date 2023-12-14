@@ -11,19 +11,19 @@ interface Props {
   currentUserId: string;
   userId: string;
   isComment?: boolean;
+  author: string;
 }
 
-const SaveThread = ({ threadId, currentUserId, isComment, userId }: Props) => {
+const SaveThread = ({
+  threadId,
+  currentUserId,
+  isComment,
+  userId,
+  author,
+}: Props) => {
   const [saveMessage, setSaveMessage] = useState("");
 
   const pathname = usePathname();
-
-  // console.log("the threadID getting to the SaveThread component", threadId);
-  // console.log(
-  //   "the currentUserId getting to the SaveThread component",
-  //   currentUserId
-  // );
-  // console.log("the UserId getting to the SaveThread component", userId);
 
   const HandleSaveThread = async () => {
     try {
@@ -43,21 +43,23 @@ const SaveThread = ({ threadId, currentUserId, isComment, userId }: Props) => {
   };
 
   return (
-    <div className="flex items-center gap-2">
-      <Image
-        src={isComment ? "/assets/save-white.svg" : "/assets/save-black.svg"}
-        alt="save button"
-        width={24}
-        height={24}
-        onClick={HandleSaveThread}
-        className="cursor-pointer object-contain"
-      />
-      {saveMessage && (
-        <div className={isComment ? "text-light-1" : "text-dark-1"}>
-          {saveMessage}
-        </div>
-      )}
-    </div>
+    <>
+      <div className="flex items-center gap-2">
+        <Image
+          src={isComment ? "/assets/save-white.svg" : "/assets/save-black.svg"}
+          alt="save button"
+          width={24}
+          height={24}
+          onClick={HandleSaveThread}
+          className="cursor-pointer object-contain"
+        />
+        {saveMessage && (
+          <div className={isComment ? "text-light-1" : "text-dark-1"}>
+            {saveMessage}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

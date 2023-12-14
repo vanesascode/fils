@@ -40,7 +40,7 @@ interface Props {
   threadId?: string | null | undefined;
 }
 
-async function ThreadCard({
+async function SavedCard({
   id,
   currentUserId,
   parentId,
@@ -104,11 +104,11 @@ async function ThreadCard({
             >
               {content}
             </p>
-            {/*THE NUMBER OF REPLIES IF IT IS AN ORIGINAL THREAD*/}
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-5">
                 {/*SAVE THREAD ICON */}
+
                 <Link href={`/thread/${id}`}>
                   <Image
                     src={"/assets/go.svg"}
@@ -123,6 +123,7 @@ async function ThreadCard({
                   threadId={id ? id.toString() : ""}
                   currentUserId={currentUserId.toString()}
                   userId={userId ? userId.toString() : ""}
+                  author={author.id ? author.id.toString() : ""}
                 />
               </div>
             </div>
@@ -133,4 +134,4 @@ async function ThreadCard({
   );
 }
 
-export default ThreadCard;
+export default SavedCard;
