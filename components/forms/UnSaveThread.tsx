@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { unSaveThread } from "@/lib/actions/thread.actions";
+import { unSaveThread } from "@/lib/actions/saved.actions";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 

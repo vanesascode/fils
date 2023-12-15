@@ -2,7 +2,7 @@ import { getUserId } from "@/lib/actions/user.actions";
 import {
   fetchSavedThreadsIds,
   getCompleteThreadsfromThreadsIds,
-} from "@/lib/actions/thread.actions";
+} from "@/lib/actions/saved.actions";
 
 import SavedCard from "../cards/SavedCard";
 

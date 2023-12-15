@@ -3,8 +3,7 @@
 import Image from "next/image";
 
 import { useEffect, useState } from "react";
-import { saveLike } from "@/lib/actions/thread.actions";
-import { getAllLikedThreadIds } from "@/lib/actions/thread.actions";
+import { saveLike, getAllLikedThreadIds } from "@/lib/actions/like.actions";
 import { usePathname } from "next/navigation";
 
 interface Props {
@@ -13,6 +12,7 @@ interface Props {
   userId: string;
   isComment?: boolean;
   likes: number;
+  red: boolean;
 }
 
 export default function Likes({
@@ -21,6 +21,7 @@ export default function Likes({
   isComment,
   userId,
   likes,
+  red,
 }: Props) {
   const pathname = usePathname();
 
@@ -28,26 +29,13 @@ export default function Likes({
 
   const handleSaveLike = async () => {
     try {
-      const response = await saveLike(threadId, userId, pathname);
+      await saveLike(threadId, userId, pathname);
     } catch (error: any) {
       console.error("Error saving thread:", error);
     }
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const ids = await getAllLikedThreadIds(userId);
-  //     console.log(ids);
-  //     let isLiked = false;
-  //     if (ids.includes(threadId)) {
-  //       isLiked = true;
-  //       setHeartLiked(true);
-  //     }
-  //     console.log(isLiked);
-  //   };
-
-  //   fetchData();
-  // }, []);
+  console.log(red, "red");
 
   return (
     <>
@@ -55,8 +43,9 @@ export default function Likes({
         <Image
           alt="heart"
           src={
-            // (heartLiked && "/assets/heart-filled.svg") ||
-            isComment ? "/assets/heart-white.svg" : "/assets/heart-black.svg"
+            (red && "/assets/heart-filled.svg") || isComment
+              ? "/assets/heart-white.svg"
+              : "/assets/heart-black.svg"
           }
           width={24}
           height={24}

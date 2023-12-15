@@ -6,6 +6,7 @@ import Community from "../models/community.model";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import Like from "../models/like.model";
+import Saved from "../models/saved.model";
 
 import { connectToDB } from "../mongoose";
 
@@ -73,6 +74,8 @@ export async function deleteUser(id: string, path: string) {
     await Thread.deleteMany({ author: user._id });
 
     await Like.deleteMany({ userId: user._id });
+
+    await Saved.deleteMany({ userId: user._id });
 
     console.log("User and associated threads have been deleted.");
 

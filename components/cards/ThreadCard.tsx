@@ -9,7 +9,9 @@ import SaveThread from "../forms/SaveThread";
 
 import { getUserId } from "@/lib/actions/user.actions";
 
-import { countLikes } from "@/lib/actions/thread.actions";
+import { countLikes, getAllLikedThreadIds } from "@/lib/actions/like.actions";
+
+import { countSaves } from "@/lib/actions/saved.actions";
 
 interface Props {
   id: string;
@@ -38,13 +40,11 @@ interface Props {
     };
   }[];
   isComment?: boolean;
-  // likes: number;
-  threadId?: string;
 }
 
 //All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
 async function ThreadCard({
-  id,
+  id, // thread._id
   currentUserId,
   parentId,
   content,
@@ -52,31 +52,49 @@ async function ThreadCard({
   community,
   createdAt,
   comments,
-  // likes,
   isComment,
-  threadId,
 }: Props) {
+  /////////////////////////////////////////////////////////////
+
   //////////////////////////////////////////////////////////
 
-  // console.log("currentUserId in ThreadCard", currentUserId); //user_2YDmo498seTopzVzPejYayif20n
-
-  const userId = await getUserId(currentUserId);
-  // const userIdString = userId.toString();
-
-  // console.log(userIdString);
+  const userId = await getUserId(currentUserId); //pk of logged in user
 
   ////////////////////////////////////////////////////////////////
 
   const likes = await countLikes(id);
+  const saves = await countSaves(id);
+
+  /////////////////////////////////////////////////////////////
+
+  const likedThreadIds = await getAllLikedThreadIds(userId);
+  console.log("LikedThreadIds", likedThreadIds);
+
+  // LikedThreadIds [
+  //   new ObjectId("657c75abbf8bee1076f4af4c"),
+  //   new ObjectId("657c75c5bf8bee1076f4af68"),
+  // ]
+
+  const likedThreadIdsStrings = likedThreadIds.map((id) => id.toString());
+
+  console.log(likedThreadIdsStrings, "likedThreadIdsStrings");
+
+  ///////////////////////////////////////////////////////////
+  console.log("current thread id", id.toString());
+
+  const isLiked = likedThreadIds.includes(id.toString());
+
+  console.log(isLiked, "isLiked in thread card");
 
   ////////////////////////////////////////////////////////
+
   return (
     <article
       className={`flex w-full flex-col rounded-xl ${
         isComment ? "px-0 xs:px-7" : "bg-light-1 p-7 box-shadow-big"
       }`}
     >
-      {/*ALL CARDS********************************************************************************************************************************************/}
+      {/*ALL CARDS***/}
 
       {/*PROFILE IMAGE */}
 
@@ -84,7 +102,6 @@ async function ThreadCard({
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
             <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
-              {/* See that is it not '_id', but 'id'. So, it is the Clerk id! */}
               <Image
                 src={author.image}
                 alt="user_community_image"
@@ -95,7 +112,6 @@ async function ThreadCard({
 
             {/*THE VERTICAL LINE */}
 
-            {/* a line pointing down that indicates that we can have later on more comments attached to this thread: */}
             <div
               className={`thread-card_bar ${
                 isComment ? "bg-light-1" : "bg-dark-1"
@@ -130,25 +146,18 @@ async function ThreadCard({
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-5">
-                {/* LIKES */}
-                {/* <Image
-                  src={
-                    isComment
-                      ? "/assets/heart-white.svg"
-                      : "/assets/heart-black.svg"
-                  }
-                  alt="heart"
-                  width={24}
-                  height={24}
-                  className="cursor-pointer object-contain"
-                /> */}
+                {/* LIKES ************************************************************************************************/}
+
                 <Likes
                   isComment={isComment}
                   threadId={id ? id.toString() : ""}
                   currentUserId={currentUserId.toString()}
                   userId={userId ? userId.toString() : ""}
                   likes={likes}
+                  red={isLiked}
                 />
+
+                {/* ************************************************************************************************/}
 
                 {/*REPLIES */}
                 <Link href={`/thread/${id}`}>
@@ -185,6 +194,7 @@ async function ThreadCard({
                   threadId={id ? id.toString() : ""}
                   currentUserId={currentUserId.toString()}
                   userId={userId ? userId.toString() : ""}
+                  saves={saves}
                 />
               </div>
               {!community && isComment && (
@@ -193,7 +203,7 @@ async function ThreadCard({
                 </p>
               )}
 
-              {/*DEPENDING WHETHER IT IS ORIGINAL OR COMMENT**********************************************************************************************************/}
+              {/*DEPENDING WHETHER IT IS ORIGINAL OR COMMENT****/}
 
               {/*THE NUMBER OF REPLIES IF IT IS A COMMENT*/}
 

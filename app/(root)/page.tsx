@@ -4,8 +4,12 @@ import { redirect } from "next/navigation";
 import ThreadCard from "@/components/cards/ThreadCard";
 import Pagination from "@/components/shared/Pagination";
 
-import { fetchPosts, fetchThreadIDs } from "@/lib/actions/thread.actions";
+import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
+
+// import DataContext from "../context/DataContext";
+// import { useContext } from "react";
+// import { DataContextType } from "../context/types";
 
 async function Home({
   searchParams,
@@ -14,6 +18,12 @@ async function Home({
 }) {
   // console.log("searchParams", searchParams); // searchParams { page: '2' }
   //It is like this as long as you have an URL such as: http://localhost:3000/?page=2
+
+  /////////////// WORKING ON A DATA CONTEXT: ////////////////////
+
+  // const { saveMessage, setSaveMessage } = useContext(
+  //   DataContext
+  // ) as DataContextType;
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,21 +46,6 @@ async function Home({
     5
   );
 
-  const threadsWithIDs = await fetchThreadIDs();
-
-  // console.log("threadID in Home", threadsWithIDs);
-  // [
-  //   new ObjectId("656f29cabd15bef8ad674b8d"),
-  //   new ObjectId("656f33310b0b77515576060d"),
-  //   new ObjectId("656f33590b0b775155760621"),
-  //   new ObjectId("656f3b400b0b77515576073a"),
-  //   new ObjectId("656f3b740b0b775155760755"),
-  //   new ObjectId("656f3b940b0b775155760779"),
-  //   new ObjectId("6575d9d16a8cefef206c1ce8"),
-  //   new ObjectId("6575da416a8cefef206c1d11"),
-  //   new ObjectId("6575da806a8cefef206c1d21")
-  // ]
-
   return (
     <>
       <h1 className="head-text ">What's up?</h1>
@@ -62,7 +57,6 @@ async function Home({
           <>
             {result.posts.map((post) => (
               <ThreadCard
-                //(left) the props we pass to ThreadCard --=-- (right) info from mongoDB(check thread.model.ts file to see what you can access) or Clerk(currentUSer: user.id)
                 key={post._id}
                 id={post._id}
                 currentUserId={user.id}
@@ -72,8 +66,6 @@ async function Home({
                 community={post.community}
                 createdAt={post.createdAt}
                 comments={post.children}
-                threadId={post.threadId}
-                // likes={post.likes}
               />
             ))}
           </>

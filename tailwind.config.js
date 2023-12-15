@@ -192,6 +192,13 @@ module.exports = {
           fontWeight: "600",
         },
       ],
+      "subtle-bold": [
+        "12px",
+        {
+          lineHeight: "16px",
+          fontWeight: "700",
+        },
+      ],
       "tiny-medium": [
         "10px",
         {

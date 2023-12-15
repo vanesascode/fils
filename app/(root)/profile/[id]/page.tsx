@@ -11,7 +11,7 @@ import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { fetchUser } from "@/lib/actions/user.actions";
-import { fetchSavedThreadsIds } from "@/lib/actions/thread.actions";
+import { fetchSavedThreadsIds } from "@/lib/actions/saved.actions";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();

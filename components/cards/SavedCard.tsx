@@ -1,12 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-import { formatDateString } from "@/lib/utils";
-import DeleteSaved from "../forms/DeleteThread";
-
-import Likes from "../forms/Likes";
 import UnSaveThread from "../forms/UnSaveThread";
-
 import { getUserId } from "@/lib/actions/user.actions";
 
 interface Props {

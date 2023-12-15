@@ -10,6 +10,8 @@ import Bottombar from "@/components/shared/Bottombar";
 import RightSidebar from "@/components/shared/RightSidebar";
 import Topbar from "@/components/shared/Topbar";
 
+import { DataProvider } from "../context/DataContext";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -22,7 +24,7 @@ export const metadata = {
   authors: [{ name: "vanesascode" }],
   generator: "Next.js",
   keywords: [
-    "vnesascode",
+    "vanesascode",
     "code",
     "web development",
     "typescript",
@@ -51,24 +53,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
-      <html lang="en">
-        <body className={inter.className}>
-          <Topbar />
+    <DataProvider>
+      <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
+        <html lang="en">
+          <body className={inter.className}>
+            <Topbar />
 
-          <main className="flex flex-row">
-            <LeftSidebar />
-            <section className="main-container">
-              <div className="w-full max-w-4xl">{children}</div>
-            </section>
-            {/* @ts-ignore */}
-            <RightSidebar />
-          </main>
+            <main className="flex flex-row">
+              <LeftSidebar />
+              <section className="main-container">
+                <div className="w-full max-w-4xl">{children}</div>
+              </section>
+              {/* @ts-ignore */}
+              <RightSidebar />
+            </main>
 
-          <Bottombar />
-        </body>
-      </html>
-    </ClerkProvider>
+            <Bottombar />
+          </body>
+        </html>
+      </ClerkProvider>
+    </DataProvider>
   );
 }
 
