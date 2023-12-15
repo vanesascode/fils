@@ -1,18 +1,17 @@
 "use server";
 
 import { FilterQuery, SortOrder } from "mongoose";
-
+import { revalidatePath } from "next/cache";
 import Community from "../models/community.model";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
+import Like from "../models/like.model";
 
 import { connectToDB } from "../mongoose";
 
-// Several functions related to fetching and updating the user data without needing an endpoint in the api folder:
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// 1 - UPDATE USER - Once they have logged in and go to the Onboarding Form /////////////////////////////////////////////////////////////////
+// UPDATE USER - Once they have logged in and go to the Onboarding Form ///////////////////////////////////////////
 
 interface Params {
   userId: string;
@@ -35,14 +34,12 @@ export async function updateUser({
 }: Params): Promise<void> {
   try {
     connectToDB();
-
     await User.findOneAndUpdate(
       { id: userId },
 
       {
         username: username.toLowerCase(),
         name,
-
         bio,
         image,
         onboarded: true,
@@ -57,7 +54,37 @@ export async function updateUser({
 
 //The findOneAndUpdate method is a Mongoose method that is used to find a document in a MongoDB collection and update it. It takes three arguments: the first argument is an object that specifies the query to find the document to update, the second argument is an object that specifies the properties to update, and the third argument is an options object that specifies additional options for the update operation.
 
-// 2 - FETCH USER ////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// - DELETE USER ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function deleteUser(id: string, path: string) {
+  try {
+    connectToDB();
+    const userId = await getUserId(id);
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    await User.deleteOne({ _id: user._id });
+
+    await Thread.deleteMany({ author: user._id });
+
+    await Like.deleteMany({ userId: user._id });
+
+    console.log("User and associated threads have been deleted.");
+
+    revalidatePath(path);
+  } catch (error: any) {
+    throw new Error(`Failed to delete user: ${error.message}`);
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// - FETCH USER ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchUser(userId: string) {
   try {
@@ -108,40 +135,40 @@ export async function fetchUserPosts(userId: string) {
 
 // 3 - FETCH USER POSTS ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export async function fetchChildrenOfThreads(userId: string) {
-  try {
-    connectToDB();
+// export async function fetchChildrenOfThreads(userId: string) {
+//   try {
+//     connectToDB();
 
-    // Find the user with the given userId and populate the 'threads' property
-    const user = await User.findOne({ id: userId }).populate({
-      path: "threads",
-      model: Thread,
-      populate: [
-        {
-          path: "community",
-          model: Community,
-          select: "name id image _id",
-        },
-        {
-          path: "children",
-          model: Thread,
-          populate: {
-            path: "author",
-            model: User,
-            select: "name image id",
-          },
-        },
-      ],
-    });
+//     // Find the user with the given userId and populate the 'threads' property
+//     const user = await User.findOne({ id: userId }).populate({
+//       path: "threads",
+//       model: Thread,
+//       populate: [
+//         {
+//           path: "community",
+//           model: Community,
+//           select: "name id image _id",
+//         },
+//         {
+//           path: "children",
+//           model: Thread,
+//           populate: {
+//             path: "author",
+//             model: User,
+//             select: "name image id",
+//           },
+//         },
+//       ],
+//     });
 
-    return user.threads; // Return the populated 'threads' array
-  } catch (error) {
-    console.error("Error fetching user threads:", error);
-    throw error;
-  }
-}
+//     return user.threads; // Return the populated 'threads' array
+//   } catch (error) {
+//     console.error("Error fetching user threads:", error);
+//     throw error;
+//   }
+// }
 
-// 3 - FETCH USERS  FOR THE RIGHT SIDEBAR ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 3 - FETCH USERS FOR THE RIGHT SIDEBAR ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchSuggestedUsers({ userId }: { userId: string }) {
   try {
@@ -219,7 +246,7 @@ export async function fetchUsers({
   }
 }
 
-// 5 - GET ACTIVITY ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 5 - GET ACTIVITY //////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function getActivity(userId: string) {
   try {

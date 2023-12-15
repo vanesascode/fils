@@ -1,11 +1,11 @@
 "use client";
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { updateUser } from "@/lib/actions/user.actions";
+import { updateUser, deleteUser } from "@/lib/actions/user.actions";
 
 import { useRouter } from "next/navigation";
 import { updateDatabaseCommunityInfo } from "@/lib/actions/community.actions";
@@ -23,8 +23,8 @@ interface Props {
 }
 
 function ProfileHeader({
-  accountId,
-  authUserId,
+  accountId, // this is the id of the current profile user
+  authUserId, // this is the logged in user
   name,
   username,
   imgUrl,
@@ -92,11 +92,26 @@ function ProfileHeader({
     router.refresh();
   };
 
+  // HANDLERS DELETE PROFILE
+
+  const deleteProfile = async () => {
+    try {
+      const response = await deleteUser(authUserId, pathname);
+      console.log(response);
+    } catch (error: any) {
+      console.error("Error updating user:", error);
+    }
+    router.push("/");
+  };
+
+  // console.log(authUserId);
+  // console.log(accountId);
+
   return (
     <div className="flex w-full flex-col justify-start">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          {/*IMAGE - NAME - USERNAME*/}
+          {/*IMAGE - */}
 
           <div className="relative h-20 w-20 object-cover">
             <Image
@@ -106,6 +121,8 @@ function ProfileHeader({
               className="rounded-full object-cover shadow-2xl"
             />
           </div>
+
+          {/* NAME - USERNAME */}
           {editMode ? (
             <div className="flex-1">
               <h2 className="text-left text-heading3-bold text-light-1">
@@ -256,6 +273,14 @@ function ProfileHeader({
         </div>
       )}
 
+      {editMode && accountId === authUserId && type !== "Community" && (
+        <div
+          className="text-base-regular text-dark-1 text-end"
+          onClick={deleteProfile}
+        >
+          Delete Account
+        </div>
+      )}
       {/* <div className="mt-5 h-0.5 w-full bg-dark-1" /> */}
     </div>
   );
