@@ -15,6 +15,14 @@
   color: black;
 }
 
+.rounded-image-profile-topbar {
+  /*tried with Tailwind but not responding well*/
+  height: 45px;
+  width: 45px;
+  border-radius: 22.5px;
+  object-fit: cover;
+}
+
 .rounded-image-profile-reply {
   /*tried with Tailwind but not responding well*/
   height: 20px;

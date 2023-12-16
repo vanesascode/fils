@@ -179,7 +179,7 @@ export async function fetchSuggestedUsers({ userId }: { userId: string }) {
 
     const users = await User.find({ id: { $ne: userId } })
       .sort({ _id: -1 })
-      .limit(5);
+      .limit(12);
 
     return { users };
   } catch (error) {

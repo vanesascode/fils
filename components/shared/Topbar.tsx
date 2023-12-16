@@ -1,8 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
-import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
+import {
+  OrganizationSwitcher,
+  currentUser,
+  SignOutButton,
+  SignedIn,
+} from "@clerk/nextjs";
+import { getUserId, fetchUser } from "@/lib/actions/user.actions";
 
-export default function Topbar() {
+async function Topbar() {
+  const user = await currentUser();
+  if (!user) return null;
+
+  const userInfo = await fetchUser(user.id);
+
+  if (!userInfo) return null;
+
   return (
     <nav className="topbar">
       <Link href="/" className="flex items-center gap-3">
@@ -10,7 +23,7 @@ export default function Topbar() {
         <p className="text-heading1-bold text-light-1 font-lobster ">Fils</p>
       </Link>
 
-      <div className="flex items-center pag 1">
+      <div className="flex items-center ">
         <div className="block md:hidden">
           <SignedIn>
             <SignOutButton>
@@ -24,15 +37,16 @@ export default function Topbar() {
           </SignedIn>
         </div>
 
-        <OrganizationSwitcher
-          appearance={{
-            elements: {
-              organizationSwitcherTrigger:
-                "py-2 px-4 bg-dark-2 rounded-lg text-light-1 hover:text-dark-1 hover:bg-light-1 rounded-lg ms-2 box-shadow-small outline-none",
-            },
-          }}
-        />
+        <Link href={`/profile/${user.id}`} className="flex items-center me-2">
+          <img
+            src={userInfo.image}
+            alt="Current user"
+            className="rounded-image-profile-topbar ms-3"
+          />
+        </Link>
       </div>
     </nav>
   );
 }
+
+export default Topbar;
