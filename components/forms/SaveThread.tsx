@@ -100,10 +100,3 @@ const SaveThread = ({
 };
 
 export default SaveThread;
-{
-  /* <div>
-              {saveMessage === "Saved" && (
-               
-              )}
-            </div> */
-}

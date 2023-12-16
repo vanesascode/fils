@@ -36,7 +36,7 @@ const SaveThread = ({
 
       setTimeout(() => {
         setSaveMessage("");
-      }, 2000);
+      }, 1000);
     } catch (error: any) {
       console.error("Error saving thread:", error);
     }
@@ -54,11 +54,7 @@ const SaveThread = ({
           className="cursor-pointer object-contain"
         />
         {saveMessage && (
-          <div
-            className={`text-small-regular ${
-              isComment ? "text-light-1" : "text-dark-1"
-            }`}
-          >
+          <div className="text-light-1 bg-dark-1 rounded-lg px-4 py-2 text-subtle-regular">
             {saveMessage}
           </div>
         )}

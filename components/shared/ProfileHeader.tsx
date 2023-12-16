@@ -77,21 +77,21 @@ function ProfileHeader({
     setEditMode(true);
   };
 
-  const handleSaveCommunityClick = async () => {
-    try {
-      await updateDatabaseCommunityInfo({
-        communityId: communityId || "",
-        name: newName,
-        username: newUsername,
-        image: imgUrl,
-        bio: newBio,
-      });
-    } catch (error: any) {
-      console.error("Error updating user:", error);
-    }
-    setEditMode(false);
-    router.refresh();
-  };
+  // const handleSaveCommunityClick = async () => {
+  //   try {
+  //     await updateDatabaseCommunityInfo({
+  //       communityId: communityId || "",
+  //       name: newName,
+  //       username: newUsername,
+  //       image: imgUrl,
+  //       bio: newBio,
+  //     });
+  //   } catch (error: any) {
+  //     console.error("Error updating user:", error);
+  //   }
+  //   setEditMode(false);
+  //   router.refresh();
+  // };
 
   // HANDLERS DELETE PROFILE
 
@@ -110,93 +110,65 @@ function ProfileHeader({
 
   return (
     <div className="flex w-full flex-col justify-start">
+      {/* <div className="flex items-center justify-between"> */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          {/*IMAGE - */}
+        {/*IMAGE - */}
 
-          <div className="relative h-20 w-20 object-cover">
-            <Image
-              src={imgUrl}
-              alt="logo"
-              fill
-              className="rounded-full object-cover shadow-2xl"
-            />
-          </div>
-
-          {/* NAME - USERNAME */}
-          {editMode ? (
-            <div className="flex-1">
-              <h2 className="text-left text-heading3-bold text-light-1">
-                <input
-                  defaultValue={name}
-                  className="rounded-lg bg-dark-1 px-4 py-1 w-full outline-none text-light-1"
-                  onChange={(e) => setNewName(e.target.value)}
-                ></input>
-              </h2>
-              <div className="text-base-medium text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
-                <p>@ </p>
-                <input
-                  defaultValue={username}
-                  className=" bg-dark-1  w-full outline-none ml-1"
-                  onChange={(e) => setNewUsername(e.target.value)}
-                ></input>
-              </div>
-            </div>
-          ) : (
-            <div className="flex-1">
-              <h2 className="text-left text-heading3-bold text-light-1">
-                {name}
-              </h2>
-              <p className="text-base-medium text-light-1">@{username}</p>
-            </div>
-          )}
+        <div className="relative h-20 w-20 object-cover">
+          <Image
+            src={imgUrl}
+            alt="profile pic"
+            fill
+            className="rounded-full object-cover shadow-2xl"
+          />
         </div>
 
         {/*EDIT PROFILE BUTTON*/}
+        <div>
+          {editMode
+            ? accountId === currentUserId &&
+              type !== "Community" && (
+                <div
+                  className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 "
+                  onClick={handleSaveProfileClick}
+                >
+                  <Image
+                    src="/assets/edit-black.svg"
+                    alt="save button"
+                    width={16}
+                    height={16}
+                  />
 
-        {editMode
-          ? accountId === currentUserId &&
-            type !== "Community" && (
-              <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 max-sm:hidden"
-                onClick={handleSaveProfileClick}
-              >
-                <Image
-                  src="/assets/edit-black.svg"
-                  alt="logout"
-                  width={16}
-                  height={16}
-                />
+                  <p className="text-dark-1 ">Save</p>
+                </div>
+              )
+            : accountId === currentUserId &&
+              type !== "Community" && (
+                <div
+                  className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
+                  onClick={handleEditProfileClick}
+                >
+                  <Image
+                    src="/assets/edit-white.svg"
+                    alt="logout"
+                    width={16}
+                    height={16}
+                  />
 
-                <p className="text-dark-1 max-sm:hidden">Save</p>
-              </div>
-            )
-          : accountId === currentUserId &&
-            type !== "Community" && (
-              <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
-                onClick={handleEditProfileClick}
-              >
-                <Image
-                  src="/assets/edit-white.svg"
-                  alt="logout"
-                  width={16}
-                  height={16}
-                />
-
-                <p className="text-light-1 max-sm:hidden">Edit</p>
-              </div>
-            )}
-
+                  <p className="text-light-1">Edit</p>
+                </div>
+              )}
+        </div>
         {/*FOLLOW USER BUTTON */}
 
         {accountId !== currentUserId && (
           <FollowUser currentUserId={currentUserId} accountId={accountId} />
         )}
+      </div>
 
-        {/*EDIT COMMUNITY BUTTON*/}
+      {/*EDIT COMMUNITY BUTTON*/}
 
-        {editMode
+      {/* {editMode
           ? accountId === currentUserId &&
             type === "Community" && (
               <div
@@ -228,10 +200,38 @@ function ProfileHeader({
 
                 <p className="text-light-1 max-sm:hidden">Edit</p>
               </div>
-            )}
-      </div>
+            )} */}
+      {/* </div> */}
 
-      {/*PROFILE & COMMUNITY BIO*/}
+      {/* NAME - USERNAME */}
+      {editMode ? (
+        <div className="flex-1 mt-4">
+          <h2 className="text-left text-heading3-bold text-light-1 ">
+            <input
+              defaultValue={name}
+              className="rounded-lg bg-dark-1 px-4 py-1 w-full outline-none text-light-1"
+              onChange={(e) => setNewName(e.target.value)}
+            ></input>
+          </h2>
+          <div className="text-base-medium text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
+            <p>@ </p>
+            <input
+              defaultValue={username}
+              className=" bg-dark-1  w-full outline-none ml-1 "
+              onChange={(e) => setNewUsername(e.target.value)}
+            ></input>
+          </div>
+        </div>
+      ) : (
+        <div className="flex-1 mt-2">
+          <h2 className="text-left text-body-bold text-light-1 break-all">
+            {name}
+          </h2>
+          <p className="text-base-regular text-dark-1 break-all">@{username}</p>
+        </div>
+      )}
+
+      {/*BIO*/}
 
       {editMode ? (
         <div className="mt-5 text-base-regular text-light-1 w-full">
@@ -243,12 +243,10 @@ function ProfileHeader({
           ></textarea>
         </div>
       ) : (
-        <div className="mt-5 ps-2 text-base-regular text-light-1 w-full">
-          {bio}
-        </div>
+        <div className="mt-3  text-base-regular text-light-1 w-full">{bio}</div>
       )}
 
-      {editMode && accountId === currentUserId && type !== "Community" && (
+      {/* {editMode && accountId === currentUserId && type !== "Community" && (
         <div
           className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
           onClick={handleSaveProfileClick}
@@ -262,9 +260,9 @@ function ProfileHeader({
 
           <p className="text-dark-1 text-center">Save</p>
         </div>
-      )}
+      )} */}
 
-      {editMode && accountId === currentUserId && type === "Community" && (
+      {/* {editMode && accountId === currentUserId && type === "Community" && (
         <div
           className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
           onClick={handleSaveCommunityClick}
@@ -278,7 +276,7 @@ function ProfileHeader({
 
           <p className="text-dark-1 ">Save</p>
         </div>
-      )}
+      )} */}
 
       {/*DELETE ACCOUNT BUTTON*/}
 
