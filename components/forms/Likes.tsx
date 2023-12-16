@@ -39,7 +39,7 @@ export default function Likes({
 
   return (
     <>
-      <div className="flex  items-center gap-2">
+      <div className="flex  items-center gap-[6px]">
         <Image
           alt="heart"
           src={
@@ -53,7 +53,13 @@ export default function Likes({
           onClick={handleSaveLike}
         />
 
-        <div className={isComment ? "text-light-1" : "	text-dark-1"}>
+        <div
+          className={
+            isComment
+              ? "text-light-1 text-small-regular"
+              : "text-small-semibold	text-dark-1"
+          }
+        >
           {" "}
           {likes}
         </div>

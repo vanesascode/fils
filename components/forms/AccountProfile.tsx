@@ -127,16 +127,13 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           control={form.control}
           name="profile_photo"
           render={({ field }) => (
-            <FormItem className="flex items-center gap-4">
-              <FormLabel className="account-form_image-label">
+            <FormItem className="flex items-center gap-1">
+              <FormLabel>
                 {field.value ? (
-                  <Image
+                  <img
                     src={field.value}
                     alt="profile_icon"
-                    width={96}
-                    height={96}
-                    priority
-                    className="rounded-full object-fill"
+                    className="rounded-image-profile-onboarding"
                   />
                 ) : (
                   <Image

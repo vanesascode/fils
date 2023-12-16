@@ -273,9 +273,11 @@ function ProfileHeader({
         </div>
       )}
 
+      {/*DELETE ACCOUNT BUTTON*/}
+
       {editMode && accountId === authUserId && type !== "Community" && (
         <div
-          className="text-base-regular text-dark-1 text-end"
+          className="text-base-regular text-dark-1 text-end mt-2 cursor-pointer"
           onClick={deleteProfile}
         >
           Delete Account

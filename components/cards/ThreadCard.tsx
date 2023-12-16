@@ -200,7 +200,7 @@ async function ThreadCard({
                 />
               </div>
               {!community && isComment && (
-                <p className="text-subtle-medium text-light-1 mt-5">
+                <p className="text-subtle-medium text-light-1 mt-1">
                   {formatDateString(createdAt)}
                 </p>
               )}
@@ -234,13 +234,13 @@ async function ThreadCard({
       {!isComment && comments.length > 0 && (
         <div className="ml-1 mt-3 flex items-center gap-2">
           {comments.slice(0, 2).map((comment, index) => (
-            <Image
+            <img
               key={index}
               src={comment.author.image}
               alt={`user_${index}`}
-              width={24}
-              height={24}
-              className={`${index !== 0 && "-ml-5"} rounded-full object-cover`}
+              className={`${
+                index !== 0 && "-ml-5"
+              } rounded-image-profile-reply`}
             />
           ))}
 

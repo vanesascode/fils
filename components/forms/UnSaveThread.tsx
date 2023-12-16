@@ -46,7 +46,7 @@ const SaveThread = ({
     <>
       <div className="flex items-center gap-2">
         <Image
-          src={isComment ? "/assets/save-white.svg" : "/assets/save-black.svg"}
+          src={"/assets/unsave.svg"}
           alt="save button"
           width={24}
           height={24}
