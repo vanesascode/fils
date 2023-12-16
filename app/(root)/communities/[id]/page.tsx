@@ -18,7 +18,7 @@ async function Page({ params }: { params: { id: string } }) {
 
   return (
     <section>
-      <ProfileHeader
+      {/* <ProfileHeader
         accountId={communityDetails.createdBy.id}
         authUserId={user.id}
         name={communityDetails.name}
@@ -27,7 +27,7 @@ async function Page({ params }: { params: { id: string } }) {
         bio={communityDetails.bio}
         type="Community"
         communityId={communityDetails.id}
-      />
+      /> */}
 
       <div className="mt-9">
         <Tabs defaultValue="fils" className="w-full">
