@@ -26,7 +26,7 @@ function Bottombar() {
               className={`bottombar_link ${isActive && "bg-light-1"}`}
             >
               <Image
-                src={link.imgURL}
+                src={isActive ? link.imgURLleftbar : link.imgURLbottombar}
                 alt={link.label}
                 width={16}
                 height={16}

@@ -1,35 +1,43 @@
 export const sidebarLinks = [
   {
-    imgURL: "/assets/home.svg",
+    imgURLleftbar: "/assets/home.svg",
+    imgURLbottombar: "/assets/home-white.svg",
     route: "/",
     label: "Home",
   },
   {
-    imgURL: "/assets/search.svg",
+    imgURLleftbar: "/assets/search.svg",
+    imgURLbottombar: "/assets/search-white.svg",
     route: "/search",
     label: "Search",
   },
   {
-    imgURL: "/assets/activity.svg",
+    imgURLleftbar: "/assets/activity.svg",
+    imgURLbottombar: "/assets/activity-white.svg",
     route: "/activity",
     label: "Activity",
   },
   {
-    imgURL: "/assets/post.svg",
+    imgURLleftbar: "/assets/post.svg",
+    imgURLbottombar: "/assets/post-white.svg",
     route: "/create-thread",
     label: "Create Fil",
   },
   {
-    imgURL: "/assets/community.svg",
+    imgURLleftbar: "/assets/community.svg",
+    imgURLbottombar: "/assets/community-white.svg",
     route: "/communities",
     label: "Communities",
   },
   {
-    imgURL: "/assets/user.svg",
+    imgURLleftbar: "/assets/user.svg",
+    imgURLbottombar: "/assets/user-white.svg",
     route: "/profile",
     label: "Profile",
   },
 ];
+
+
 
 export const profileTabs = [
   { value: "fils", label: "Fils", icon: "/assets/reply-white.svg" },
