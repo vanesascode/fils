@@ -7,6 +7,7 @@ import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import Like from "../models/like.model";
 import Saved from "../models/saved.model";
+import Follower from "../models/follower.model";
 
 import { connectToDB } from "../mongoose";
 
@@ -331,5 +332,43 @@ export async function removeLikedThread(threadId: string, userId: string) {
     );
   } catch (error: any) {
     throw new Error(`Failed to remove liked thread: ${error.message}`);
+  }
+}
+
+///////////////////////// SAVE FOLLOWER //////////////////////////////////////////////////////////////////////////
+
+export async function saveFollower(
+  currentUserId: string,
+  accountUserId: string,
+  path: string
+) {
+  try {
+    connectToDB();
+
+    // Check if an instance already exists with the same userId and threadId
+    const existingFollower = await Follower.findOne({
+      currentUserId,
+      accountUserId,
+    });
+
+    if (existingFollower) {
+      await Follower.findOneAndDelete({ currentUserId, accountUserId });
+      revalidatePath(path);
+      console.log(`Unfollowed`);
+      return `Unfollowed`;
+    } else {
+      const savedFollower = new Follower({
+        currentUserId: currentUserId,
+        accountUserId: accountUserId,
+      });
+
+      await savedFollower.save();
+      console.log(`Successfully saved new user followed`);
+      revalidatePath(path);
+      return `Successfully saved new user followed`;
+    }
+  } catch (error) {
+    console.error("Error saving followed user:", error);
+    throw error;
   }
 }

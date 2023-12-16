@@ -9,11 +9,12 @@ import { updateUser, deleteUser } from "@/lib/actions/user.actions";
 
 import { useRouter } from "next/navigation";
 import { updateDatabaseCommunityInfo } from "@/lib/actions/community.actions";
+import FollowUser from "../forms/FollowUser";
 
 // this info comes from the profile page or the community page?
 interface Props {
   accountId: string;
-  authUserId: string;
+  currentUserId: string;
   name: string;
   username: string;
   imgUrl: string;
@@ -24,7 +25,7 @@ interface Props {
 
 function ProfileHeader({
   accountId, // this is the id of the current profile user
-  authUserId, // this is the logged in user
+  currentUserId, // this is the logged in user
   name,
   username,
   imgUrl,
@@ -59,7 +60,7 @@ function ProfileHeader({
       await updateUser({
         name: newName,
         username: newUsername,
-        userId: authUserId,
+        userId: currentUserId,
         bio: newBio,
         image: imgUrl,
       });
@@ -96,7 +97,7 @@ function ProfileHeader({
 
   const deleteProfile = async () => {
     try {
-      const response = await deleteUser(authUserId, pathname);
+      const response = await deleteUser(currentUserId, pathname);
       console.log(response);
     } catch (error: any) {
       console.error("Error updating user:", error);
@@ -104,7 +105,7 @@ function ProfileHeader({
     router.push("/");
   };
 
-  // console.log(authUserId);
+  // console.log(currentUserId);
   // console.log(accountId);
 
   return (
@@ -154,7 +155,7 @@ function ProfileHeader({
         {/*EDIT PROFILE BUTTON*/}
 
         {editMode
-          ? accountId === authUserId &&
+          ? accountId === currentUserId &&
             type !== "Community" && (
               <div
                 className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 max-sm:hidden"
@@ -170,7 +171,7 @@ function ProfileHeader({
                 <p className="text-dark-1 max-sm:hidden">Save</p>
               </div>
             )
-          : accountId === authUserId &&
+          : accountId === currentUserId &&
             type !== "Community" && (
               <div
                 className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
@@ -187,10 +188,16 @@ function ProfileHeader({
               </div>
             )}
 
+        {/*FOLLOW USER BUTTON */}
+
+        {accountId !== currentUserId && (
+          <FollowUser currentUserId={currentUserId} accountId={accountId} />
+        )}
+
         {/*EDIT COMMUNITY BUTTON*/}
 
         {editMode
-          ? accountId === authUserId &&
+          ? accountId === currentUserId &&
             type === "Community" && (
               <div
                 className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 max-sm:hidden"
@@ -206,7 +213,7 @@ function ProfileHeader({
                 <p className="text-dark-1 max-sm:hidden">Save</p>
               </div>
             )
-          : accountId === authUserId &&
+          : accountId === currentUserId &&
             type === "Community" && (
               <div
                 className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
@@ -241,7 +248,7 @@ function ProfileHeader({
         </div>
       )}
 
-      {editMode && accountId === authUserId && type !== "Community" && (
+      {editMode && accountId === currentUserId && type !== "Community" && (
         <div
           className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
           onClick={handleSaveProfileClick}
@@ -257,7 +264,7 @@ function ProfileHeader({
         </div>
       )}
 
-      {editMode && accountId === authUserId && type === "Community" && (
+      {editMode && accountId === currentUserId && type === "Community" && (
         <div
           className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
           onClick={handleSaveCommunityClick}
@@ -275,7 +282,7 @@ function ProfileHeader({
 
       {/*DELETE ACCOUNT BUTTON*/}
 
-      {editMode && accountId === authUserId && type !== "Community" && (
+      {editMode && accountId === currentUserId && type !== "Community" && (
         <div
           className="text-base-regular text-dark-1 text-end mt-2 cursor-pointer"
           onClick={deleteProfile}
