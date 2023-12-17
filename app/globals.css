@@ -8,7 +8,7 @@
   color: #877eff;
 }
 .dsdf {
-  color: #b44343;
+  color: #d9a9a9;
 }
 
 .hover-black-text:hover p {
@@ -224,7 +224,7 @@
 
 /* Comment Form */
 .comment-form {
-  @apply mt-10 flex items-center gap-4 border-y-2 border-y-dark-1 py-5 max-xs:flex-col !important;
+  @apply mt-10 flex items-center gap-4 border-y-2 border-y-light-2 py-5 max-xs:flex-col !important;
 }
 
 .comment-form_btn {

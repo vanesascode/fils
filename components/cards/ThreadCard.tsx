@@ -127,8 +127,10 @@ async function ThreadCard({
             <Link href={`/profile/${author.id}`} className="w-fit">
               <h4
                 className={`cursor-pointer ${
-                  isComment ? "text-base-bold" : "text-base-semibold"
-                } text-dark-1`}
+                  isComment
+                    ? "text-base-bold text-light-1"
+                    : "text-base-semibold text-dark-1 "
+                } `}
               >
                 {author.name}
               </h4>
@@ -200,7 +202,7 @@ async function ThreadCard({
                 />
               </div>
               {!community && isComment && (
-                <p className="text-subtle-medium text-light-1 mt-1">
+                <p className="text-subtle-medium text-light-2 mt-1">
                   {formatDateString(createdAt)}
                 </p>
               )}
@@ -255,7 +257,7 @@ async function ThreadCard({
       {/*DATE OF ORIGINAL THREAD*/}
 
       {!community && !isComment && (
-        <p className="text-subtle-medium text-light-2 mt-5">
+        <p className="text-subtle-medium text-light-3 mt-5">
           {formatDateString(createdAt)}
         </p>
       )}

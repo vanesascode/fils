@@ -174,6 +174,10 @@ export async function deleteThread(id: string, path: string): Promise<void> {
       { $pull: { threads: { $in: descendantThreadIds } } }
     );
 
+    await Saved.deleteMany({ threadId: id });
+
+    await Like.deleteMany({ threadId: id });
+
     revalidatePath(path);
   } catch (error: any) {
     throw new Error(`Failed to delete thread: ${error.message}`);

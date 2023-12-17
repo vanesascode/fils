@@ -227,7 +227,9 @@ function ProfileHeader({
           <h2 className="text-left text-body-bold text-light-1 break-all">
             {name}
           </h2>
-          <p className="text-base-regular text-dark-1 break-all">@{username}</p>
+          <p className="text-base-semibold text-light-2 break-all mt-1">
+            @{username}
+          </p>
         </div>
       )}
 
@@ -243,7 +245,9 @@ function ProfileHeader({
           ></textarea>
         </div>
       ) : (
-        <div className="mt-3  text-base-regular text-light-1 w-full">{bio}</div>
+        <div className="mt-3  text-base-regular leading-7 text-light-1 w-full">
+          {bio}
+        </div>
       )}
 
       {/* {editMode && accountId === currentUserId && type !== "Community" && (
