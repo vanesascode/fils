@@ -62,30 +62,30 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
 interface Params {
   text: string;
   author: string;
-  communityId: string | null;
+  // communityId: string | null;
   path: string;
 }
 
 export async function createThread({
   text,
   author,
-  communityId,
+  // communityId,
   path,
 }: Params) {
   try {
     connectToDB();
 
-    const communityIdObject = await Community.findOne(
-      { id: communityId },
-      { _id: 1 } // only the _id field should be returned in the result.
-    );
+    // const communityIdObject = await Community.findOne(
+    //   { id: communityId },
+    //   { _id: 1 } // only the _id field should be returned in the result.
+    // );
 
-    console.log(communityId);
+    // console.log(communityId);
 
     const createdThread = await Thread.create({
       text,
       author,
-      community: communityIdObject,
+      // community: communityIdObject,
     });
 
     // Update User model with a particular user's own Threads
@@ -93,14 +93,14 @@ export async function createThread({
       $push: { threads: createdThread._id },
     });
 
-    if (communityIdObject) {
-      // Update Community model
-      await Community.findByIdAndUpdate(communityIdObject, {
-        $push: { threads: createdThread._id },
-      });
-    } else {
-      console.log("Community not found");
-    }
+    // if (communityIdObject) {
+    //   // Update Community model
+    //   await Community.findByIdAndUpdate(communityIdObject, {
+    //     $push: { threads: createdThread._id },
+    //   });
+    // } else {
+    //   console.log("Community not found");
+    // }
 
     revalidatePath(path);
   } catch (error: any) {

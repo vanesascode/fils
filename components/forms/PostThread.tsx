@@ -1,24 +1,15 @@
 "use client";
 
-import * as z from "zod";
-import { useForm } from "react-hook-form";
-import { useOrganization } from "@clerk/nextjs";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+
 import { usePathname, useRouter } from "next/navigation";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormDescription,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import "regenerator-runtime/runtime";
 
-import { ThreadValidation } from "@/lib/validations/thread";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+
 import { createThread } from "@/lib/actions/thread.actions";
 
 interface Props {
@@ -26,63 +17,85 @@ interface Props {
 }
 
 function PostThread({ userId }: Props) {
+  const [text, setText] = useState("");
   const router = useRouter();
   const pathname = usePathname();
 
-  const { organization } = useOrganization();
-
-  const form = useForm<z.infer<typeof ThreadValidation>>({
-    resolver: zodResolver(ThreadValidation),
-    defaultValues: {
-      thread: "",
-      accountId: userId,
-    },
-  });
-
-  const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
-    console.log(organization?.id); //////////////////////////////////////////////////////// it exists
-
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     await createThread({
-      text: values.thread,
+      text: text,
       author: userId,
-      communityId: organization ? organization.id : null,
+      // communityId: organization ? organization.id : null,
       path: pathname,
     });
 
     router.push("/");
   };
 
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
+  const copyToClipboard = () => {
+    setText(transcript);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(event.target.value);
+  };
+
+  console.log(text);
+
   return (
-    <Form {...form}>
+    <>
+      {/* FORM TO CREATE FIL */}
       <form
         className="mt-10 flex flex-col justify-start gap-10"
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
       >
-        <FormField
-          control={form.control}
-          name="thread"
-          render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3 ">
-              <FormControl
-                className="no-focus border border-dark-4 bg-light-1 text-dark-1 box-shadow-big "
-                placeholder="Write here what you want to tell the world..."
-              >
-                <Textarea rows={15} {...field} />
-              </FormControl>
+        <div className="flex w-full flex-col gap-3 ">
+          <textarea
+            className="no-focus border border-dark-4 bg-light-1 text-dark-1 box-shadow-big"
+            placeholder="Write here what you want to tell the world..."
+            rows={15}
+            value={text}
+            onChange={handleChange}
+          ></textarea>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button
+          {/* Add any form validation or error message components here */}
+        </div>
+        <button
           type="submit"
           className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"
         >
           Post
-        </Button>
+        </button>
       </form>
-    </Form>
+
+      {/* VOICE RECOGNITION BUTTONS */}
+
+      <div className="mt-10 flex gap-5">
+        <p>Microphone: {listening ? "on" : "off"}</p>
+        <button
+          onClick={() => SpeechRecognition.startListening()}
+          className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"
+        >
+          Start
+        </button>
+
+        <button
+          onClick={copyToClipboard}
+          className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"
+        >
+          Add to fil
+        </button>
+        <p>{transcript}</p>
+      </div>
+    </>
   );
 }
 
