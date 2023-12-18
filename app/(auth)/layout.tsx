@@ -14,7 +14,7 @@ export const metadata = {
   authors: [{ name: "vanesascode" }],
   generator: "Next.js",
   keywords: [
-    "vnesascode",
+    "vanesascode",
     "code",
     "web development",
     "typescript",

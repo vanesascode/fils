@@ -27,11 +27,11 @@ interface Props {
     id: string;
   };
 
-  community: {
-    id: string;
-    name: string;
-    image: string;
-  } | null;
+  // community: {
+  //   id: string;
+  //   name: string;
+  //   image: string;
+  // } | null;
 
   createdAt: string;
 
@@ -51,7 +51,7 @@ async function ThreadCard({
   parentId,
   content,
   author,
-  community,
+  // community,
   createdAt,
   comments,
   isComment,
@@ -201,7 +201,7 @@ async function ThreadCard({
                   saves={saves}
                 />
               </div>
-              {!community && isComment && (
+              {isComment && (
                 <p className="text-subtle-medium text-light-2 mt-1">
                   {formatDateString(createdAt)}
                 </p>
@@ -256,7 +256,7 @@ async function ThreadCard({
 
       {/*DATE OF ORIGINAL THREAD*/}
 
-      {!community && !isComment && (
+      {!isComment && (
         <p className="text-subtle-medium text-light-3 mt-5">
           {formatDateString(createdAt)}
         </p>
@@ -264,7 +264,7 @@ async function ThreadCard({
 
       {/*THE COMMUNITY IF IT IS AN ORIGINAL THREAD*/}
 
-      {!isComment && community && (
+      {/* {!isComment  && (
         <Link
           href={`/communities/${community.id}`}
           className="mt-5 flex items-center"
@@ -285,7 +285,7 @@ async function ThreadCard({
             className="ml-1 rounded-full object-cover"
           />
         </Link>
-      )}
+      )} */}
     </article>
   );
 }

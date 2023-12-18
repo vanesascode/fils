@@ -29,10 +29,13 @@ const SaveThread = ({
   const HandleSaveThread = async () => {
     try {
       const response = await saveThread(threadId, userId, pathname);
-      if (response === `Thread ${threadId} already saved for user ${userId}`) {
-        setSaveMessage(`Already saved`);
+      if (
+        response ===
+        `Thread ${threadId} for user ${userId} was deleted from saved list`
+      ) {
+        setSaveMessage(`Removed from your save fils`);
       } else {
-        setSaveMessage(`Saved`);
+        setSaveMessage(`Added to your saved fils`);
       }
 
       setTimeout(() => {
@@ -68,23 +71,21 @@ const SaveThread = ({
 
       {/*TOAST MESSAGE*/}
 
-      {saveMessage === "Already saved" && (
-        <div className=" rounded-lg bg-dark-1 px-4 py-2 absolute bottom-[-55px]">
-          <div
-            className="text-subtle-regular 
-              text-light-1 text-center"
-          >
-            {saveMessage}
-          </div>
+      {saveMessage === "Removed from your save fils" && (
+        <div
+          className="rounded-lg bg-dark-1 px-4 py-2 absolute max-md2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in duration-600 text-subtle-regular 
+        text-light-1 whitespace-nowrap"
+        >
+          Removed from your save fils
         </div>
       )}
 
-      {saveMessage === "Saved" && (
+      {saveMessage === "Added to your saved fils" && (
         <div
           className="rounded-lg bg-dark-1 px-4 py-2 absolute text-subtle-regular 
-        text-light-1 text-center flex flex-column right-[-40px] bottom-[-40px]"
+        text-light-1 text-center flex flex-column max-md2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in whitespace-nowrap"
         >
-          <div>{saveMessage}</div>
+          <div>Added to your saved fils</div>
           <div>
             <Link href={`/profile/${currentUserId}`}>
               <div className="text-[13px] font-extrabold cursor-pointer ml-3">

@@ -286,7 +286,7 @@ function ProfileHeader({
 
       {editMode && accountId === currentUserId && type !== "Community" && (
         <div
-          className="text-base-regular text-dark-1 text-end mt-2 cursor-pointer"
+          className="text-base-regular text-light-1 text-end mt-2 cursor-pointer"
           onClick={deleteProfile}
         >
           Delete Account

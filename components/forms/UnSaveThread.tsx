@@ -54,7 +54,7 @@ const SaveThread = ({
           className="cursor-pointer object-contain"
         />
         {saveMessage && (
-          <div className="text-light-1 bg-dark-1 rounded-lg px-4 py-2 text-subtle-regular">
+          <div className="text-light-1 bg-dark-1 rounded-lg px-4 py-2 text-subtle-regular animate-in fade-in zoom-in">
             {saveMessage}
           </div>
         )}

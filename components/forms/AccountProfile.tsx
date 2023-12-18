@@ -82,7 +82,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         );
       } else {
         setErrorMessageGeneral(
-          "An error occurred while updating your profile. Please try again. Remember that images cannot be bigger than 2MB"
+          "An error occurred while updating your profile. Please try again. Remember that images cannot be bigger than 2MB. Also, you may be using a username that already exists"
         );
       }
     }

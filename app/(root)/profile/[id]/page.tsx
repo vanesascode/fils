@@ -89,7 +89,7 @@ async function Page({ params }: { params: { id: string } }) {
           {user.id === params.id && (
             <TabsContent value="saved" className="w-full text-light-1">
               {/* @ts-ignore */}
-              <SavedTab currentUserId={user.id} savedThreads={savedThreads} />
+              <SavedTab currentUserId={user.id} />
             </TabsContent>
           )}
         </Tabs>

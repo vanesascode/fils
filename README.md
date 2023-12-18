@@ -15,19 +15,34 @@ In process:
 - Adding sharing links
 - Adding About page (and other links when logging in)
 
+---
+
 ### 🔹 Installation & Libraries used:
 
 - npx create-next-app@latest ./
+
 - npm install tailwindcss-animate
+
 - npm install @clerk/nextjs
 - npm install @clerk/themes
-- npx shadcn-ui@latest add form
-- npx shadcn-ui@latest add input
-- npx shadcn-ui@latest add textarea
-- npx shadcn-ui@latest add tabs
+
+- npx shadcn-ui@latest add form (also with input, textarea, tabs, etc.)
+
 - npm install @uploadthing/react uploadthing
+
 - npm install mongoose
-- npm install svix
+
+---
+
+For the Speech Recognition:
+
+- npm i react-speech-recognition
+
+- npm i regenerator-runtime
+
+- npm i --save-dev @types/react-speech-recognition
+
+More info [HERE](https://github.com/vanesascode/react-speech-recognition-test-typescript)
 
 ---
 
@@ -50,6 +65,21 @@ Video explanation [here](https://www.youtube.com/watch?v=L6BE-U3oy80).
 👉 While Typescript alone can provide some level of validation, it is less comprehensive compared to dedicated schema validation libraries like Zod or `Valibot` (this last one is even lighter than Zod). These libraries offer more advanced features such as custom error messages, nested schemas, and complex validation rules.
 
 ---
+
+[Tailwind-animate](https://github.com/jamiebuilds/tailwindcss-animate) is a Tailwind plugin for creating beautiful animations. For example, a smooth transition for an appearing toast:
+
+```
+   {saveMessage === "Already saved" && (
+        <div className="rounded-lg bg-dark-1 px-4 py-2 absolute bottom-[-55px] animate-in fade-in zoom-in duration-600 ">
+          <div
+            className="text-subtle-regular
+              text-light-1 text-center "
+          >
+            {saveMessage}
+          </div>
+        </div>
+      )}
+```
 
 ### 🔹 NextJS: Route Groups
 
@@ -108,45 +138,10 @@ And how is it that the comment passes to be kind of an ‘original thread’ in 
 
 ### 🔹 Design:
 
-Threds is prepared to be both a `desktop` and a `native mobile` web application. When on the desktop, you are able to see the left and right sidebars, and when on mobile, all the buttons are on the bottom, so it is easier to navigate the app with the thumb of the hand of the user.
+Fils has a design carefully crafted to grab attention and enhance usability. It is actually following the `neobrutalism` style of one of clerk's theme, which, since it is a free version of the software, it is not very much editable.
 
----
+It is also prepared to be both a `desktop` and a `native mobile` web application. When on the desktop, you are able to see the left and right sidebars, and when on mobile, all the buttons are on the bottom, so it is easier to navigate the app with the thumb of the hand of the user. Totally responsive.
 
 #### Icons come from [google icons](https://fonts.google.com/icons), the rounded ones.
 
 ---
-
-#### 👉 CSS properties I learned:
-
-- `backdrop-filter` (see class 'bottombar'): It allows you to apply various visual effects to the area behind an element, such as blurring, brightness adjustment, contrast adjustment, grayscale, hue rotation, inversion, opacity, saturation, and sepia.
-
-- `width: fit-content;` (see class 'leftsidebar'): It sets the width of an element to fit its content. So, in the leftsidebar, for example, you just don't need to set a width, which may be complicated with different screen sizes. `w-fit` (in tailwindcss) already sets the width it needs in any situation.
-
----
-
-### 🔹 Webhooks:
-
-Webhooks are a way for web applications to send real-time notifications or data to other applications or services. They allow you to `receive updates from an external service when a specific event or trigger occurs`.
-
-As I mentioned, I am working with Clerk to do the initial authentication in the social app. It also lets you create “organizations”, which are shared accounts that can be created and managed within the Clerk administrative dashboard.
-
-However, we need a webhook to make the data from Clerk go into the social media app, so we can manage it inside our app( for example, when an organization or membership is created, or deleted, etc) . It is necessary to have the webhook waiting and listening for the events from Clerk so we can then make additional actions and modify the database accordingly.
-
-👉 To do so, an endpoint is necessary in the api folder of the app. In there, we create the events to be listened to. Also, you must create a webhook inside your profile, in the Clerk website. To do so, the application must be deployed first to be able to expose the API route that will then be able to add as the endpoint. You can find more info about Clerk webhooks [here](https://lnkd.in/eAnmedYq)
-
-Then, everything is just the same: create your schema for the database, the server actions of the backend and connect it all to the endpoint (it is the `route.ts` file in the webhook/clerk folder, inside api folder, inside the app folder)
-
-### 🔹 Tips:
-
-- Autoimport of components/libraries: `Ctrl + space` or Cmd + Space
-
-- The components folder is outside of the app folder because in the app we only put the files and folders which we want NextJS to render on the home page: there's no problem because `NextJS supports file based routing.`
-
-- Specify the kinds of text in the `tailwind.config.js` file, because, unlike in the globals.css file even using 'layer-components', then, in any part of the app you can hover the class and it tells you what it is made of.
-
-- Go to https://favicon.io/favicon-converter/ to create your own.
-
-- TYPESCRIPT. To avoid the \*\*\*\* is possibly 'null' with the '&&':
-  ![image](https://github.com/vanesascode/shadcn-ui-crash-course-recipe-app-json-server/assets/131259155/8875ff49-b207-4434-91b4-e3cfabe92039)
-
-  ![image](https://github.com/vanesascode/shadcn-ui-crash-course-recipe-app-json-server/assets/131259155/f7c7cd50-dc85-4c55-b316-772b1d139c2c)

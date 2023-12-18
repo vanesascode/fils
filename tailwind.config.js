@@ -241,6 +241,10 @@ module.exports = {
         "groups-sidebar": "-30px 0px 60px 0px rgba(28, 28, 31, 0.50)",
       },
       screens: {
+        lg: "1024px",
+        md: "768px",
+        md2: "500px",
+        sm: "640px",
         xs: "400px",
       },
       keyframes: {
