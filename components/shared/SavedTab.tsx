@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { getUserId } from "@/lib/actions/user.actions";
 import {
   fetchSavedThreadsIds,
-  getCompleteThreadsfromThreadsIds,
   getSavedPosts,
 } from "@/lib/actions/saved.actions";
 
@@ -34,8 +33,6 @@ interface Props {
 
 async function SavedTab({ currentUserId }: Props) {
   // let savedResults: savedResults;
-
-  // const threads = await getCompleteThreadsfromThreadsIds(savedThreads);
 
   const userId = await getUserId(currentUserId);
 

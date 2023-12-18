@@ -1,6 +1,6 @@
 # `Fils` threaded conversations platform
 
-- Fils connects people through microblogging and social networking. It accommodates up to 10,000 active users and 100 active organizations.
+- Fils connects people through microblogging and social networking. It can accommodate up to 10,000 active users monthly, even more if the service Clerk was a paid Pro plan.
 
 - It is implemented with Next.js for both frontend and backend. It utilizes MongoDB with Mongoose for scalable data management, Zod for data integrity, Clerk for streamlined authentication, and Shadcn/ui, Tailwind, and CSS to enhance the interface.
 
