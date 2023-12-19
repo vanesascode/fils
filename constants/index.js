@@ -44,8 +44,7 @@ export const profileTabs = [
   { value: "saved", label: "Saved", icon: "/assets/save-white.svg" },
 ];
 
-export const communityTabs = [
-  { value: "fils", label: "Fils", icon: "/assets/reply-white.svg" },
-  { value: "members", label: "Members", icon: "/assets/members.svg" },
-
+export const followersTabs = [
+  { value: "followed", label: "Followed", icon: "/assets/reply-white.svg" },
+  { value: "following", label: "Following", icon: "/assets/members.svg" },
 ];

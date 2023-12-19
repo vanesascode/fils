@@ -56,39 +56,27 @@ async function ThreadCard({
   comments,
   isComment,
 }: Props) {
-  /////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////
-
-  const userId = await getUserId(currentUserId); //pk of logged in user
-
-  ////////////////////////////////////////////////////////////////
-
+  const userId = await getUserId(currentUserId); //mongoDB id of logged in user
   const likes = await countLikes(id);
   const saves = await countSaves(id);
 
   /////////////////////////////////////////////////////////////
 
-  const likedThreadIds = await getAllLikedThreadIds(userId);
-  // console.log("LikedThreadIds", likedThreadIds);
+  console.log("-----current threadIds", id);
 
-  // LikedThreadIds [
-  //   new ObjectId("657c75abbf8bee1076f4af4c"),
-  //   new ObjectId("657c75c5bf8bee1076f4af68"),
+  //new ObjectId("65809c9910ba3f31d10add1c")
+
+  const likedThreadIds = await getAllLikedThreadIds(userId);
+  console.log("***********LikedThreadIds", likedThreadIds);
+
+  // [
+  //   new ObjectId("65809c9710ba3f31d10add06"),
+  //   new ObjectId("65809c9910ba3f31d10add1c")
   // ]
 
-  const likedThreadIdsStrings = likedThreadIds.map((id) => id.toString());
+  const likedThread = likedThreadIds.includes(id);
 
-  // console.log(likedThreadIdsStrings, "likedThreadIdsStrings");
-
-  ///////////////////////////////////////////////////////////
-  // console.log("current thread id", id.toString());
-
-  const isLiked = likedThreadIds.includes(id.toString());
-
-  // console.log(isLiked, "isLiked in thread card");
-
-  ////////////////////////////////////////////////////////
+  console.log("Are LikedThreadIds included????", likedThread);
 
   return (
     <article
@@ -158,7 +146,6 @@ async function ThreadCard({
                   currentUserId={currentUserId.toString()}
                   userId={userId ? userId.toString() : ""}
                   likes={likes}
-                  red={isLiked}
                 />
 
                 {/* ************************************************************************************************/}

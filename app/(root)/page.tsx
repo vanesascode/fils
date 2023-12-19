@@ -8,6 +8,7 @@ import Pagination from "@/components/shared/Pagination";
 
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
+import { getAllLikedThreadIds } from "@/lib/actions/like.actions";
 
 // import DataContext from "../context/DataContext";
 // import { useContext } from "react";
@@ -35,9 +36,7 @@ async function Home({
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  //FETCH POSTS///////////////////////////////////////////////////////////////////////////////////////////////
-
-  // remember the function is:  fetchPosts(pageNumber = 1, pageSize = 20). Also, it returns 'posts' and 'isNext'. So will have access to those with the syntax: 'result.posts' & 'result.isNext':
+  //FETCH POSTS///////////////////////////////////////////////////////////////////////////
 
   const result = await fetchPosts(
     // if searchParams.page is truthy, it means that the page parameter is present in the URL and has a value. (example: ?page=2) --- +searchParams.page expression is used to convert the value to a number.
@@ -47,6 +46,67 @@ async function Home({
     searchParams.page ? +searchParams.page : 1,
     5
   );
+
+  console.log("existing posts", result);
+
+  // {
+  //   posts: [
+  //     {
+  //       _id: new ObjectId("65809c9910ba3f31d10add1c"),
+  //       text: 'sdfsdfsdfsdf',
+  //       author: [Object],
+  //       children: [Array],
+  //       likes: 0,
+  //       createdAt: 2023-12-18T19:25:13.628Z,
+  //       __v: 3
+  //     },
+  //     {
+  //       _id: new ObjectId("65809c9710ba3f31d10add06"),
+  //       text: 'sdfsdfsdfsdf',
+  //       author: [Object],
+  //       children: [Array],
+  //       likes: 0,
+  //       createdAt: 2023-12-18T19:25:11.757Z,
+  //       __v: 2
+  //     },
+  //     {
+  //       _id: new ObjectId("65809c8f10ba3f31d10adcf4"),
+  //       text: 'sdfsdfsdfsdf',
+  //       author: [Object],
+  //       children: [Array],
+  //       likes: 0,
+  //       createdAt: 2023-12-18T19:25:03.429Z,
+  //       __v: 1
+  //     },
+  //     {
+  //       _id: new ObjectId("658095fc10ba3f31d10adb66"),
+  //       text: 'sdfgsdfg',
+  //       author: [Object],
+  //       children: [],
+  //       likes: 0,
+  //       createdAt: 2023-12-18T18:57:00.318Z,
+  //       __v: 1
+  //     }
+  //   ],
+  //   isNext: false
+  // }
+  const likedThreadIds = await getAllLikedThreadIds(userInfo._id);
+
+  console.log(
+    "''''''''''''''''''''''LikedThreadIds on home page",
+    likedThreadIds
+  );
+
+  // [
+  //   new ObjectId("65809c9710ba3f31d10add06"),
+  //   new ObjectId("65809c9910ba3f31d10add1c")
+  // ]
+
+  const likedThread = result.posts.some((post) =>
+    likedThreadIds.includes(post._id)
+  );
+
+  console.log("Are LikedThreadIds included????(home page)", likedThread);
 
   return (
     <>
@@ -65,7 +125,6 @@ async function Home({
                 parentId={post.parentId}
                 content={post.text}
                 author={post.author}
-                // community={post.community}
                 createdAt={post.createdAt}
                 comments={post.children}
               />

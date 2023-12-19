@@ -3,6 +3,10 @@ import { currentUser } from "@clerk/nextjs";
 import UserCard from "@/components/cards/UserCard";
 import { fetchUser, fetchFollowedUsers } from "@/lib/actions/user.actions";
 
+import { followersTabs } from "@/constants";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Image from "next/image";
+
 async function Page() {
   const user = await currentUser();
   if (!user) return null;
@@ -19,6 +23,53 @@ async function Page() {
   return (
     <section>
       <h1 className="head-text mb-10">Followers</h1>
+
+      <div className="mt-9">
+        <Tabs defaultValue="followed" className="w-full">
+          {/* TABS LIST*/}
+
+          <TabsList className="tab">
+            {followersTabs.map((tab) => (
+              <TabsTrigger
+                key={tab.label}
+                value={tab.value}
+                className="tab rounded-lg box-shadow-small"
+              >
+                <Image
+                  src={tab.icon}
+                  alt={tab.label}
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
+                {/*Label shown only in big screens */}
+
+                <p className="max-sm:hidden text-light-1">{tab.label}</p>
+
+                {/* How many threads the user has :  */}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {/* TABS CONTENT*/}
+
+          <TabsContent value="followed" className="w-full text-light-1">
+            {/* @ts-ignore */}
+            {/* <ThreadsTab
+              currentUserId={user.id}
+              accountId={userInfo.id}
+              accountType="User"
+            /> */}
+          </TabsContent>
+
+          <TabsContent value="following" className="w-full text-light-1">
+            {/* @ts-ignore */}
+            {/* <SavedTab currentUserId={user.id} /> */}
+          </TabsContent>
+        </Tabs>
+      </div>
+
+      {/*********************************************** */}
 
       <div className="mt-14 flex flex-col gap-9">
         {result.length === 0 ? (

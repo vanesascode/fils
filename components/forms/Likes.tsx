@@ -12,7 +12,6 @@ interface Props {
   userId: string;
   isComment?: boolean;
   likes: number;
-  red: boolean;
 }
 
 export default function Likes({
@@ -21,11 +20,8 @@ export default function Likes({
   isComment,
   userId,
   likes,
-  red,
 }: Props) {
   const pathname = usePathname();
-
-  const [heartLiked, setHeartLiked] = useState(true);
 
   const handleSaveLike = async () => {
     try {
@@ -35,17 +31,14 @@ export default function Likes({
     }
   };
 
-  // console.log(red, "red");
-
   return (
     <>
       <div className="flex  items-center gap-[6px]">
         <Image
           alt="heart"
           src={
-            (red && "/assets/heart-filled.svg") || isComment
-              ? "/assets/heart-white.svg"
-              : "/assets/heart-black.svg"
+            // (red && "/assets/heart-filled.svg") ||
+            isComment ? "/assets/heart-white.svg" : "/assets/heart-black.svg"
           }
           width={24}
           height={24}
