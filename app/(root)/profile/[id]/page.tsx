@@ -9,7 +9,11 @@ import SavedTab from "@/components/shared/SavedTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { fetchUser, getUserId } from "@/lib/actions/user.actions";
+import {
+  fetchUser,
+  getUserId,
+  getAllFollowedUsersIds,
+} from "@/lib/actions/user.actions";
 import { fetchSavedThreadsIds } from "@/lib/actions/saved.actions";
 
 async function Page({ params }: { params: { id: string } }) {
@@ -25,6 +29,9 @@ async function Page({ params }: { params: { id: string } }) {
 
   const accountUserIdObject = await getUserId(userInfo.id);
 
+  let followedUsersIds = await getAllFollowedUsersIds(currentUserIdObject);
+  followedUsersIds = followedUsersIds.map((el) => el.toString());
+
   return (
     <section>
       <ProfileHeader
@@ -36,6 +43,9 @@ async function Page({ params }: { params: { id: string } }) {
         username={userInfo.username}
         imgUrl={userInfo.image}
         bio={userInfo.bio}
+        followedUsersIds={followedUsersIds.includes(
+          accountUserIdObject.toString()
+        )}
       />
 
       <div className="mt-9">

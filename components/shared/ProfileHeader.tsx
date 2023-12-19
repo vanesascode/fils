@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { updateUser, deleteUser } from "@/lib/actions/user.actions";
+import {
+  updateUser,
+  deleteUser,
+  getAllFollowedUsersIds,
+} from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import FollowUser from "../forms/FollowUser";
 
@@ -19,6 +23,7 @@ interface Props {
   communityId?: string;
   currentUserIdObject: string;
   accountUserIdObject: string;
+  followedUsersIds: boolean;
 }
 
 function ProfileHeader({
@@ -32,6 +37,7 @@ function ProfileHeader({
   communityId,
   accountUserIdObject,
   currentUserIdObject,
+  followedUsersIds,
 }: Props) {
   // NAVIGATION
 
@@ -41,7 +47,6 @@ function ProfileHeader({
   // EDIT MODE
 
   const [editMode, setEditMode] = useState(false);
-  // const [editCommunityMode, setEditCommunityMode] = useState(false);
 
   // NEW DATA PROFILE
 
@@ -82,6 +87,8 @@ function ProfileHeader({
     }
     router.push("/");
   };
+
+  //
 
   return (
     <div className="flex w-full flex-col justify-start">
@@ -136,7 +143,12 @@ function ProfileHeader({
         {/*FOLLOW USER BUTTON */}
 
         {accountId !== currentUserId && (
-          <FollowUser currentUserIdObject={currentUserIdObject} accountUserIdObject={accountUserIdObject}  currentUserId={currentUserId}/>
+          <FollowUser
+            currentUserIdObject={currentUserIdObject}
+            accountUserIdObject={accountUserIdObject}
+            currentUserId={currentUserId}
+            followedUsersIds={followedUsersIds}
+          />
         )}
       </div>
 

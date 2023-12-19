@@ -232,6 +232,19 @@ export async function fetchFollowedUsers({ userId }: { userId: string }) {
   }
 }
 
+// GET ALL FOLLOWED USERS IDS /////////////////////////////////////////
+export async function getAllFollowedUsersIds(userId: string) {
+  try {
+    connectToDB();
+
+    const userIds = await Follower.distinct("accountUserId", { userId });
+    return userIds;
+  } catch (error) {
+    console.error("Error fetching threadIds:", error);
+    throw error;
+  }
+}
+
 // 5 - GET ACTIVITY ////////////////////////////////////////////////////////////////
 
 export async function getActivity(userId: string) {

@@ -51,7 +51,6 @@ async function ThreadCard({
   parentId,
   content,
   author,
-  // community,
   createdAt,
   comments,
   isComment,

@@ -1,38 +1,44 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
-import { saveThread } from "@/lib/actions/saved.actions";
-import { saveFollower } from "@/lib/actions/user.actions";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 
+import { Button } from "../ui/button";
+
+import { useState } from "react";
+
+import { usePathname } from "next/navigation";
+
+import { saveFollower } from "@/lib/actions/user.actions";
+
 interface Props {
-  currentUserIdObject: string;
-  accountUserIdObject: string;
-  currentUserId: string;
+  id: string;
+  name: string;
+  username: string;
+  imgUrl: string;
   followedUsersIds: boolean;
+  currentUserId: string;
+  accountId: string;
 }
 
-const FollowUser = ({
-  currentUserIdObject,
-  accountUserIdObject,
-  currentUserId,
+function UserCard({
+  id,
+  name,
+  username,
+  imgUrl,
   followedUsersIds,
-}: Props) => {
-  // console.log(currentUserId, accountId);
+  currentUserId,
+  accountId,
+}: Props) {
   const [saveMessage, setSaveMessage] = useState("");
-
+  const router = useRouter();
   const pathname = usePathname();
 
   const handleFollowUserClick = async () => {
     try {
-      const response = await saveFollower(
-        currentUserIdObject,
-        accountUserIdObject,
-        pathname
-      );
+      const response = await saveFollower(currentUserId, accountId, pathname);
       if (response === `Successfully saved new user followed`) {
         setSaveMessage(`Followed`);
       } else if (response === `Unfollowed`) {
@@ -47,22 +53,28 @@ const FollowUser = ({
   };
 
   return (
-    <div className="relative">
-      <div
-        className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
-        onClick={handleFollowUserClick}
-      >
-        {/* <Image
-              src="/assets/edit-white.svg"
-              alt="logout"
-              width={16}
-              height={16}
-            /> */}
+    <article className="user-card">
+      <Link href={`/profile/${id}`}>
+        <div className="user-card_avatar">
+          <div className="relative h-12 w-12">
+            <Image
+              src={imgUrl}
+              alt="user_logo"
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
 
-        <p className="text-light-1 max-sm:hidden">
-          {followedUsersIds ? "Unfollow" : "Follow"}
-        </p>
-      </div>
+          <div className="flex-1 break-all">
+            <h4 className="text-base-semibold text-light-1">{name}</h4>
+            <p className="text-small-medium text-light-1">@{username}</p>
+          </div>
+        </div>
+      </Link>
+
+      <Button className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1">
+        {followedUsersIds ? "Follow" : "Unfollow"}
+      </Button>
 
       {/*TOAST MESSAGE*/}
 
@@ -82,18 +94,18 @@ const FollowUser = ({
         text-light-1 text-center flex flex-column right-[-40px] bottom-[-40px] animate-in fade-in zoom-in duration-600"
         >
           <div>Followed</div>
-          <div>
-            <Link href={`/followers`}>
+          {/* <div>
+            <Link href={`/profile/${currentUserId}`}>
               <div className="text-[13px] font-extrabold cursor-pointer ml-3">
                 {" "}
                 View
               </div>
             </Link>
-          </div>
+          </div> */}
         </div>
       )}
-    </div>
+    </article>
   );
-};
+}
 
-export default FollowUser;
+export default UserCard;
