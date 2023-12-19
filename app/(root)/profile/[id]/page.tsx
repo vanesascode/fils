@@ -10,7 +10,7 @@ import SavedTab from "@/components/shared/SavedTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { fetchUser } from "@/lib/actions/user.actions";
+import { fetchUser, getUserId } from "@/lib/actions/user.actions";
 import { fetchSavedThreadsIds } from "@/lib/actions/saved.actions";
 
 async function Page({ params }: { params: { id: string } }) {
@@ -22,11 +22,17 @@ async function Page({ params }: { params: { id: string } }) {
 
   const savedThreads = await fetchSavedThreadsIds(userInfo._id);
 
+  const currentUserIdObject = await getUserId(user.id);
+
+  const accountUserIdObject = await getUserId(userInfo.id);
+
   return (
     <section>
       <ProfileHeader
-        accountId={userInfo.id} // other users profile
-        currentUserId={user.id} // current user profile
+        currentUserIdObject={currentUserIdObject} // current MongoDB user profile id
+        accountUserIdObject={accountUserIdObject} // other MongoDB users profile id
+        accountId={userInfo.id} // other clerk users profile id
+        currentUserId={user.id} // current clerk user profile id
         name={userInfo.name}
         username={userInfo.username}
         imgUrl={userInfo.image}

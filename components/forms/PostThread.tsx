@@ -48,7 +48,7 @@ function PostThread({ userId }: Props) {
     setText(event.target.value);
   };
 
-  console.log(text);
+  // console.log(text);
 
   return (
     <>

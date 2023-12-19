@@ -11,9 +11,7 @@ import Follower from "../models/follower.model";
 
 import { connectToDB } from "../mongoose";
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// UPDATE USER - Once they have logged in and go to the Onboarding Form ///////////////////////////////////////////
+// UPDATE USER - Once they have logged in and go to the Onboarding Form /////////////////////////
 
 interface Params {
   userId: string;
@@ -56,9 +54,7 @@ export async function updateUser({
 
 //The findOneAndUpdate method is a Mongoose method that is used to find a document in a MongoDB collection and update it. It takes three arguments: the first argument is an object that specifies the query to find the document to update, the second argument is an object that specifies the properties to update, and the third argument is an options object that specifies additional options for the update operation.
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// - DELETE USER ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// DELETE USER ////////////////////////////////////////////////////////////////////////
 
 export async function deleteUser(id: string, path: string) {
   try {
@@ -86,9 +82,7 @@ export async function deleteUser(id: string, path: string) {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// - FETCH USER ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FETCH USER //////////////////////////////////////////////////////////////////////////
 
 export async function fetchUser(userId: string) {
   try {
@@ -103,7 +97,7 @@ export async function fetchUser(userId: string) {
   }
 }
 
-// 3 - FETCH USER POSTS ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FETCH USER POSTS /////////////////////////////////////////////////////////////////////////////
 
 export async function fetchUserPosts(userId: string) {
   try {
@@ -137,42 +131,7 @@ export async function fetchUserPosts(userId: string) {
   }
 }
 
-// 3 - FETCH USER POSTS ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// export async function fetchChildrenOfThreads(userId: string) {
-//   try {
-//     connectToDB();
-
-//     // Find the user with the given userId and populate the 'threads' property
-//     const user = await User.findOne({ id: userId }).populate({
-//       path: "threads",
-//       model: Thread,
-//       populate: [
-//         {
-//           path: "community",
-//           model: Community,
-//           select: "name id image _id",
-//         },
-//         {
-//           path: "children",
-//           model: Thread,
-//           populate: {
-//             path: "author",
-//             model: User,
-//             select: "name image id",
-//           },
-//         },
-//       ],
-//     });
-
-//     return user.threads; // Return the populated 'threads' array
-//   } catch (error) {
-//     console.error("Error fetching user threads:", error);
-//     throw error;
-//   }
-// }
-
-// 3 - FETCH USERS FOR THE RIGHT SIDEBAR ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FETCH USERS FOR THE RIGHT SIDEBAR //////////////////////////////////////////////////////////////////
 
 export async function fetchSuggestedUsers({ userId }: { userId: string }) {
   try {
@@ -189,7 +148,7 @@ export async function fetchSuggestedUsers({ userId }: { userId: string }) {
   }
 }
 
-// 4 - FETCH USERS FOR THE SEARCH PAGE ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// FETCH USERS FOR THE SEARCH PAGE //////////////////////////////////////////////////////////////////
 
 // Almost similar to Thead (search + pagination) and Community (search + pagination)
 export async function fetchUsers({
@@ -250,7 +209,30 @@ export async function fetchUsers({
   }
 }
 
-// 5 - GET ACTIVITY //////////////////////////////////////////////////////////////////////////////////////////////
+// FETCH FOLLOWED USERS FOR THE FOLLOWERS PAGE ///////////////////////////////////////////////////////
+
+// Almost similar to Thead (search + pagination) and Community (search + pagination)
+export async function fetchFollowedUsers({ userId }: { userId: string }) {
+  try {
+    connectToDB();
+
+    // console.log(userId); //currentuserID
+
+    const followed = await Follower.find({ currentUserId: userId }).populate({
+      path: "accountUserId",
+      model: User,
+      select: "name image _id username id",
+    });
+
+    console.log("followed", followed);
+    return followed;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
+}
+
+// 5 - GET ACTIVITY ////////////////////////////////////////////////////////////////
 
 export async function getActivity(userId: string) {
   try {
@@ -299,24 +281,6 @@ export async function getUserId(providedId: string): Promise<string> {
   } catch (error) {
     console.error("Error fetching replies: ", error);
     throw error;
-  }
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////// ADD LIKED THREADS //////////////////////////////////////////////////////////////////////
-
-export async function addLikedThread(threadId: string, userId: string) {
-  try {
-    connectToDB();
-
-    await User.findOneAndUpdate(
-      { id: userId },
-
-      { $push: { likedThreads: threadId } }
-    );
-  } catch (error: any) {
-    throw new Error(`Failed to create/update user: ${error.message}`);
   }
 }
 

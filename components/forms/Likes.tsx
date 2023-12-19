@@ -35,7 +35,7 @@ export default function Likes({
     }
   };
 
-  console.log(red, "red");
+  // console.log(red, "red");
 
   return (
     <>

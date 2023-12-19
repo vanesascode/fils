@@ -10,7 +10,7 @@ import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
 async function Page({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | undefined };
+  searchParams: { [key: string]: string | undefined }; // STEP 2 SEARCHBAR: we get the current URL
 }) {
   const user = await currentUser();
   if (!user) return null;
@@ -19,8 +19,10 @@ async function Page({
   if (!userInfo?.onboarded) redirect("/onboarding");
 
   const result = await fetchUsers({
-    userId: user.id, // we add the current user id, to exclude it from the rendering cards or the search.
-    searchString: searchParams.q, // however, if there are no searchString, all users will be included in 'result' (except from the current user) // Why is it ".q" ? Because we are using it in the URL and it's between "?"" and "=" (?q=) We are sending it like this from the Searchbar.tsx component.
+    userId: user.id,
+    searchString: searchParams.q, // STEP 3 SEARCHBAR: we send what's after the ?q= in the URL to our fetch function
+
+    // however, if there are no searchString, all users will be included in 'result' (except from the current user) // Why is it "?q=" ? We are sending it like this from the Searchbar.tsx component.
     pageNumber: searchParams?.page ? +searchParams.page : 1,
     pageSize: 6,
   });
@@ -28,7 +30,7 @@ async function Page({
   return (
     <section>
       <h1 className="head-text mb-10">Search users</h1>
-
+      {/*STEP 1 SEARCHBAR: The Searchbar component makes the URL changed:*/}
       <Searchbar routeType="search" />
 
       <div className="mt-14 flex flex-col gap-9">
@@ -39,7 +41,7 @@ async function Page({
             {result.users.map((person) => (
               <UserCard
                 key={person.id}
-                id={person.id} // the clerk user id, because it is the one we use go to the profile page
+                id={person.id}
                 name={person.name}
                 username={person.username}
                 imgUrl={person.image}

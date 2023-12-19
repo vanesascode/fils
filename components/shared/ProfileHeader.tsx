@@ -17,17 +17,21 @@ interface Props {
   bio: string;
   type?: string;
   communityId?: string;
+  currentUserIdObject: string;
+  accountUserIdObject: string;
 }
 
 function ProfileHeader({
-  accountId, // this is the id of the current profile user
-  currentUserId, // this is the logged in user
+  accountId, // this is the id of the current clerk profile user
+  currentUserId, // this is the clerk logged in user
   name,
   username,
   imgUrl,
   bio,
   type,
   communityId,
+  accountUserIdObject,
+  currentUserIdObject,
 }: Props) {
   // NAVIGATION
 
@@ -72,7 +76,7 @@ function ProfileHeader({
   const deleteProfile = async () => {
     try {
       const response = await deleteUser(currentUserId, pathname);
-      console.log(response);
+      // console.log(response);
     } catch (error: any) {
       console.error("Error updating user:", error);
     }
@@ -132,7 +136,7 @@ function ProfileHeader({
         {/*FOLLOW USER BUTTON */}
 
         {accountId !== currentUserId && (
-          <FollowUser currentUserId={currentUserId} accountId={accountId} />
+          <FollowUser currentUserIdObject={currentUserIdObject} accountUserIdObject={accountUserIdObject}  currentUserId={currentUserId}/>
         )}
       </div>
 

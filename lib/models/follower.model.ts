@@ -2,11 +2,13 @@ import mongoose from "mongoose";
 
 const followerSchema = new mongoose.Schema({
   currentUserId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   accountUserId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
 });

@@ -70,7 +70,7 @@ async function ThreadCard({
   /////////////////////////////////////////////////////////////
 
   const likedThreadIds = await getAllLikedThreadIds(userId);
-  console.log("LikedThreadIds", likedThreadIds);
+  // console.log("LikedThreadIds", likedThreadIds);
 
   // LikedThreadIds [
   //   new ObjectId("657c75abbf8bee1076f4af4c"),
@@ -79,14 +79,14 @@ async function ThreadCard({
 
   const likedThreadIdsStrings = likedThreadIds.map((id) => id.toString());
 
-  console.log(likedThreadIdsStrings, "likedThreadIdsStrings");
+  // console.log(likedThreadIdsStrings, "likedThreadIdsStrings");
 
   ///////////////////////////////////////////////////////////
-  console.log("current thread id", id.toString());
+  // console.log("current thread id", id.toString());
 
   const isLiked = likedThreadIds.includes(id.toString());
 
-  console.log(isLiked, "isLiked in thread card");
+  // console.log(isLiked, "isLiked in thread card");
 
   ////////////////////////////////////////////////////////
 

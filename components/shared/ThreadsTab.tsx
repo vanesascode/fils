@@ -52,7 +52,7 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
     redirect("/");
   }
 
-  console.log("RESULTS THREADSTAB", result);
+  // console.log("RESULTS THREADSTAB", result);
 
   return (
     <section className="mt-9 flex flex-col gap-10">

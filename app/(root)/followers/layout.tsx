@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Communities",
+  title: "Followers",
 };
 
 export default function CommunitiesLayout({

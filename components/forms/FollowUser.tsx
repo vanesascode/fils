@@ -9,19 +9,28 @@ import { useState } from "react";
 import Link from "next/link";
 
 interface Props {
+  currentUserIdObject: string;
+  accountUserIdObject: string;
   currentUserId: string;
-  accountId: string;
 }
 
-const FollowUser = ({ currentUserId, accountId }: Props) => {
-  console.log(currentUserId, accountId);
+const FollowUser = ({
+  currentUserIdObject,
+  accountUserIdObject,
+  currentUserId,
+}: Props) => {
+  // console.log(currentUserId, accountId);
   const [saveMessage, setSaveMessage] = useState("");
 
   const pathname = usePathname();
 
   const handleFollowUserClick = async () => {
     try {
-      const response = await saveFollower(currentUserId, accountId, pathname);
+      const response = await saveFollower(
+        currentUserIdObject,
+        accountUserIdObject,
+        pathname
+      );
       if (response === `Successfully saved new user followed`) {
         setSaveMessage(`Followed`);
       } else if (response === `Unfollowed`) {
@@ -54,7 +63,7 @@ const FollowUser = ({ currentUserId, accountId }: Props) => {
       {/*TOAST MESSAGE*/}
 
       {saveMessage === "Unfollowed" && (
-        <div className=" rounded-lg bg-dark-1 px-4 py-2 absolute bottom-[-55px]">
+        <div className=" rounded-lg bg-dark-1 px-4 py-2 absolute bottom-[-55px] animate-in fade-in zoom-in duration-600">
           <div
             className="text-subtle-regular 
               text-light-1 text-center"
@@ -66,9 +75,9 @@ const FollowUser = ({ currentUserId, accountId }: Props) => {
       {saveMessage === "Followed" && (
         <div
           className="rounded-lg bg-dark-1 px-4 py-2 absolute text-subtle-regular 
-        text-light-1 text-center flex flex-column right-[-40px] bottom-[-40px]"
+        text-light-1 text-center flex flex-column right-[-40px] bottom-[-40px] animate-in fade-in zoom-in duration-600"
         >
-          <div>{saveMessage}</div>
+          <div>Followed</div>
           <div>
             <Link href={`/profile/${currentUserId}`}>
               <div className="text-[13px] font-extrabold cursor-pointer ml-3">
