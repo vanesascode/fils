@@ -2,13 +2,9 @@
 // import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-
 import { usePathname } from "next/navigation";
-
 import { updateUser, deleteUser } from "@/lib/actions/user.actions";
-
 import { useRouter } from "next/navigation";
-import { updateDatabaseCommunityInfo } from "@/lib/actions/community.actions";
 import FollowUser from "../forms/FollowUser";
 
 // this info comes from the profile page or the community page?
@@ -71,28 +67,6 @@ function ProfileHeader({
     router.refresh();
   };
 
-  // HANDLERS COMMUNITY PROFILE
-
-  const handleEditCommunityClick = () => {
-    setEditMode(true);
-  };
-
-  // const handleSaveCommunityClick = async () => {
-  //   try {
-  //     await updateDatabaseCommunityInfo({
-  //       communityId: communityId || "",
-  //       name: newName,
-  //       username: newUsername,
-  //       image: imgUrl,
-  //       bio: newBio,
-  //     });
-  //   } catch (error: any) {
-  //     console.error("Error updating user:", error);
-  //   }
-  //   setEditMode(false);
-  //   router.refresh();
-  // };
-
   // HANDLERS DELETE PROFILE
 
   const deleteProfile = async () => {
@@ -105,12 +79,8 @@ function ProfileHeader({
     router.push("/");
   };
 
-  // console.log(currentUserId);
-  // console.log(accountId);
-
   return (
     <div className="flex w-full flex-col justify-start">
-      {/* <div className="flex items-center justify-between"> */}
       <div className="flex items-center justify-between">
         {/*IMAGE - */}
 
@@ -166,43 +136,6 @@ function ProfileHeader({
         )}
       </div>
 
-      {/*EDIT COMMUNITY BUTTON*/}
-
-      {/* {editMode
-          ? accountId === currentUserId &&
-            type === "Community" && (
-              <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 max-sm:hidden"
-                onClick={handleSaveCommunityClick}
-              >
-                <Image
-                  src="/assets/edit-black.svg"
-                  alt="logout"
-                  width={16}
-                  height={16}
-                />
-
-                <p className="text-dark-1 max-sm:hidden">Save</p>
-              </div>
-            )
-          : accountId === currentUserId &&
-            type === "Community" && (
-              <div
-                className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
-                onClick={handleEditCommunityClick}
-              >
-                <Image
-                  src="/assets/edit-white.svg"
-                  alt="logout"
-                  width={16}
-                  height={16}
-                />
-
-                <p className="text-light-1 max-sm:hidden">Edit</p>
-              </div>
-            )} */}
-      {/* </div> */}
-
       {/* NAME - USERNAME */}
       {editMode ? (
         <div className="flex-1 mt-4">
@@ -250,38 +183,6 @@ function ProfileHeader({
         </div>
       )}
 
-      {/* {editMode && accountId === currentUserId && type !== "Community" && (
-        <div
-          className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
-          onClick={handleSaveProfileClick}
-        >
-          <Image
-            src="/assets/edit-black.svg"
-            alt="logout"
-            width={16}
-            height={16}
-          />
-
-          <p className="text-dark-1 text-center">Save</p>
-        </div>
-      )} */}
-
-      {/* {editMode && accountId === currentUserId && type === "Community" && (
-        <div
-          className="flex flex-row cursor-pointer rounded-lg bg-light-1 px-4 py-2 sm:hidden justify-center items-center mt-5 gap-3"
-          onClick={handleSaveCommunityClick}
-        >
-          <Image
-            src="/assets/edit-black.svg"
-            alt="logout"
-            width={16}
-            height={16}
-          />
-
-          <p className="text-dark-1 ">Save</p>
-        </div>
-      )} */}
-
       {/*DELETE ACCOUNT BUTTON*/}
 
       {editMode && accountId === currentUserId && type !== "Community" && (
@@ -292,7 +193,6 @@ function ProfileHeader({
           Delete Account
         </div>
       )}
-      {/* <div className="mt-5 h-0.5 w-full bg-dark-1" /> */}
     </div>
   );
 }

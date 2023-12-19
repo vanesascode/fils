@@ -25,8 +25,12 @@ async function Page() {
           <>
             {activity.map((activity) => (
               <Link key={activity._id} href={`/thread/${activity.parentId}`}>
-                <article className="activity-card justify-between">
-                  <div className="flex gap-2 items-center">
+                <article className="activity-card ">
+                  {/*LEFT SIDE**************************/}
+
+                  <div className="flex gap-2 sm:items-center max-sm2:flex-col">
+                    {/*IMAGE*/}
+
                     <Image
                       src={activity.author.image}
                       alt="user_logo"
@@ -34,22 +38,31 @@ async function Page() {
                       height={25}
                       className="rounded-full object-cover"
                     />
-                    <p className=" text-light-1">
-                      <span className="mr-1 text-dark-1 text-small-bold">
+                    {/*USER NAME*/}
+
+                    <div className=" text-light-1">
+                      <span className="mr-1 text-light-1 text-small-bold break-all">
                         {activity.author.name}
                       </span>
-                      <span className="text-small-regular">
+                      <span className="mr-1 text-small-regular text-light-2 break-all">
                         {" "}
                         replied to your thread
                       </span>
-                    </p>
+                      <span className="!text-small-regular text-light-1 sm:hidden">
+                        {" "}
+                        {formatDistanceToNow(new Date(activity.createdAt), {
+                          addSuffix: true,
+                        })}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <p className="!text-small-regular text-light-1">
-                      {formatDistanceToNow(new Date(activity.createdAt), {
-                        addSuffix: true,
-                      })}
-                    </p>
+
+                  {/*RIGHT SIDE**************************/}
+
+                  <div className="!text-small-regular text-light-1 max-sm:hidden">
+                    {formatDistanceToNow(new Date(activity.createdAt), {
+                      addSuffix: true,
+                    })}
                   </div>
                 </article>
               </Link>

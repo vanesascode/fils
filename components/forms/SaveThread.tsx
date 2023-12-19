@@ -73,17 +73,17 @@ const SaveThread = ({
 
       {saveMessage === "Removed from your save fils" && (
         <div
-          className="rounded-lg bg-dark-1 px-4 py-2 absolute max-md2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in duration-600 text-subtle-regular 
+          className="rounded-lg bg-dark-1 px-4 py-2 absolute max-sm2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in duration-600 text-subtle-regular 
         text-light-1 whitespace-nowrap"
         >
-          Removed from your save fils
+          Removed from your saved fils
         </div>
       )}
 
       {saveMessage === "Added to your saved fils" && (
         <div
           className="rounded-lg bg-dark-1 px-4 py-2 absolute text-subtle-regular 
-        text-light-1 text-center flex flex-column max-md2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in whitespace-nowrap"
+        text-light-1 text-center flex flex-column max-sm2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in whitespace-nowrap"
         >
           <div>Added to your saved fils</div>
           <div>

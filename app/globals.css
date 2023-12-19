@@ -86,7 +86,7 @@
 
   /* Activity */
   .activity-card {
-    @apply rounded-md bg-dark-2 px-7 py-4 flex justify-between;
+    @apply rounded-md bg-dark-1 px-7 py-4 flex justify-between max-xs:flex-col max-xs:gap-10;
   }
 
   /* No Result */

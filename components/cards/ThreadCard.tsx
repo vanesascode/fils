@@ -126,7 +126,7 @@ async function ThreadCard({
           <div className="flex w-full flex-col">
             <Link href={`/profile/${author.id}`} className="w-fit">
               <h4
-                className={`cursor-pointer ${
+                className={`cursor-pointer break-all ${
                   isComment
                     ? "text-base-bold text-light-1"
                     : "text-base-semibold text-dark-1 "
