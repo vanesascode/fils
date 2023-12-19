@@ -8,7 +8,6 @@ import Pagination from "@/components/shared/Pagination";
 
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
-import { getAllLikedThreadIds } from "@/lib/actions/like.actions";
 
 // import DataContext from "../context/DataContext";
 // import { useContext } from "react";
@@ -46,67 +45,6 @@ async function Home({
     searchParams.page ? +searchParams.page : 1,
     5
   );
-
-  console.log("existing posts", result);
-
-  // {
-  //   posts: [
-  //     {
-  //       _id: new ObjectId("65809c9910ba3f31d10add1c"),
-  //       text: 'sdfsdfsdfsdf',
-  //       author: [Object],
-  //       children: [Array],
-  //       likes: 0,
-  //       createdAt: 2023-12-18T19:25:13.628Z,
-  //       __v: 3
-  //     },
-  //     {
-  //       _id: new ObjectId("65809c9710ba3f31d10add06"),
-  //       text: 'sdfsdfsdfsdf',
-  //       author: [Object],
-  //       children: [Array],
-  //       likes: 0,
-  //       createdAt: 2023-12-18T19:25:11.757Z,
-  //       __v: 2
-  //     },
-  //     {
-  //       _id: new ObjectId("65809c8f10ba3f31d10adcf4"),
-  //       text: 'sdfsdfsdfsdf',
-  //       author: [Object],
-  //       children: [Array],
-  //       likes: 0,
-  //       createdAt: 2023-12-18T19:25:03.429Z,
-  //       __v: 1
-  //     },
-  //     {
-  //       _id: new ObjectId("658095fc10ba3f31d10adb66"),
-  //       text: 'sdfgsdfg',
-  //       author: [Object],
-  //       children: [],
-  //       likes: 0,
-  //       createdAt: 2023-12-18T18:57:00.318Z,
-  //       __v: 1
-  //     }
-  //   ],
-  //   isNext: false
-  // }
-  const likedThreadIds = await getAllLikedThreadIds(userInfo._id);
-
-  console.log(
-    "''''''''''''''''''''''LikedThreadIds on home page",
-    likedThreadIds
-  );
-
-  // [
-  //   new ObjectId("65809c9710ba3f31d10add06"),
-  //   new ObjectId("65809c9910ba3f31d10add1c")
-  // ]
-
-  const likedThread = result.posts.some((post) =>
-    likedThreadIds.includes(post._id)
-  );
-
-  console.log("Are LikedThreadIds included????(home page)", likedThread);
 
   return (
     <>

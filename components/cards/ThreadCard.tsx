@@ -13,7 +13,7 @@ import { getUserId } from "@/lib/actions/user.actions";
 
 import { countLikes, getAllLikedThreadIds } from "@/lib/actions/like.actions";
 
-import { countSaves } from "@/lib/actions/saved.actions";
+import { countSaves, getAllSavedThreadIds } from "@/lib/actions/saved.actions";
 
 interface Props {
   id: string;
@@ -62,21 +62,12 @@ async function ThreadCard({
 
   /////////////////////////////////////////////////////////////
 
-  console.log("-----current threadIds", id);
+  let likedThreadIds = await getAllLikedThreadIds(userId);
+  // I pass the array of IDObjects to an array of strings:
+  likedThreadIds = likedThreadIds.map((el) => el.toString());
 
-  //new ObjectId("65809c9910ba3f31d10add1c")
-
-  const likedThreadIds = await getAllLikedThreadIds(userId);
-  console.log("***********LikedThreadIds", likedThreadIds);
-
-  // [
-  //   new ObjectId("65809c9710ba3f31d10add06"),
-  //   new ObjectId("65809c9910ba3f31d10add1c")
-  // ]
-
-  const likedThread = likedThreadIds.includes(id);
-
-  console.log("Are LikedThreadIds included????", likedThread);
+  let savedThreadIds = await getAllSavedThreadIds(userId);
+  savedThreadIds = savedThreadIds.map((el) => el.toString());
 
   return (
     <article
@@ -146,6 +137,7 @@ async function ThreadCard({
                   currentUserId={currentUserId.toString()}
                   userId={userId ? userId.toString() : ""}
                   likes={likes}
+                  likedThreads={likedThreadIds.includes(id.toString())}
                 />
 
                 {/* ************************************************************************************************/}
@@ -186,6 +178,7 @@ async function ThreadCard({
                   currentUserId={currentUserId.toString()}
                   userId={userId ? userId.toString() : ""}
                   saves={saves}
+                  savedThreads={savedThreadIds.includes(id.toString())}
                 />
               </div>
               {isComment && (

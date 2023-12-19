@@ -137,3 +137,16 @@ export async function getSavedPosts(userId: string) {
     throw error;
   }
 }
+
+// GET ALL SAVED THREAD IDS /////////////////////////////////////////
+export async function getAllSavedThreadIds(userId: string) {
+  try {
+    connectToDB();
+
+    const threadIds = await Saved.distinct("threadId", { userId });
+    return threadIds;
+  } catch (error) {
+    console.error("Error fetching threadIds:", error);
+    throw error;
+  }
+}

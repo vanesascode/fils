@@ -12,6 +12,7 @@ interface Props {
   userId: string;
   isComment?: boolean;
   likes: number;
+  likedThreads: boolean;
 }
 
 export default function Likes({
@@ -20,6 +21,7 @@ export default function Likes({
   isComment,
   userId,
   likes,
+  likedThreads,
 }: Props) {
   const pathname = usePathname();
 
@@ -37,8 +39,13 @@ export default function Likes({
         <Image
           alt="heart"
           src={
-            // (red && "/assets/heart-filled.svg") ||
-            isComment ? "/assets/heart-white.svg" : "/assets/heart-black.svg"
+            likedThreads && isComment
+              ? "/assets/heart-filled-white.svg"
+              : likedThreads
+              ? "/assets/heart-filled-black.svg"
+              : isComment
+              ? "/assets/heart-white.svg"
+              : "/assets/heart-black.svg"
           }
           width={24}
           height={24}

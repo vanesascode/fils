@@ -13,6 +13,7 @@ interface Props {
   userId: string;
   isComment?: boolean;
   saves: number;
+  savedThreads: boolean;
 }
 
 const SaveThread = ({
@@ -21,6 +22,7 @@ const SaveThread = ({
   isComment,
   userId,
   saves,
+  savedThreads,
 }: Props) => {
   const [saveMessage, setSaveMessage] = useState("");
 
@@ -50,7 +52,15 @@ const SaveThread = ({
     <div className="relative">
       <div className="flex items-center gap-[3px]">
         <Image
-          src={isComment ? "/assets/save-white.svg" : "/assets/save-black.svg"}
+          src={
+            savedThreads && isComment
+              ? "/assets/save-filled-white.svg"
+              : savedThreads
+              ? "/assets/save-filled-black.svg"
+              : isComment
+              ? "/assets/save-white.svg"
+              : "/assets/save-black.svg"
+          }
           alt="save button"
           width={25}
           height={25}
