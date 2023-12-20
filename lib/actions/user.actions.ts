@@ -209,14 +209,30 @@ export async function fetchUsers({
   }
 }
 
-// FETCH FOLLOWED USERS FOR THE FOLLOWERS PAGE ///////////////////////////////////////////////////////
+// FETCH FOLLOWERS OF THE CURRENT LOGGED IN USER ///////////////////////////////////////////////////////
 
-// Almost similar to Thead (search + pagination) and Community (search + pagination)
-export async function fetchFollowedUsers({ userId }: { userId: string }) {
+export async function fetchFollowers({ userId }: { userId: string }) {
   try {
     connectToDB();
 
-    // console.log(userId); //currentuserID
+    const followers = await Follower.find({ accountUserId: userId }).populate({
+      path: "currentUserId",
+      model: User,
+      select: "name image _id username id",
+    });
+
+    return followers;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
+}
+
+// FETCH FOLLOWED USERS FOR THE FOLLOWERS PAGE ///////////////////////////////////////////////////////
+
+export async function fetchFollowedUsers({ userId }: { userId: string }) {
+  try {
+    connectToDB();
 
     const followed = await Follower.find({ currentUserId: userId }).populate({
       path: "accountUserId",
@@ -224,7 +240,6 @@ export async function fetchFollowedUsers({ userId }: { userId: string }) {
       select: "name image _id username id",
     });
 
-    console.log("followed", followed);
     return followed;
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -233,11 +248,14 @@ export async function fetchFollowedUsers({ userId }: { userId: string }) {
 }
 
 // GET ALL FOLLOWED USERS IDS /////////////////////////////////////////
-export async function getAllFollowedUsersIds(userId: string) {
+export async function getAllFollowedUsersIds(currentUserId: string) {
+  console.log(currentUserId);
   try {
     connectToDB();
 
-    const userIds = await Follower.distinct("accountUserId", { userId });
+    const userIds = await Follower.find({ currentUserId }).distinct(
+      "accountUserId"
+    );
     return userIds;
   } catch (error) {
     console.error("Error fetching threadIds:", error);

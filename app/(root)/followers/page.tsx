@@ -6,6 +6,7 @@ import {
   fetchUser,
   fetchFollowedUsers,
   getAllFollowedUsersIds,
+  fetchFollowers,
 } from "@/lib/actions/user.actions";
 
 import { followersTabs } from "@/constants";
@@ -19,13 +20,28 @@ async function Page() {
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  const result = await fetchFollowedUsers({
+  const resultFollowed = await fetchFollowedUsers({
     userId: userInfo._id,
   });
 
-  console.log("*************************", result);
+  const resultFollowers = await fetchFollowers({ userId: userInfo._id });
 
-  let followedUsersIds = await getAllFollowedUsersIds(user.id);
+  // [
+  //   {
+  //     _id: new ObjectId("6582269b7ee158b19100b62c"),
+  //     currentUserId: {
+  //       _id: new ObjectId("6582141c836a7a1180deca84"),
+  //       id: 'user_2ZmO9PMGyOf1VX4v0BFcF3RfS6D',
+  //       image: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yWm1POVpFYWZneUlYeDRwb2JrSmdJWk1kZG4ifQ',
+  //       name: 'Vanesa',
+  //       username: 'vanesa'
+  //     },
+  //     accountUserId: new ObjectId("6581f539836a7a1180a98d6e"),
+  //     __v: 0
+  //   }
+  // ]
+
+  let followedUsersIds = await getAllFollowedUsersIds(userInfo._id);
   followedUsersIds = followedUsersIds.map((el) => el.toString());
 
   return (
@@ -57,11 +73,11 @@ async function Page() {
           <TabsContent value="followed" className="w-full text-light-1">
             {/* @ts-ignore */}
             <div className="mt-14 flex flex-col gap-9">
-              {result.length === 0 ? (
+              {resultFollowed.length === 0 ? (
                 <p className="no-result text-light-1">No followed users</p>
               ) : (
                 <>
-                  {result.map((person) => (
+                  {resultFollowed.map((person) => (
                     <FollowedCard
                       key={person.accountUserId.id}
                       id={person.accountUserId.id}
@@ -83,17 +99,17 @@ async function Page() {
           <TabsContent value="followers" className="w-full text-light-1">
             {/* @ts-ignore */}
             <div className="mt-14 flex flex-col gap-9">
-              {result.length === 0 ? (
+              {resultFollowers.length === 0 ? (
                 <p className="no-result">No Result</p>
               ) : (
                 <>
-                  {result.map((person) => (
+                  {resultFollowers.map((person) => (
                     <UserCard
-                      key={person.accountUserId.id}
-                      id={person.accountUserId.id}
-                      name={person.accountUserId.name}
-                      username={person.accountUserId.username}
-                      imgUrl={person.accountUserId.image}
+                      key={person.currentUserId.id}
+                      id={person.currentUserId.id}
+                      name={person.currentUserId.name}
+                      username={person.currentUserId.username}
+                      imgUrl={person.currentUserId.image}
                       personType="User"
                     />
                   ))}

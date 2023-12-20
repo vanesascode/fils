@@ -52,12 +52,13 @@ export async function countLikes(threadId: string) {
 }
 
 // GET ALL LIKED THREAD IDS /////////////////////////////////////////
-export async function getAllLikedThreadIds(currentUserId: string) {
+export async function getAllLikedThreadIds(userId: string) {
+  console.log(userId);
   try {
     connectToDB();
 
     const threadIds = await Like.distinct("threadId", {
-      currentUserId,
+      userId,
     });
     return threadIds;
   } catch (error) {

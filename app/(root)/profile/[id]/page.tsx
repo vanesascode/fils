@@ -32,6 +32,8 @@ async function Page({ params }: { params: { id: string } }) {
   let followedUsersIds = await getAllFollowedUsersIds(currentUserIdObject);
   followedUsersIds = followedUsersIds.map((el) => el.toString());
 
+  // console.log("...................followedUsersIds", followedUsersIds);
+
   return (
     <section>
       <ProfileHeader

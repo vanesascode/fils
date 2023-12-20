@@ -72,7 +72,10 @@ function UserCard({
         </div>
       </Link>
 
-      <Button className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1">
+      <Button
+        className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1"
+        onClick={handleFollowUserClick}
+      >
         {followedUsersIds ? "Follow" : "Unfollow"}
       </Button>
 
