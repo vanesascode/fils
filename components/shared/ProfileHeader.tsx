@@ -118,7 +118,7 @@ function ProfileHeader({
           {editMode
             ? accountId === currentUserId &&
               type !== "Community" && (
-                <div
+                <button
                   className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 "
                   onClick={handleSaveProfileClick}
                 >
@@ -130,11 +130,11 @@ function ProfileHeader({
                   />
 
                   <p className="text-dark-1 ">Save</p>
-                </div>
+                </button>
               )
             : accountId === currentUserId &&
               type !== "Community" && (
-                <div
+                <button
                   className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
                   onClick={handleEditProfileClick}
                 >
@@ -146,7 +146,7 @@ function ProfileHeader({
                   />
 
                   <p className="text-light-1">Edit</p>
-                </div>
+                </button>
               )}
 
           {/*FOLLOW USER BUTTON */}

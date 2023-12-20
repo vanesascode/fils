@@ -66,41 +66,19 @@ interface Params {
   path: string;
 }
 
-export async function createThread({
-  text,
-  author,
-  // communityId,
-  path,
-}: Params) {
+export async function createThread({ text, author, path }: Params) {
   try {
     connectToDB();
-
-    // const communityIdObject = await Community.findOne(
-    //   { id: communityId },
-    //   { _id: 1 } // only the _id field should be returned in the result.
-    // );
-
-    // console.log(communityId);
 
     const createdThread = await Thread.create({
       text,
       author,
-      // community: communityIdObject,
     });
 
     // Update User model with a particular user's own Threads
     await User.findByIdAndUpdate(author, {
       $push: { threads: createdThread._id },
     });
-
-    // if (communityIdObject) {
-    //   // Update Community model
-    //   await Community.findByIdAndUpdate(communityIdObject, {
-    //     $push: { threads: createdThread._id },
-    //   });
-    // } else {
-    //   console.log("Community not found");
-    // }
 
     revalidatePath(path);
   } catch (error: any) {

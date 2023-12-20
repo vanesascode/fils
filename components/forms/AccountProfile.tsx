@@ -45,6 +45,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
   const [errorMessageGeneral, setErrorMessageGeneral] = useState("");
   const [errorMessageUsername, setErrorMessageUsername] = useState("");
+  const [errorMessageImage, setErrorMessageImage] = useState("");
 
   //// the order of the name, path, username, userId, bio, and image values in the object passed to the updateUser function does not matter. The function is designed to extract those values from the object and use them in the correct order, regardless of the order in which they were passed.
 
@@ -76,9 +77,10 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         router.push("/");
       }
     } catch (error: any) {
-      if (!values.profile_photo) {
-        setErrorMessageGeneral("Please add a profile photo.");
-        return;
+      if (error.message.includes("image")) {
+        setErrorMessageImage(
+          "Please add a valid image. The image cannot be bigger than 2MB."
+        );
       } else if (error.message.includes("username")) {
         setErrorMessageUsername(
           "This username is already taken. Please choose a different one."
@@ -160,6 +162,10 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             </FormItem>
           )}
         />
+
+        {errorMessageImage && (
+          <p className="text-red-500">{errorMessageImage}</p>
+        )}
 
         <FormField
           control={form.control}

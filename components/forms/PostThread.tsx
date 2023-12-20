@@ -17,16 +17,20 @@ interface Props {
 }
 
 function PostThread({ userId }: Props) {
+  const [errorMessage, setErrorMessage] = useState("");
   const [text, setText] = useState("");
   const router = useRouter();
   const pathname = usePathname();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!text) {
+      setErrorMessage("Please write some text before submitting.");
+      return;
+    }
     await createThread({
       text: text,
       author: userId,
-      // communityId: organization ? organization.id : null,
       path: pathname,
     });
 
@@ -68,6 +72,9 @@ function PostThread({ userId }: Props) {
 
           {/* Add any form validation or error message components here */}
         </div>
+        {errorMessage && (
+          <p className="text-light-1 text-center ">{errorMessage}</p>
+        )}
         <button
           type="submit"
           className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"

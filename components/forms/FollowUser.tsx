@@ -47,7 +47,7 @@ const FollowUser = ({
   };
 
   return (
-    <div
+    <button
       className="flex cursor-pointer  rounded-lg bg-dark-1 px-4 py-2 relative"
       onClick={handleFollowUserClick}
     >
@@ -82,7 +82,7 @@ const FollowUser = ({
           </div>
         </div>
       )}
-    </div>
+    </button>
   );
 };
 

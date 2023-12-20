@@ -17,7 +17,7 @@ async function UsersList() {
   return (
     <>
       {result.users.length === 0 ? (
-        <p className="no-result">No Result</p>
+        <p className="no-result text-light-1">No users yet</p>
       ) : (
         <>
           {result.users.map((person) => (

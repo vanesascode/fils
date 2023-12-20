@@ -85,7 +85,7 @@ async function Page() {
             {/* @ts-ignore */}
             <div className="mt-4 flex flex-col gap-4">
               {resultFollowers.length === 0 ? (
-                <p className="no-result">No Result</p>
+                <p className="no-result text-light-1">No followers yet</p>
               ) : (
                 <>
                   {resultFollowers.map((person) => (

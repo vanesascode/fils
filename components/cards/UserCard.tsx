@@ -43,11 +43,7 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
       <Button
         className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1"
         onClick={() => {
-          if (isCommunity) {
-            router.push(`/communities/${id}`);
-          } else {
-            router.push(`/profile/${id}`);
-          }
+          router.push(`/profile/${id}`);
         }}
       >
         View
