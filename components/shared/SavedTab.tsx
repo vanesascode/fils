@@ -6,39 +6,15 @@ import {
 } from "@/lib/actions/saved.actions";
 
 import ThreadCard from "../cards/ThreadCard";
-// interface savedResults {
-//   threads: {
-//     _id: string;
-//     text: string;
-//     parentId: string | null;
-//     author: {
-//       name: string;
-//       image: string;
-//       id: string;
-//       _id: string;
-//     };
-//     createdAt: string;
-//     likes: number;
-//     children: {
-//       author: {
-//         image: string;
-//       };
-//     }[];
-//   }[];
-// }
 
 interface Props {
   currentUserId: string;
 }
 
 async function SavedTab({ currentUserId }: Props) {
-  // let savedResults: savedResults;
-
   const userId = await getUserId(currentUserId);
 
   let savedResults = await getSavedPosts(userId);
-
-  // console.log("RESULTS SAVEDTAB", savedResults);
 
   /////////////////////////////////////////////////////////////
 
@@ -54,7 +30,7 @@ async function SavedTab({ currentUserId }: Props) {
           author={{
             name: thread.author.name,
             image: thread.author.image,
-            id: thread.author._id,
+            id: thread.author.id,
           }}
           createdAt={thread.createdAt}
           comments={thread.children}

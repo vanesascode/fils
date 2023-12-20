@@ -23,7 +23,11 @@ function Bottombar() {
             <Link
               href={link.route}
               key={link.label}
-              className={`bottombar_link ${isActive && "bg-light-1"}`}
+              className={
+                isActive
+                  ? "bottombar_link bg-light-1 text-dark-1 text-subtle-medium"
+                  : "bottombar_link text-light-1 text-subtle-medium"
+              }
             >
               <Image
                 src={isActive ? link.imgURLleftbar : link.imgURLbottombar}
@@ -33,9 +37,7 @@ function Bottombar() {
                 className="object-contain"
               />
 
-              <p className="text-subtle-medium text-light-1 max-sm:hidden">
-                {link.label.split(/\s+/)[0]}
-              </p>
+              {link.label.split(/\s+/)[0]}
             </Link>
           );
         })}
@@ -44,6 +46,7 @@ function Bottombar() {
   );
 }
 
+//
 export default Bottombar;
 
 // /\s+/ matches one or more whitespace characters, such as spaces, tabs, or line breaks. When the split() method encounters a whitespace character, it splits the string at that point and creates a new element in the resulting array.

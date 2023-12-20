@@ -21,6 +21,7 @@ async function page({ params }: { params: { id: string } }) {
   if (!userInfo?.onboarded) redirect("/onboarding");
 
   const thread = await fetchThreadById(params.id);
+  !thread && redirect("/");
 
   return (
     <section className="relative">
@@ -31,7 +32,6 @@ async function page({ params }: { params: { id: string } }) {
           parentId={thread.parentId}
           content={thread.text}
           author={thread.author}
-          // community={thread.community}
           createdAt={thread.createdAt}
           comments={thread.children}
         />
@@ -54,7 +54,6 @@ async function page({ params }: { params: { id: string } }) {
             parentId={childItem.parentId}
             content={childItem.text}
             author={childItem.author}
-            // community={childItem.community}
             createdAt={childItem.createdAt}
             comments={childItem.children}
             isComment
