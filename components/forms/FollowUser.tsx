@@ -47,27 +47,17 @@ const FollowUser = ({
   };
 
   return (
-    <div className="relative">
-      <div
-        className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
-        onClick={handleFollowUserClick}
-      >
-        {/* <Image
-              src="/assets/edit-white.svg"
-              alt="logout"
-              width={16}
-              height={16}
-            /> */}
-
-        <p className="text-light-1 max-sm:hidden">
-          {followedUsersIds ? "Unfollow" : "Follow"}
-        </p>
-      </div>
-
+    <div
+      className="flex cursor-pointer  rounded-lg bg-dark-1 px-4 py-2 relative"
+      onClick={handleFollowUserClick}
+    >
+      <p className="text-light-1 ">
+        {followedUsersIds ? "Unfollow" : "Follow"}
+      </p>
       {/*TOAST MESSAGE*/}
 
       {saveMessage === "Unfollowed" && (
-        <div className=" rounded-lg bg-dark-1 px-4 py-2 absolute bottom-[-55px] animate-in fade-in zoom-in duration-600">
+        <div className=" rounded-lg bg-dark-1 px-4 py-2 right-[10px] absolute bottom-[-55px] animate-in fade-in zoom-in duration-600">
           <div
             className="text-subtle-regular 
               text-light-1 text-center"
@@ -79,7 +69,7 @@ const FollowUser = ({
       {saveMessage === "Followed" && (
         <div
           className="rounded-lg bg-dark-1 px-4 py-2 absolute text-subtle-regular 
-        text-light-1 text-center flex flex-column right-[-40px] bottom-[-40px] animate-in fade-in zoom-in duration-600"
+        text-light-1 text-center flex flex-column right-[10px] bottom-[-55px] animate-in fade-in zoom-in duration-600"
         >
           <div>Followed</div>
           <div>

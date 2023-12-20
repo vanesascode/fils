@@ -24,6 +24,8 @@ interface Props {
   currentUserIdObject: string;
   accountUserIdObject: string;
   followedUsersIds: boolean;
+  totalFollowedUsersCurrentUser?: number;
+  totalFollowedUsersIdsOtherUsers?: number;
 }
 
 function ProfileHeader({
@@ -38,6 +40,8 @@ function ProfileHeader({
   accountUserIdObject,
   currentUserIdObject,
   followedUsersIds,
+  totalFollowedUsersCurrentUser,
+  totalFollowedUsersIdsOtherUsers,
 }: Props) {
   // NAVIGATION
 
@@ -139,17 +143,18 @@ function ProfileHeader({
                   <p className="text-light-1">Edit</p>
                 </div>
               )}
-        </div>
-        {/*FOLLOW USER BUTTON */}
 
-        {accountId !== currentUserId && (
-          <FollowUser
-            currentUserIdObject={currentUserIdObject}
-            accountUserIdObject={accountUserIdObject}
-            currentUserId={currentUserId}
-            followedUsersIds={followedUsersIds}
-          />
-        )}
+          {/*FOLLOW USER BUTTON */}
+
+          {accountId !== currentUserId && (
+            <FollowUser
+              currentUserIdObject={currentUserIdObject}
+              accountUserIdObject={accountUserIdObject}
+              currentUserId={currentUserId}
+              followedUsersIds={followedUsersIds}
+            />
+          )}
+        </div>
       </div>
 
       {/* NAME - USERNAME */}
@@ -173,10 +178,10 @@ function ProfileHeader({
         </div>
       ) : (
         <div className="flex-1 mt-2">
-          <h2 className="text-left text-body-bold text-light-1 break-all">
+          <h2 className="text-left text-heading3-bold text-light-1 break-all">
             {name}
           </h2>
-          <p className="text-base-semibold text-light-2 break-all mt-1">
+          <p className="text-small-semibold  text-light-2 break-all mt-1">
             @{username}
           </p>
         </div>
@@ -198,6 +203,37 @@ function ProfileHeader({
           {bio}
         </div>
       )}
+
+      {/*TOTAL FOLLOWED USERS*/}
+
+      {accountId === currentUserId && !editMode && (
+        <div className="mt-4">
+          <span className="text-base-regular text-light-1">
+            {totalFollowedUsersCurrentUser}{" "}
+          </span>{" "}
+          <span className="text-light-2 text-small-semibold">Following</span>
+        </div>
+      )}
+
+      {accountId !== currentUserId && !editMode && (
+        <div className="mt-4">
+          <span className="text-base-regular text-light-1">
+            {totalFollowedUsersIdsOtherUsers}{" "}
+          </span>{" "}
+          <span className="text-light-2 text-small-semibold">Following</span>
+        </div>
+      )}
+
+      {/* {accountId !== currentUserId && !editMode && (
+        <div className="mt-4">
+          <span className="text-base-regular text-light-1">
+            {totalFollowedUsersIdsOtherUsers}{" "}
+          </span>{" "}
+          <span className="text-light-2 text-small-semibold">
+            {totalFollowedUsersIdsOtherUsers === 1 ? "Follower" : "Followers"}
+          </span>
+        </div>
+      )} */}
 
       {/*DELETE ACCOUNT BUTTON*/}
 

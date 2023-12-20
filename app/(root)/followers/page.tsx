@@ -49,7 +49,7 @@ async function Page() {
       <h1 className="head-text mb-10">Followers</h1>
 
       <div className="mt-9">
-        <Tabs defaultValue="followed" className="w-full">
+        <Tabs defaultValue="following" className="w-full">
           {/* TABS LIST*/}
 
           <TabsList className="tab">
@@ -70,7 +70,7 @@ async function Page() {
 
           {/* TABS CONTENT*/}
 
-          <TabsContent value="followed" className="w-full text-light-1">
+          <TabsContent value="following" className="w-full text-light-1">
             {/* @ts-ignore */}
             <div className="mt-14 flex flex-col gap-9">
               {resultFollowed.length === 0 ? (

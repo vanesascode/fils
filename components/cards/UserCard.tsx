@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -20,21 +21,24 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
 
   return (
     <article className="user-card">
-      <div className="user-card_avatar">
-        <div className="relative h-12 w-12">
-          <Image
-            src={imgUrl}
-            alt="user_logo"
-            fill
-            className="rounded-full object-cover"
-          />
-        </div>
+      <Link href={`/profile/${id}`}>
+        <div className="user-card_avatar">
+          <div className="relative h-12 w-12">
+            <Image
+              src={imgUrl}
+              alt="user_logo"
+              fill
+              className="rounded-full object-cover"
+              priority
+            />
+          </div>
 
-        <div className="flex-1 break-all">
-          <h4 className="text-base-semibold text-light-1">{name}</h4>
-          <p className="text-small-medium text-light-1">@{username}</p>
+          <div className="flex-1 break-all">
+            <h4 className="text-base-semibold text-light-1">{name}</h4>
+            <p className="text-small-medium text-light-1">@{username}</p>
+          </div>
         </div>
-      </div>
+      </Link>
 
       <Button
         className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1"

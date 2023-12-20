@@ -32,7 +32,9 @@ async function Page({ params }: { params: { id: string } }) {
   let followedUsersIds = await getAllFollowedUsersIds(currentUserIdObject);
   followedUsersIds = followedUsersIds.map((el) => el.toString());
 
-  // console.log("...................followedUsersIds", followedUsersIds);
+  const followedUsersIdsOtherUsers = await getAllFollowedUsersIds(
+    accountUserIdObject
+  );
 
   return (
     <section>
@@ -48,6 +50,8 @@ async function Page({ params }: { params: { id: string } }) {
         followedUsersIds={followedUsersIds.includes(
           accountUserIdObject.toString()
         )}
+        totalFollowedUsersCurrentUser={followedUsersIds.length}
+        totalFollowedUsersIdsOtherUsers={followedUsersIdsOtherUsers.length}
       />
 
       <div className="mt-9">

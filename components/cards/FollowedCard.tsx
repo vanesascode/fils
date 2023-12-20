@@ -62,6 +62,7 @@ function UserCard({
               alt="user_logo"
               fill
               className="rounded-full object-cover"
+              priority
             />
           </div>
 

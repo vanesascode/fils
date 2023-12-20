@@ -45,6 +45,6 @@ export const profileTabs = [
 ];
 
 export const followersTabs = [
-  { value: "followed", label: "Followed", icon: "/assets/reply-white.svg" },
+  { value: "following", label: "Following", icon: "/assets/reply-white.svg" },
   { value: "followers", label: "Followers", icon: "/assets/members.svg" },
 ];
