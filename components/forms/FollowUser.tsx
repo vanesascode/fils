@@ -47,15 +47,16 @@ const FollowUser = ({
   };
 
   return (
-    <button
-      className="flex cursor-pointer  rounded-lg bg-dark-1 px-4 py-2 relative"
-      onClick={handleFollowUserClick}
-    >
-      <p className="text-light-1 ">
-        {followedUsersIds ? "Unfollow" : "Follow"}
-      </p>
-      {/*TOAST MESSAGE*/}
-
+    <div className="relative">
+      <button
+        className="flex cursor-pointer  rounded-lg bg-dark-1 px-4 py-2 relative"
+        onClick={handleFollowUserClick}
+      >
+        <p className="text-light-1 ">
+          {followedUsersIds ? "Unfollow" : "Follow"}
+        </p>
+        {/*TOAST MESSAGE*/}
+      </button>
       {saveMessage === "Unfollowed" && (
         <div className=" rounded-lg bg-dark-1 px-4 py-2 right-[10px] absolute bottom-[-55px] animate-in fade-in zoom-in duration-600">
           <div
@@ -66,6 +67,7 @@ const FollowUser = ({
           </div>
         </div>
       )}
+
       {saveMessage === "Followed" && (
         <div
           className="rounded-lg bg-dark-1 px-4 py-2 absolute text-subtle-regular 
@@ -82,7 +84,7 @@ const FollowUser = ({
           </div>
         </div>
       )}
-    </button>
+    </div>
   );
 };
 
