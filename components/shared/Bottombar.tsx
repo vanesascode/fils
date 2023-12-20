@@ -36,8 +36,7 @@ function Bottombar() {
                 height={16}
                 className="object-contain"
               />
-
-              {link.label.split(/\s+/)[0]}
+              <div className="max-xs:hidden">{link.label.split(/\s+/)[0]}</div>
             </Link>
           );
         })}

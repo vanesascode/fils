@@ -63,6 +63,52 @@ export async function updateUser({
 
 //The findOneAndUpdate method is a Mongoose method that is used to find a document in a MongoDB collection and update it. It takes three arguments: the first argument is an object that specifies the query to find the document to update, the second argument is an object that specifies the properties to update, and the third argument is an options object that specifies additional options for the update operation.
 
+// UPDATE USER - when changing profile info in profileHeader /////////////////////////
+
+interface ParamsInProfile {
+  userId: string;
+  username?: string;
+  name: string;
+  bio: string;
+  image: string;
+}
+
+export async function updateUserInProfile({
+  userId,
+  bio,
+  name,
+  username,
+  image,
+}: ParamsInProfile): Promise<void> {
+  try {
+    connectToDB();
+    // Check if the username already exists
+    const existingUser = await User.findOne({
+      username: username?.toLowerCase(),
+    });
+    if (existingUser) {
+      throw new Error(
+        "This username is already taken. Please choose a different one."
+      );
+    }
+    await User.findOneAndUpdate(
+      { id: userId },
+
+      {
+        username: username?.toLowerCase(),
+        name,
+        bio,
+        image,
+        onboarded: true,
+      },
+
+      { upsert: true } //The upsert: true option ensures that a new document is created if no matching document is found.
+    );
+  } catch (error: any) {
+    throw new Error(`Failed to create/update user: ${error.message}`);
+  }
+}
+
 // DELETE USER ////////////////////////////////////////////////////////////////////////
 
 export async function deleteUser(id: string, path: string) {

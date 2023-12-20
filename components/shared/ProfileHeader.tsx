@@ -7,6 +7,7 @@ import {
   updateUser,
   deleteUser,
   getAllFollowedUsersIds,
+  updateUserInProfile,
 } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import FollowUser from "../forms/FollowUser";
@@ -70,15 +71,27 @@ function ProfileHeader({
     setEditMode(true);
   };
 
+  interface UpdatedUser {
+    name: string;
+    username?: string;
+    userId: string;
+    bio: string;
+    image: string;
+  }
+
   const handleSaveProfileClick = async () => {
     try {
-      await updateUser({
+      const updatedUser: UpdatedUser = {
         name: newName,
-        username: newUsername,
         userId: currentUserId,
         bio: newBio,
         image: imgUrl,
-      });
+      };
+
+      if (newUsername !== username) {
+        updatedUser.username = newUsername;
+      }
+      await updateUserInProfile(updatedUser);
       setEditMode(false);
       setUsernameError("");
     } catch (error: any) {
@@ -87,6 +100,10 @@ function ProfileHeader({
     }
 
     router.refresh();
+  };
+
+  const handleCancelProfileClick = () => {
+    setEditMode(false);
   };
 
   // HANDLERS DELETE PROFILE
@@ -117,40 +134,60 @@ function ProfileHeader({
           />
         </div>
 
-        {/*EDIT PROFILE BUTTON*/}
+        {/*EDIT PROFILE BUTTONS*/}
         <div>
           {editMode
             ? accountId === currentUserId &&
               type !== "Community" && (
-                <button
-                  className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 "
-                  onClick={handleSaveProfileClick}
-                >
-                  <Image
-                    src="/assets/edit-black.svg"
-                    alt="save button"
-                    width={16}
-                    height={16}
-                  />
+                <div className="flex gap-3 max-xs:flex-col">
+                  {/*save changes button*/}
+                  <button
+                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center"
+                    onClick={handleSaveProfileClick}
+                  >
+                    <Image
+                      src="/assets/edit-black.svg"
+                      alt="save button"
+                      width={16}
+                      height={16}
+                    />
 
-                  <p className="text-dark-1 ">Save</p>
-                </button>
+                    <p className="text-dark-1 ">Save</p>
+                  </button>
+                  {/*cancel changes button*/}
+                  <button
+                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center"
+                    onClick={handleCancelProfileClick}
+                  >
+                    <Image
+                      src="/assets/edit-black.svg"
+                      alt="save button"
+                      width={16}
+                      height={16}
+                    />
+
+                    <p className="text-dark-1 ">Cancel</p>
+                  </button>
+                </div>
               )
             : accountId === currentUserId &&
               type !== "Community" && (
-                <button
-                  className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 "
-                  onClick={handleEditProfileClick}
-                >
-                  <Image
-                    src="/assets/edit-white.svg"
-                    alt="logout"
-                    width={16}
-                    height={16}
-                  />
+                <div>
+                  {/*cancel changes button*/}
+                  <button
+                    className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 items-center justify-center"
+                    onClick={handleEditProfileClick}
+                  >
+                    <Image
+                      src="/assets/edit-white.svg"
+                      alt="logout"
+                      width={16}
+                      height={16}
+                    />
 
-                  <p className="text-light-1">Edit</p>
-                </button>
+                    <p className="text-light-1">Edit</p>
+                  </button>
+                </div>
               )}
 
           {/*FOLLOW USER BUTTON */}
