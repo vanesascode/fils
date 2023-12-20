@@ -62,6 +62,7 @@ function ProfileHeader({
   const [newBio, setNewBio] = useState(bio);
   const [newUsername, setNewUsername] = useState(username);
   const [newName, setNewName] = useState(name);
+  const [usernameError, setUsernameError] = useState("");
 
   // HANDLERS EDIT PROFILE
 
@@ -78,10 +79,13 @@ function ProfileHeader({
         bio: newBio,
         image: imgUrl,
       });
+      setEditMode(false);
+      setUsernameError("");
     } catch (error: any) {
       console.error("Error updating user:", error);
+      setUsernameError("Username already exists");
     }
-    setEditMode(false);
+
     router.refresh();
   };
 
@@ -179,6 +183,9 @@ function ProfileHeader({
               className=" bg-dark-1  w-full outline-none ml-1 "
               onChange={(e) => setNewUsername(e.target.value)}
             ></input>
+            {usernameError && (
+              <p className="text-red-light-1">{usernameError}</p>
+            )}
           </div>
         </div>
       ) : (
