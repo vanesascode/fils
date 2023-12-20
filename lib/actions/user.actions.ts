@@ -74,6 +74,11 @@ export async function deleteUser(id: string, path: string) {
 
     await Saved.deleteMany({ userId: user._id });
 
+    await Follower.deleteMany({
+      currentUserId: user._id,
+      accountUserId: user._id,
+    });
+
     console.log("User and associated threads have been deleted.");
 
     revalidatePath(path);

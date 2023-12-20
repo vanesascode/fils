@@ -76,7 +76,10 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         router.push("/");
       }
     } catch (error: any) {
-      if (error.message.includes("username")) {
+      if (!values.profile_photo) {
+        setErrorMessageGeneral("Please add a profile photo.");
+        return;
+      } else if (error.message.includes("username")) {
         setErrorMessageUsername(
           "This username is already taken. Please choose a different one."
         );
