@@ -24,7 +24,7 @@ async function Page({
 
     // however, if there are no searchString, all users will be included in 'result' (except from the current user) // Why is it "?q=" ? We are sending it like this from the Searchbar.tsx component.
     pageNumber: searchParams?.page ? +searchParams.page : 1,
-    pageSize: 6,
+    pageSize: 8,
   });
 
   return (
@@ -33,7 +33,7 @@ async function Page({
       {/*STEP 1 SEARCHBAR: The Searchbar component makes the URL changed:*/}
       <Searchbar routeType="search" />
 
-      <div className="mt-14 flex flex-col gap-9">
+      <div className="mt-4 flex flex-col gap-4">
         {result.users.length === 0 ? (
           <p className="no-result">No Result</p>
         ) : (

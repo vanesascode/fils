@@ -26,21 +26,6 @@ async function Page() {
 
   const resultFollowers = await fetchFollowers({ userId: userInfo._id });
 
-  // [
-  //   {
-  //     _id: new ObjectId("6582269b7ee158b19100b62c"),
-  //     currentUserId: {
-  //       _id: new ObjectId("6582141c836a7a1180deca84"),
-  //       id: 'user_2ZmO9PMGyOf1VX4v0BFcF3RfS6D',
-  //       image: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yWm1POVpFYWZneUlYeDRwb2JrSmdJWk1kZG4ifQ',
-  //       name: 'Vanesa',
-  //       username: 'vanesa'
-  //     },
-  //     accountUserId: new ObjectId("6581f539836a7a1180a98d6e"),
-  //     __v: 0
-  //   }
-  // ]
-
   let followedUsersIds = await getAllFollowedUsersIds(userInfo._id);
   followedUsersIds = followedUsersIds.map((el) => el.toString());
 
@@ -72,7 +57,7 @@ async function Page() {
 
           <TabsContent value="following" className="w-full text-light-1">
             {/* @ts-ignore */}
-            <div className="mt-14 flex flex-col gap-9">
+            <div className="mt-4 flex flex-col gap-4">
               {resultFollowed.length === 0 ? (
                 <p className="no-result text-light-1">No followed users</p>
               ) : (
@@ -98,7 +83,7 @@ async function Page() {
 
           <TabsContent value="followers" className="w-full text-light-1">
             {/* @ts-ignore */}
-            <div className="mt-14 flex flex-col gap-9">
+            <div className="mt-4 flex flex-col gap-4">
               {resultFollowers.length === 0 ? (
                 <p className="no-result">No Result</p>
               ) : (

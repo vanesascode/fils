@@ -50,7 +50,7 @@ async function Home({
     <>
       <h1 className="head-text ">What's up?</h1>
 
-      <section className="mt-9 flex flex-col gap-10">
+      <section className="mt-9 flex flex-col gap-6">
         {result.posts.length === 0 ? (
           <p className="no-result text-light-1">No threads found </p>
         ) : (

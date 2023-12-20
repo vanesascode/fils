@@ -13,6 +13,7 @@ import {
   fetchUser,
   getUserId,
   getAllFollowedUsersIds,
+  fetchFollowers,
 } from "@/lib/actions/user.actions";
 import { fetchSavedThreadsIds } from "@/lib/actions/saved.actions";
 
@@ -36,6 +37,14 @@ async function Page({ params }: { params: { id: string } }) {
     accountUserIdObject
   );
 
+  const countFollowersCurrentUser = await fetchFollowers({
+    userId: currentUserIdObject,
+  });
+
+  const countFollowersOtherUsers = await fetchFollowers({
+    userId: accountUserIdObject,
+  });
+
   return (
     <section>
       <ProfileHeader
@@ -52,9 +61,11 @@ async function Page({ params }: { params: { id: string } }) {
         )}
         totalFollowedUsersCurrentUser={followedUsersIds.length}
         totalFollowedUsersIdsOtherUsers={followedUsersIdsOtherUsers.length}
+        totalFollowersCurrentUser={countFollowersCurrentUser.length}
+        totalFollowersOtherUsers={countFollowersOtherUsers.length}
       />
 
-      <div className="mt-9">
+      <div className="mt-3">
         <Tabs defaultValue="fils" className="w-full">
           {/* TABS LIST*/}
 
@@ -98,7 +109,7 @@ async function Page({ params }: { params: { id: string } }) {
 
           {/* TABS CONTENT*/}
 
-          <TabsContent value="fils" className="w-full text-light-1">
+          <TabsContent value="fils" className="w-full text-light-1 ">
             {/* @ts-ignore */}
             <ThreadsTab
               currentUserId={user.id}
