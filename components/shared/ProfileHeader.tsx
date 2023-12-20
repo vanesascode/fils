@@ -10,6 +10,7 @@ import {
 } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import FollowUser from "../forms/FollowUser";
+import Link from "next/link";
 
 // this info comes from the profile page or the community page?
 interface Props {
@@ -211,44 +212,44 @@ function ProfileHeader({
       {/*TOTAL FOLLOWED USERS*/}
 
       {/*current user*/}
-      <div className="mt-2 flex gap-6">
-        {accountId === currentUserId && !editMode && (
-          <div>
-            <span className="text-base-regular text-light-1">
-              {totalFollowedUsersCurrentUser}{" "}
-            </span>{" "}
-            <span className="text-light-2 text-small-semibold">Following</span>
-          </div>
-        )}
 
+      <div className="mt-2 flex ">
+        <Link href={`/followers`}>
+          {accountId === currentUserId && !editMode && (
+            <div className="me-[24px]">
+              <span className="text-base-regular text-light-1">
+                {totalFollowedUsersCurrentUser}{" "}
+              </span>{" "}
+              <span className="text-light-2 text-small-semibold">
+                Following
+              </span>
+            </div>
+          )}
+        </Link>
         {/*other users*/}
-
         {accountId !== currentUserId && !editMode && (
-          <div>
-            <span className="text-base-regular text-light-1">
+          <div className="me-[24px]">
+            <span className="text-base-regular text-light-1 ">
               {totalFollowedUsersIdsOtherUsers}{" "}
             </span>{" "}
             <span className="text-light-2 text-small-semibold">Following</span>
           </div>
         )}
-
         {/*TOTAL FOLLOWERS*/}
-
         {/*current user*/}
-
-        {accountId === currentUserId && !editMode && (
-          <div>
-            <span className="text-base-regular text-light-1">
-              {totalFollowersCurrentUser}{" "}
-            </span>{" "}
-            <span className="text-light-2 text-small-semibold">
-              {totalFollowersCurrentUser === 1 ? "Follower" : "Followers"}
-            </span>
-          </div>
-        )}
-
+        <Link href={`/followers`}>
+          {accountId === currentUserId && !editMode && (
+            <div>
+              <span className="text-base-regular text-light-1">
+                {totalFollowersCurrentUser}{" "}
+              </span>{" "}
+              <span className="text-light-2 text-small-semibold">
+                {totalFollowersCurrentUser === 1 ? "Follower" : "Followers"}
+              </span>
+            </div>
+          )}
+        </Link>
         {/*other users*/}
-
         {accountId !== currentUserId && !editMode && (
           <div>
             <span className="text-base-regular text-light-1">
