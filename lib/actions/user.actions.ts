@@ -229,11 +229,13 @@ export async function fetchFollowers({ userId }: { userId: string }) {
   try {
     connectToDB();
 
-    const followers = await Follower.find({ accountUserId: userId }).populate({
-      path: "currentUserId",
-      model: User,
-      select: "name image _id username id",
-    });
+    const followers = await Follower.find({ accountUserId: userId })
+      .populate({
+        path: "currentUserId",
+        model: User,
+        select: "name image _id username id",
+      })
+      .sort({ _id: -1 });
 
     return followers;
   } catch (error) {
@@ -248,11 +250,13 @@ export async function fetchFollowedUsers({ userId }: { userId: string }) {
   try {
     connectToDB();
 
-    const followed = await Follower.find({ currentUserId: userId }).populate({
-      path: "accountUserId",
-      model: User,
-      select: "name image _id username id",
-    });
+    const followed = await Follower.find({ currentUserId: userId })
+      .populate({
+        path: "accountUserId",
+        model: User,
+        select: "name image _id username id",
+      })
+      .sort({ _id: -1 });
 
     return followed;
   } catch (error) {

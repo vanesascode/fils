@@ -87,7 +87,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         );
       } else {
         setErrorMessageGeneral(
-          "An error occurred while updating your profile. Please try again. Remember that images cannot be bigger than 2MB. Also, you may be using a username that already exists"
+          "An error occurred while updating your profile. Please try using a different username or using a different image smaller than 2MB."
         );
       }
     }
@@ -125,7 +125,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   return (
     <Form {...form}>
       <form
-        className="flex flex-col justify-start gap-10"
+        className="flex flex-col justify-start gap-6"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -155,7 +155,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                   type="file"
                   accept="image/*"
                   placeholder="Add profile photo"
-                  className="account-form_image-input"
+                  className="account-form_image-input "
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
               </FormControl>
@@ -164,14 +164,14 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
 
         {errorMessageImage && (
-          <p className="text-red-500">{errorMessageImage}</p>
+          <p className="text-red-500 text-base-semibold">{errorMessageImage}</p>
         )}
 
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3">
+            <FormItem className="flex w-full flex-col gap-1">
               <FormLabel className="text-base-semibold text-dark-1">
                 Name
               </FormLabel>
@@ -191,7 +191,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3">
+            <FormItem className="flex w-full flex-col gap-1">
               <FormLabel className="text-base-semibold text-dark-1">
                 Username
               </FormLabel>
@@ -208,14 +208,16 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
 
         {errorMessageUsername && (
-          <p className="text-red-500">{errorMessageUsername}</p>
+          <p className="text-red-500 text-base-semibold">
+            {errorMessageUsername}
+          </p>
         )}
 
         <FormField
           control={form.control}
           name="bio"
           render={({ field }) => (
-            <FormItem className="flex w-full flex-col gap-3">
+            <FormItem className="flex w-full flex-col gap-1">
               <FormLabel className="text-base-semibold text-dark-1">
                 Bio
               </FormLabel>
@@ -232,8 +234,14 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
 
         {errorMessageGeneral && (
-          <p className="text-red-500">{errorMessageGeneral}</p>
+          <p className="text-red-500 text-base-semibold">
+            {errorMessageGeneral}
+          </p>
         )}
+
+        <div className="text-dark-1 text-center">
+          Images cannot be bigger than 2MB
+        </div>
 
         <Button
           type="submit"
