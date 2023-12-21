@@ -1,4 +1,6 @@
 export type DataContextType = {
-  saveMessage: string;
-  setSaveMessage: (message: string) => void;
+  message: string;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+  setModalAppear: React.Dispatch<React.SetStateAction<boolean>>;
+  modalAppear: boolean;
 };

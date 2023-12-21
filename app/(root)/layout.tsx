@@ -10,7 +10,7 @@ import Bottombar from "@/components/shared/Bottombar";
 import RightSidebar from "@/components/shared/RightSidebar";
 import Topbar from "@/components/shared/Topbar";
 
-import { DataProvider } from "../context/DataContext";
+import { DataContextProvider } from "../context/DataContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <DataProvider>
+    <DataContextProvider>
       <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
         <html lang="en">
           <body className={inter.className}>
@@ -72,7 +72,7 @@ export default function RootLayout({
           </body>
         </html>
       </ClerkProvider>
-    </DataProvider>
+    </DataContextProvider>
   );
 }
 

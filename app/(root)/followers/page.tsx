@@ -11,7 +11,8 @@ import {
 
 import { followersTabs } from "@/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
+
+import ModalOnPage from "@/components/cards/ModalOnPage";
 
 async function Page() {
   const user = await currentUser();
@@ -32,6 +33,8 @@ async function Page() {
   return (
     <section>
       <h1 className="head-text mb-10">Followers</h1>
+
+      <ModalOnPage />
 
       <div className="mt-9">
         <Tabs defaultValue="following" className="w-full">

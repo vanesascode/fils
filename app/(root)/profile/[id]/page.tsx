@@ -16,6 +16,7 @@ import {
   fetchFollowers,
 } from "@/lib/actions/user.actions";
 import { fetchSavedThreadsIds } from "@/lib/actions/saved.actions";
+import ModalOnPage from "@/components/cards/ModalOnPage";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -47,6 +48,7 @@ async function Page({ params }: { params: { id: string } }) {
 
   return (
     <section>
+      <ModalOnPage />
       <ProfileHeader
         currentUserIdObject={currentUserIdObject} // current MongoDB user profile id
         accountUserIdObject={accountUserIdObject} // other MongoDB users profile id

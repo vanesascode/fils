@@ -1,20 +1,34 @@
 "use client";
 
-import { createContext, useState, ReactNode } from "react";
+import React, { useState } from "react";
 
-const DataContext = createContext({});
+// import { createContext, useState, ReactNode } from "react";
 
-interface Props {
-  children: ReactNode;
-}
+import { DataContextType } from "./types";
 
-export const DataProvider = ({ children }: Props) => {
-  const [saveMessage, setSaveMessage] = useState<string>("message");
+export const DataContext = React.createContext<DataContextType>({
+  message: "",
+  setMessage: () => {},
+  modalAppear: false,
+  setModalAppear: () => {},
+});
+
+export const DataContextProvider = (props: { children: React.ReactNode }) => {
+  const [message, setMessage] = useState<string>("");
+  const [modalAppear, setModalAppear] = useState(false);
+
   return (
-    <DataContext.Provider value={{ saveMessage, setSaveMessage }}>
-      {children}
+    <DataContext.Provider
+      value={{
+        message,
+        setMessage,
+        modalAppear,
+        setModalAppear,
+      }}
+    >
+      {props.children}
     </DataContext.Provider>
   );
 };
 
-export default DataContext;
+export default DataContextProvider;

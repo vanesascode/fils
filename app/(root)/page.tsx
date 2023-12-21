@@ -1,5 +1,3 @@
-"server side rendering";
-
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
@@ -9,9 +7,7 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 
-// import DataContext from "../context/DataContext";
-// import { useContext } from "react";
-// import { DataContextType } from "../context/types";
+import ModalOnPage from "@/components/cards/ModalOnPage";
 
 async function Home({
   searchParams,
@@ -20,14 +16,6 @@ async function Home({
 }) {
   // console.log("searchParams", searchParams); // searchParams { page: '2' }
   //It is like this as long as you have an URL such as: http://localhost:3000/?page=2
-
-  /////////////// WORKING ON A DATA CONTEXT: ////////////////////
-
-  // const { saveMessage, setSaveMessage } = useContext(
-  //   DataContext
-  // ) as DataContextType;
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const user = await currentUser();
   if (!user) return null;
@@ -49,6 +37,8 @@ async function Home({
   return (
     <>
       <h1 className="head-text ">What's up?</h1>
+
+      <ModalOnPage />
 
       <section className="mt-9 flex flex-col gap-6">
         {result.posts.length === 0 ? (

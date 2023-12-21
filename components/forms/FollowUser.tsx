@@ -8,6 +8,12 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 
+// context:
+
+import { DataContext } from "../../app/context/DataContext";
+import { useContext } from "react";
+import { DataContextType } from "../../app/context/types";
+
 interface Props {
   currentUserIdObject: string;
   accountUserIdObject: string;
@@ -24,6 +30,10 @@ const FollowUser = ({
   // console.log(currentUserId, accountId);
   const [saveMessage, setSaveMessage] = useState("");
 
+  const { message, setMessage, modalAppear, setModalAppear } = useContext(
+    DataContext
+  ) as DataContextType;
+
   const pathname = usePathname();
 
   const handleFollowUserClick = async () => {
@@ -34,11 +44,16 @@ const FollowUser = ({
         pathname
       );
       if (response === `Successfully saved new user followed`) {
+        setModalAppear(true);
+        setMessage(`Followed`);
         setSaveMessage(`Followed`);
       } else if (response === `Unfollowed`) {
+        setModalAppear(true);
+        setMessage(`Unfollowed`);
         setSaveMessage(`Unfollowed`);
       }
       setTimeout(() => {
+        setModalAppear(false);
         setSaveMessage("");
       }, 2000);
     } catch (error: any) {
