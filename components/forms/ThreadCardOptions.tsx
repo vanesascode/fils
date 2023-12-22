@@ -44,24 +44,22 @@ function ThreadCardOptions({
         // onBlur={() => setIsMenuOpen(false)}
         // onFocus={() => setIsMenuOpen(true)}
         >
-          <Image
+          <img
             alt="card options dots"
             src={
               isComment ? "/assets/dots-white.svg" : "/assets/dots-black.svg"
             }
-            width={30}
-            height={30}
-            className="cursor-pointer object-contain"
+            className="cursor-pointer object-contain xs:h-[40px] xs:w-[40px] h-[20px] w-[20px]"
             onClick={handleImageClick}
           />
         </div>
 
         {/*POP-UP MENU*/}
         {isMenuOpen && (
-          <div className="absolute right-[0px] top-[30px] w-[180px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small">
+          <div className="absolute right-[0px] top-[30px] w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden">
             {/*OPTIONS*/}
 
-            <div className="pt-[20px] pb-[10px] px-5">
+            <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px]">
               <EditThread
                 threadId={threadId}
                 currentUserId={currentUserId}
@@ -70,7 +68,7 @@ function ThreadCardOptions({
                 isComment={isComment}
               />
             </div>
-            <div className=" pb-[20px] pt-[10px] px-5">
+            <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px]">
               <DeleteThread
                 threadId={threadId}
                 currentUserId={currentUserId}

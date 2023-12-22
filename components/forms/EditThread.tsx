@@ -43,7 +43,7 @@ function DeleteThread({
         height={20}
         className="cursor-pointer object-contain me-1"
       />
-      <div className="max-xs:hidden text-dark-1">Edit Post</div>
+      <div className="text-dark-1 max-xs:text-small-semibold">Edit Post</div>
     </button>
   );
 }

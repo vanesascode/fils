@@ -36,7 +36,7 @@ export default function Likes({
   return (
     <>
       <div className="flex  items-center gap-[6px]">
-        <Image
+        <img
           alt="heart"
           src={
             likedThreads && isComment
@@ -47,17 +47,15 @@ export default function Likes({
               ? "/assets/heart-white.svg"
               : "/assets/heart-black.svg"
           }
-          width={24}
-          height={24}
-          className="cursor-pointer object-contain"
+          className="cursor-pointer object-contain w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
           onClick={handleSaveLike}
         />
 
         <div
           className={
             isComment
-              ? "text-light-1 text-small-regular"
-              : "text-small-semibold	text-dark-1"
+              ? "text-light-1 xxs:text-small-regular text-subtle-regular"
+              : "xxs:text-small-semibold text-subtle-regular	text-dark-1"
           }
         >
           {" "}

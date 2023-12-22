@@ -58,7 +58,7 @@ const SaveThread = ({
   return (
     <div className="relative">
       <div className="flex items-center gap-[3px]">
-        <Image
+        <img
           src={
             savedThreads && isComment
               ? "/assets/save-filled-white.svg"
@@ -69,16 +69,14 @@ const SaveThread = ({
               : "/assets/save-black.svg"
           }
           alt="save button"
-          width={25}
-          height={25}
           onClick={HandleSaveThread}
-          className="cursor-pointer object-contain"
+          className="cursor-pointer object-contain w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
         />
         <div
           className={
             isComment
-              ? "text-light-1 text-small-regular"
-              : "text-small-semibold	text-dark-1"
+              ? "text-light-1 xxs:text-small-regular text-subtle-regular"
+              : "xxs:text-small-semibold text-subtle-regular	text-dark-1"
           }
         >
           {" "}

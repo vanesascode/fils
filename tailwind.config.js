@@ -246,6 +246,7 @@ module.exports = {
         sm: "640px",
         sm2: "500px",
         xs: "400px",
+        xxs: "330px",
       },
       keyframes: {
         "accordion-down": {

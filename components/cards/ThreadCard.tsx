@@ -82,10 +82,9 @@ async function ThreadCard({
         <div className="flex w-full flex-1 flex-row gap-4">
           <div className="flex flex-col items-center">
             <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
-              <Image
+              <img
                 src={author.image}
                 alt="user_community_image"
-                fill
                 className="cursor-pointer rounded-full object-cover "
               />
             </Link>
@@ -127,7 +126,7 @@ async function ThreadCard({
             {/*THE FOUR ICONS  */}
 
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
-              <div className="flex gap-5">
+              <div className="flex xs:gap-5 gap-2">
                 {/* LIKES ************************************************************************************************/}
 
                 <Likes
@@ -142,34 +141,34 @@ async function ThreadCard({
                 {/* ************************************************************************************************/}
 
                 {/*REPLIES */}
-                <Link href={`/thread/${id}`}>
-                  <Image
+                <Link
+                  href={`/thread/${id}`}
+                  className="flex items-center justify-center"
+                >
+                  <img
                     src={
                       isComment
                         ? "/assets/reply-white.svg"
                         : "/assets/reply-black.svg"
                     }
                     alt="heart"
-                    width={24}
-                    height={24}
-                    className="cursor-pointer object-contain"
+                    className="cursor-pointer object-contain w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
                   />
                 </Link>
 
                 {/*SHARE THREAD ICON */}
 
-                <Image
-                  src={
-                    isComment
-                      ? "/assets/share-white.svg"
-                      : "/assets/share-black.svg"
-                  }
-                  alt="heart"
-                  width={24}
-                  height={24}
-                  className="cursor-pointer object-contain"
-                />
-
+                <div className="flex items-center justify-center">
+                  <img
+                    src={
+                      isComment
+                        ? "/assets/share-white.svg"
+                        : "/assets/share-black.svg"
+                    }
+                    alt="share icon"
+                    className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
+                  />
+                </div>
                 {/*SAVE THREAD ICON */}
                 <SaveThread
                   isComment={isComment}
