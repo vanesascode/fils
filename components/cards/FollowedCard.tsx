@@ -2,16 +2,17 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
 import Link from "next/link";
-
 import { Button } from "../ui/button";
-
 import { useState } from "react";
-
 import { usePathname } from "next/navigation";
-
 import { saveFollower } from "@/lib/actions/user.actions";
+
+// context:
+
+import { DataContext } from "../../app/context/DataContext";
+import { useContext } from "react";
+import { DataContextType } from "../../app/context/types";
 
 interface Props {
   id: string;
@@ -32,24 +33,12 @@ function UserCard({
   currentUserId,
   accountId,
 }: Props) {
-  const [saveMessage, setSaveMessage] = useState("");
   const router = useRouter();
   const pathname = usePathname();
+  const { setUnfollowModalAppear } = useContext(DataContext) as DataContextType;
 
-  const handleFollowUserClick = async () => {
-    try {
-      const response = await saveFollower(currentUserId, accountId, pathname);
-      if (response === `Successfully saved new user followed`) {
-        setSaveMessage(`Followed`);
-      } else if (response === `Unfollowed`) {
-        setSaveMessage(`Unfollowed`);
-      }
-      setTimeout(() => {
-        setSaveMessage("");
-      }, 2000);
-    } catch (error: any) {
-      console.error("Error saving thread:", error);
-    }
+  const handleModalQuestion = () => {
+    setUnfollowModalAppear(true);
   };
 
   return (
@@ -75,39 +64,10 @@ function UserCard({
 
       <Button
         className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1"
-        onClick={handleFollowUserClick}
+        onClick={handleModalQuestion}
       >
-        {followedUsersIds ? "Follow" : "Unfollow"}
+        Unfollow
       </Button>
-
-      {/*TOAST MESSAGE*/}
-
-      {saveMessage === "Unfollowed" && (
-        <div className=" rounded-lg bg-dark-1 px-4 py-2 absolute bottom-[-55px] animate-in fade-in zoom-in duration-600">
-          <div
-            className="text-subtle-regular 
-              text-light-1 text-center"
-          >
-            {saveMessage}
-          </div>
-        </div>
-      )}
-      {saveMessage === "Followed" && (
-        <div
-          className="rounded-lg bg-dark-1 px-4 py-2 absolute text-subtle-regular 
-        text-light-1 text-center flex flex-column right-[-40px] bottom-[-40px] animate-in fade-in zoom-in duration-600"
-        >
-          <div>Followed</div>
-          {/* <div>
-            <Link href={`/profile/${currentUserId}`}>
-              <div className="text-[13px] font-extrabold cursor-pointer ml-3">
-                {" "}
-                View
-              </div>
-            </Link>
-          </div> */}
-        </div>
-      )}
     </article>
   );
 }

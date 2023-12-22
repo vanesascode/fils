@@ -1,10 +1,7 @@
 "client side";
 
-import Image from "next/image";
-import { saveThread } from "@/lib/actions/saved.actions";
 import { saveFollower } from "@/lib/actions/user.actions";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 
 // context API:
 import React, { useState } from "react";
@@ -55,7 +52,7 @@ const UnFollowModal = ({
   return (
     <>
       {unFollowModalAppear && (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-70 z-50">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-[30px] rounded-lg shadow text-center">
             {/*QUESTION*/}
 
