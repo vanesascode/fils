@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDateString } from "@/lib/utils";
-import DeleteThread from "../forms/DeleteThread";
 
 import Likes from "../forms/Likes";
 import SaveThread from "../forms/SaveThread";
@@ -14,6 +13,7 @@ import { getUserId } from "@/lib/actions/user.actions";
 import { countLikes, getAllLikedThreadIds } from "@/lib/actions/like.actions";
 
 import { countSaves, getAllSavedThreadIds } from "@/lib/actions/saved.actions";
+import ThreadCardOptions from "../forms/ThreadCardOptions";
 
 interface Props {
   id: string;
@@ -201,7 +201,7 @@ async function ThreadCard({
           </div>
         </div>
 
-        <DeleteThread
+        <ThreadCardOptions
           threadId={JSON.stringify(id)}
           currentUserId={currentUserId}
           authorId={author.id}

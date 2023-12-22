@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+
 import { deleteThread } from "@/lib/actions/thread.actions";
+import { removeLikedThread } from "@/lib/actions/user.actions";
 
 interface Props {
   threadId: string;
@@ -20,36 +21,29 @@ function DeleteThread({
   parentId,
   isComment,
 }: Props) {
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleClick = async () => {
-    setIsButtonDisabled(true);
-    await deleteThread(JSON.parse(threadId), pathname);
-    if (!parentId || !isComment) {
-      router.push(pathname);
-    }
-
-    setTimeout(() => {
-      setIsButtonDisabled(false);
-    }, 3000);
-  };
+  // if (currentUserId !== authorId || pathname === "/") return null;
 
   return (
     <button
       className="flex items-center"
-      disabled={isButtonDisabled}
-      onClick={handleClick}
+      onClick={async () => {
+        await deleteThread(JSON.parse(threadId), pathname);
+        if (!parentId || !isComment) {
+          router.push(pathname);
+        }
+      }}
     >
       <Image
-        src="/assets/delete-red.svg"
+        src="/assets/edit.svg"
         alt="delete"
         width={20}
         height={20}
         className="cursor-pointer object-contain me-1"
       />
-      <div className="max-xs:hidden text-dark-1">Delete Post</div>
+      <div className="max-xs:hidden text-dark-1">Edit Post</div>
     </button>
   );
 }

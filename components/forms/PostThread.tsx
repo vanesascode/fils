@@ -18,12 +18,15 @@ interface Props {
 
 function PostThread({ userId }: Props) {
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [text, setText] = useState("");
   const router = useRouter();
   const pathname = usePathname();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsButtonDisabled(true);
     if (!text) {
       setErrorMessage("Please write some text before submitting.");
       return;
@@ -35,6 +38,10 @@ function PostThread({ userId }: Props) {
     });
 
     router.push("/");
+
+    setTimeout(() => {
+      setIsButtonDisabled(false);
+    }, 4000);
   };
 
   const {
@@ -78,6 +85,7 @@ function PostThread({ userId }: Props) {
         <button
           type="submit"
           className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"
+          disabled={isButtonDisabled}
         >
           Post
         </button>
