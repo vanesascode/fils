@@ -7,8 +7,6 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 
-import ModalOnPage from "@/components/modals/UnFollowModalOnPage";
-
 async function Home({
   searchParams,
 }: {
@@ -37,8 +35,6 @@ async function Home({
   return (
     <>
       <h1 className="head-text ">What's up?</h1>
-
-      <ModalOnPage />
 
       <section className="mt-9 flex flex-col gap-6">
         {result.posts.length === 0 ? (

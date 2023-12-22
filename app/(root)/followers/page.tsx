@@ -12,8 +12,6 @@ import {
 import { followersTabs } from "@/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import ModalOnPage from "@/components/modals/UnFollowModalOnPage";
-
 async function Page() {
   const user = await currentUser();
   if (!user) return null;
@@ -33,8 +31,6 @@ async function Page() {
   return (
     <section>
       <h1 className="head-text mb-10">Followers</h1>
-
-      <ModalOnPage />
 
       <div className="mt-9">
         <Tabs defaultValue="following" className="w-full">
