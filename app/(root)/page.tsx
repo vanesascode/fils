@@ -7,6 +7,7 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import SaveFilModalOnPage from "@/components/modals/SaveFilModalOnPage";
+import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
 
 async function Home({
   searchParams,
@@ -36,6 +37,16 @@ async function Home({
   return (
     <>
       <SaveFilModalOnPage currentUserId={user.id} />
+
+      {result.posts.map((post) => (
+        <DeleteThreadModalOnPage
+          threadId={post._id}
+          currentUserId={user.id}
+          parentId={post.parentId}
+          authorId={post.author.id}
+          isComment
+        />
+      ))}
       <h1 className="head-text ">What's up?</h1>
 
       <section className="mt-9 flex flex-col gap-6">

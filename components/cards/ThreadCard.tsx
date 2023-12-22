@@ -1,40 +1,26 @@
 "server side rendering";
 
-import Image from "next/image";
 import Link from "next/link";
-
 import { formatDateString } from "@/lib/utils";
-
 import Likes from "../forms/Likes";
 import SaveThread from "../forms/SaveThread";
-
 import { getUserId } from "@/lib/actions/user.actions";
-
 import { countLikes, getAllLikedThreadIds } from "@/lib/actions/like.actions";
-
 import { countSaves, getAllSavedThreadIds } from "@/lib/actions/saved.actions";
 import ThreadCardOptions from "../forms/ThreadCardOptions";
+import ThreadText from "./ThreadText";
 
 interface Props {
   id: string;
   currentUserId: string;
   content: string;
   parentId: string | null | undefined;
-
   author: {
     name: string;
     image: string;
     id: string;
   };
-
-  // community: {
-  //   id: string;
-  //   name: string;
-  //   image: string;
-  // } | null;
-
   createdAt: string;
-
   //the children:
   comments: {
     author: {
@@ -44,18 +30,18 @@ interface Props {
   isComment?: boolean;
 }
 
-//All these props come from the 'Home Page' (using the 'fetchPosts' action) or the Thread page (using the 'fetchThreadById' action)
 async function ThreadCard({
   id, // thread._id
-  currentUserId,
-  parentId,
+  currentUserId, //
+  parentId, //
   content,
-  author,
+  author, //author.id
   createdAt,
   comments,
-  isComment,
+  isComment, //
 }: Props) {
   const userId = await getUserId(currentUserId); //mongoDB id of logged in user
+  const author_Id = await getUserId(author.id); //mongoDB id of author
   const likes = await countLikes(id);
   const saves = await countSaves(id);
 
@@ -115,13 +101,14 @@ async function ThreadCard({
 
             {/*THE TEXT OF THE THREAD */}
 
-            <p
-              className={`mt-2 text-small-regular ${
-                isComment ? "text-light-1" : "text-dark-1"
-              }`}
-            >
-              {content}
-            </p>
+            <ThreadText
+              text={content}
+              isComment={isComment}
+              authorId={author.id}
+              currentUserId={currentUserId}
+              author_Id={author_Id}
+              threadId={id}
+            />
 
             {/*THE FOUR ICONS  */}
 

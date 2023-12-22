@@ -15,6 +15,10 @@ export const DataContext = React.createContext<DataContextType>({
   removeBookmarks: false,
   setAddBookmarks: () => {},
   setRemoveBookmarks: () => {},
+  editThreadMode: false,
+  setEditThreadMode: () => {},
+  deleteThreadMode: false,
+  setDeleteThreadMode: () => {},
 });
 
 export const DataContextProvider = (props: { children: React.ReactNode }) => {
@@ -22,6 +26,8 @@ export const DataContextProvider = (props: { children: React.ReactNode }) => {
   const [unFollowModalAppear, setUnfollowModalAppear] = useState(false);
   const [addBookmarks, setAddBookmarks] = useState(false);
   const [removeBookmarks, setRemoveBookmarks] = useState(false);
+  const [editThreadMode, setEditThreadMode] = useState(false);
+  const [deleteThreadMode, setDeleteThreadMode] = useState(false);
 
   return (
     <DataContext.Provider
@@ -34,6 +40,10 @@ export const DataContextProvider = (props: { children: React.ReactNode }) => {
         removeBookmarks,
         setAddBookmarks,
         setRemoveBookmarks,
+        editThreadMode,
+        setEditThreadMode,
+        deleteThreadMode,
+        setDeleteThreadMode,
       }}
     >
       {props.children}

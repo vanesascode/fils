@@ -7,4 +7,8 @@ export type DataContextType = {
   setAddBookmarks: React.Dispatch<React.SetStateAction<boolean>>;
   setRemoveBookmarks: React.Dispatch<React.SetStateAction<boolean>>;
   removeBookmarks: boolean;
+  setEditThreadMode: React.Dispatch<React.SetStateAction<boolean>>;
+  editThreadMode: boolean;
+  deleteThreadMode: boolean;
+  setDeleteThreadMode: React.Dispatch<React.SetStateAction<boolean>>;
 };

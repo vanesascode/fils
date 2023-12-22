@@ -206,13 +206,13 @@ function ProfileHeader({
       {/* NAME - USERNAME */}
       {editMode ? (
         <div className="flex-1 mt-4">
-          <h2 className="text-left text-heading3-bold text-light-1 ">
+          <div className="text-left text-heading3-bold text-light-1 ">
             <input
               defaultValue={name}
               className="rounded-lg bg-dark-1 px-4 py-1 w-full outline-none text-light-1"
               onChange={(e) => setNewName(e.target.value)}
             ></input>
-          </h2>
+          </div>
           <div className="text-base-medium text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
             <p>@</p>
             <input
@@ -227,9 +227,9 @@ function ProfileHeader({
         </div>
       ) : (
         <div className="flex-1 mt-2">
-          <h2 className="text-left text-heading3-bold text-light-1 break-all">
+          <div className="text-left text-heading3-bold text-light-1 break-all">
             {name}
-          </h2>
+          </div>
           <p className="text-small-semibold  text-light-2 break-all mt-[-2px]">
             @{username}
           </p>

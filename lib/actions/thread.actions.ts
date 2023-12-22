@@ -59,14 +59,14 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
 
 // 2 - CREATE THREADS ////////////////////////////////////////////////////////////////////////
 
-interface Params {
+interface ParamsCreateThread {
   text: string;
   author: string;
   // communityId: string | null;
   path: string;
 }
 
-export async function createThread({ text, author, path }: Params) {
+export async function createThread({ text, author, path }: ParamsCreateThread) {
   try {
     connectToDB();
 
@@ -82,6 +82,33 @@ export async function createThread({ text, author, path }: Params) {
 
     revalidatePath(path);
   } catch (error: any) {
+    throw new Error(`Failed to create thread: ${error.message}`);
+  }
+}
+
+// UPDATE THREAD///////////////////////////////////////////
+
+interface ParamsEditThread {
+  text: string;
+  author: string;
+  path: string;
+  _id: string;
+}
+
+export async function updateThread({
+  _id,
+  text,
+  author,
+  path,
+}: ParamsEditThread): Promise<void> {
+  try {
+    await connectToDB();
+
+    await Thread.findOneAndUpdate({ _id: _id }, { text: text });
+    console.log("Thread updated successfully!");
+    revalidatePath(path);
+  } catch (error: any) {
+    console.error(`Failed to update thread: ${error.message}`);
     throw new Error(`Failed to create thread: ${error.message}`);
   }
 }

@@ -18,7 +18,7 @@ export async function saveLike(threadId: string, userId: string, path: string) {
     if (existingLike) {
       await Like.findOneAndDelete({ userId, threadId });
       revalidatePath(path);
-      console.log(`Like of thread ${threadId} removed for user ${userId}`);
+      // console.log(`Like of thread ${threadId} removed for user ${userId}`);
       return `Like of thread ${threadId} removed for user ${userId}`;
     } else {
       const savedLike = new Like({
@@ -27,7 +27,7 @@ export async function saveLike(threadId: string, userId: string, path: string) {
       });
 
       await savedLike.save();
-      console.log(`Successfully saved like ${threadId}`);
+      // console.log(`Successfully saved like ${threadId}`);
       revalidatePath(path);
       return `Successfully saved like ${threadId}`;
     }
