@@ -7,7 +7,7 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 
-import ModalOnPage from "@/components/cards/ModalOnPage";
+import ModalOnPage from "@/components/modals/UnFollowModalOnPage";
 
 async function Home({
   searchParams,

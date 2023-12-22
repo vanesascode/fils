@@ -12,7 +12,7 @@ import {
 import { followersTabs } from "@/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import ModalOnPage from "@/components/cards/ModalOnPage";
+import ModalOnPage from "@/components/modals/UnFollowModalOnPage";
 
 async function Page() {
   const user = await currentUser();
