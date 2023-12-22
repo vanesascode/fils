@@ -28,7 +28,7 @@ const FollowUser = ({
   currentUserId,
   followedUsersIds,
 }: Props) => {
-  const { setModalAppear } = useContext(DataContext) as DataContextType;
+  const { setUnfollowModalAppear } = useContext(DataContext) as DataContextType;
 
   const pathname = usePathname();
 
@@ -45,7 +45,7 @@ const FollowUser = ({
   };
 
   const handleModalQuestion = () => {
-    setModalAppear(true);
+    setUnfollowModalAppear(true);
   };
 
   return (

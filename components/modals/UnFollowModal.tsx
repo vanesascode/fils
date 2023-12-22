@@ -26,7 +26,7 @@ const UnFollowModal = ({
   {
     /*context API*/
   }
-  const { modalAppear, setModalAppear } = useContext(
+  const { unFollowModalAppear, setUnfollowModalAppear } = useContext(
     DataContext
   ) as DataContextType;
 
@@ -41,7 +41,7 @@ const UnFollowModal = ({
       );
       if (response === `Successfully saved new user followed`) {
       } else if (response === `Unfollowed`) {
-        setModalAppear(false);
+        setUnfollowModalAppear(false);
       }
     } catch (error: any) {
       console.error("Error saving thread:", error);
@@ -49,12 +49,12 @@ const UnFollowModal = ({
   };
 
   const handleCancelClick = () => {
-    setModalAppear(false);
+    setUnfollowModalAppear(false);
   };
 
   return (
     <>
-      {modalAppear && (
+      {unFollowModalAppear && (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-70 z-50">
           <div className="bg-white p-[30px] rounded-lg shadow text-center">
             {/*QUESTION*/}

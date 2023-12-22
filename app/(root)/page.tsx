@@ -6,6 +6,7 @@ import Pagination from "@/components/shared/Pagination";
 
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
+import SaveFilModalOnPage from "@/components/modals/SaveFilModalOnPage";
 
 async function Home({
   searchParams,
@@ -34,6 +35,7 @@ async function Home({
 
   return (
     <>
+      <SaveFilModalOnPage currentUserId={user.id} />
       <h1 className="head-text ">What's up?</h1>
 
       <section className="mt-9 flex flex-col gap-6">

@@ -1,6 +1,10 @@
 export type DataContextType = {
   message: string;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
-  setModalAppear: React.Dispatch<React.SetStateAction<boolean>>;
-  modalAppear: boolean;
+  setUnfollowModalAppear: React.Dispatch<React.SetStateAction<boolean>>;
+  unFollowModalAppear: boolean;
+  addBookmarks: boolean;
+  setAddBookmarks: React.Dispatch<React.SetStateAction<boolean>>;
+  setRemoveBookmarks: React.Dispatch<React.SetStateAction<boolean>>;
+  removeBookmarks: boolean;
 };

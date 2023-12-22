@@ -4,8 +4,12 @@ import React from "react";
 import Image from "next/image";
 import { saveThread } from "@/lib/actions/saved.actions";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import Link from "next/link";
+
+// context:
+
+import { DataContext } from "../../app/context/DataContext";
+import { useContext } from "react";
+import { DataContextType } from "../../app/context/types";
 
 interface Props {
   threadId: string;
@@ -24,7 +28,8 @@ const SaveThread = ({
   saves,
   savedThreads,
 }: Props) => {
-  const [saveMessage, setSaveMessage] = useState("");
+  const { addBookmarks, removeBookmarks, setAddBookmarks, setRemoveBookmarks } =
+    useContext(DataContext) as DataContextType;
 
   const pathname = usePathname();
 
@@ -35,14 +40,16 @@ const SaveThread = ({
         response ===
         `Thread ${threadId} for user ${userId} was deleted from saved list`
       ) {
-        setSaveMessage(`Removed from your save fils`);
+        setRemoveBookmarks(true);
+        setTimeout(() => {
+          setRemoveBookmarks(false);
+        }, 1500);
       } else {
-        setSaveMessage(`Added to your saved fils`);
+        setAddBookmarks(true);
+        setTimeout(() => {
+          setAddBookmarks(false);
+        }, 4000);
       }
-
-      setTimeout(() => {
-        setSaveMessage("");
-      }, 2000);
     } catch (error: any) {
       console.error("Error saving thread:", error);
     }
@@ -78,34 +85,6 @@ const SaveThread = ({
           {saves}
         </div>
       </div>
-
-      {/*TOAST MESSAGE*/}
-
-      {saveMessage === "Removed from your save fils" && (
-        <div
-          className="rounded-lg bg-dark-1 px-4 py-2 absolute max-sm2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in duration-600 text-subtle-regular 
-        text-light-1 whitespace-nowrap"
-        >
-          Removed from your saved fils
-        </div>
-      )}
-
-      {saveMessage === "Added to your saved fils" && (
-        <div
-          className="rounded-lg bg-dark-1 px-4 py-2 absolute text-subtle-regular 
-        text-light-1 text-center flex flex-column max-sm2:right-[-40px] bottom-[-55px] animate-in fade-in zoom-in whitespace-nowrap"
-        >
-          <div>Added to your saved fils</div>
-          <div>
-            <Link href={`/profile/${currentUserId}`}>
-              <div className="text-[13px] font-extrabold cursor-pointer ml-3">
-                {" "}
-                View
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
