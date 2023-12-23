@@ -48,3 +48,8 @@ export const followersTabs = [
   { value: "following", label: "Following", icon: "/assets/reply-white.svg" },
   { value: "followers", label: "Followers", icon: "/assets/members.svg" },
 ];
+
+export const homeTabs = [
+  { value: "following", label: "Following", icon: "/assets/reply-white.svg" },
+  { value: "all fils", label: "All fils", icon: "/assets/members.svg" },
+];

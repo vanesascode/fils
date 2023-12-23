@@ -34,17 +34,18 @@ const UnFollowModal = ({
     deleteThreadMode,
     setDeleteThreadMode,
   } = useContext(DataContext) as DataContextType;
-
+  const pathname = usePathname();
   const router = useRouter();
+
+  if (currentUserId !== authorId || pathname === "/") return null;
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  const pathname = usePathname();
   console.log(threadId);
 
   const handledeleteThreadClick = async () => {
     setIsButtonDisabled(true);
-    await deleteThread(threadId, pathname);
+    await deleteThread(JSON.parse(threadId), pathname);
     if (!parentId || !isComment) {
       router.push(pathname);
     }

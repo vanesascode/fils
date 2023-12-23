@@ -7,12 +7,13 @@ import Thread from "../models/thread.model";
 import Community from "../models/community.model";
 import Saved from "../models/saved.model";
 import Like from "../models/like.model";
+import Follower from "../models/follower.model";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////// THREADS //////////////////////////////////////////////////////////
 
-// 1 - FETCH THREADS & implement the pagination /////////////////////////////////////////////////////////////
+// FETCH THREADS & implement the pagination /////////////////////////////////////////////////////////////
 
 export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   connectToDB();
@@ -57,7 +58,7 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   return { posts, isNext };
 }
 
-// 2 - CREATE THREADS ////////////////////////////////////////////////////////////////////////
+// CREATE THREADS ////////////////////////////////////////////////////////////////////////
 
 interface ParamsCreateThread {
   text: string;
@@ -113,7 +114,7 @@ export async function updateThread({
   }
 }
 
-// 3 - FETCH ALL CHILD THREADS ///////////////////////////////////////////////////////////////////////
+// FETCH ALL CHILD THREADS ///////////////////////////////////////////////////////////////////////
 
 async function fetchAllChildThreads(threadId: string): Promise<any[]> {
   const childThreads = await Thread.find({ parentId: threadId });
@@ -127,7 +128,7 @@ async function fetchAllChildThreads(threadId: string): Promise<any[]> {
   return descendantThreads;
 }
 
-// 4 - DELETE THREAD /////////////////////////////////////////////////////////////////////////////
+// DELETE THREAD /////////////////////////////////////////////////////////////////////////////
 
 export async function deleteThread(id: string, path: string): Promise<void> {
   try {
@@ -189,7 +190,7 @@ export async function deleteThread(id: string, path: string): Promise<void> {
   }
 }
 
-// 5 - FETCH A THREAD //////////////////////////////////////////////////////////////////////////////
+// FETCH A THREAD //////////////////////////////////////////////////////////////////////////////
 
 export async function fetchThreadById(threadId: string) {
   connectToDB();
@@ -234,7 +235,7 @@ export async function fetchThreadById(threadId: string) {
   }
 }
 
-// 6 - ADD COMMENT TO THREAD ////////////////////////////////////////////////////////////////////////////
+// ADD COMMENT TO THREAD ////////////////////////////////////////////////////////////////////////////
 
 export async function addCommentToThread(
   threadId: string,
@@ -276,37 +277,67 @@ export async function addCommentToThread(
   }
 }
 
-// 7 - UPDATE POST  ///////////////////////////////////////////////////////////////////////////
+// 7 - FETCH ALL FOLLOWING USERS THREADS /////////////////////////////////////////////////////////////////////////
 
-// export const updateThread = async ({
-//   threadId,
-//   likes,
-//   userId,
-// }: {
-//   threadId: string;
-//   likes: number;
-//   userId: string;
-// }) => {
-//   // Find the current user
-//   const currentUser = await User.findOne({ id: userId });
+// export async function fetchFollowingUsersThreads();
 
-//   // Check if the thread is already liked by the user
-//   const isLiked = currentUser.likedThreads.includes(threadId);
+// FETCH THREADS & implement the pagination /////////////////////////////////////////////////////////////
 
-//   // If the thread is liked and the user unlikes it, remove the thread ID from the likedThreads array
-//   if (isLiked && likes === 0) {
-//     currentUser.likedThreads = currentUser.likedThreads.filter(
-//       (id: string) => id !== threadId
-//     );
-//   }
-//   // If the thread is not liked and the user likes it, add the thread ID to the likedThreads array
-//   else if (!isLiked && likes > 0) {
-//     currentUser.likedThreads.push(threadId);
-//   }
+export async function fetchFollowingUsersThreads(
+  pageNumber = 1,
+  pageSize = 20,
+  currentUserId: string
+) {
+  connectToDB();
 
-//   // Save the updated user
-//   await currentUser.save();
-// };
+  // Calculate the number of threads to skip based on the page number and page size.
+  const skipAmount = (pageNumber - 1) * pageSize;
+
+  // Fetch the current user's followers
+  const followers = await Follower.find({ currentUserId }).select(
+    "accountUserId"
+  );
+
+  // Extract the account user IDs from the followers
+  const accountUserIds = followers.map((follower) => follower.accountUserId);
+
+  // Create a query to fetch the threads authored by the users you are following
+  const threadsQuery = Thread.find({
+    author: { $in: accountUserIds },
+    parentId: { $in: [null, undefined] },
+  })
+    .sort({ createdAt: "desc" })
+    .skip(skipAmount)
+    .limit(pageSize)
+    .populate({
+      path: "author",
+      model: User,
+    })
+    .populate({
+      path: "community",
+      model: Community,
+    })
+    .populate({
+      path: "children",
+      populate: {
+        path: "author",
+        model: User,
+        select: "_id name parentId image",
+      },
+    });
+
+  // Count the total number of threads authored by the users you are following
+  const totalThreadsCount = await Thread.countDocuments({
+    author: { $in: accountUserIds },
+    parentId: { $in: [null, undefined] },
+  });
+
+  const threads = await threadsQuery.exec();
+
+  const isNext = totalThreadsCount > skipAmount + threads.length;
+
+  return { threads, isNext };
+}
 
 ////////REVISE ////???????//////////////////////////////////////////////////////////////////
 

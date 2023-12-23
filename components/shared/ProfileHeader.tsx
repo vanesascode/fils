@@ -64,6 +64,7 @@ function ProfileHeader({
   const [newUsername, setNewUsername] = useState(username);
   const [newName, setNewName] = useState(name);
   const [usernameError, setUsernameError] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   // HANDLERS EDIT PROFILE
 
@@ -118,7 +119,15 @@ function ProfileHeader({
     router.push("/");
   };
 
-  //
+  // HANDLE MODAL
+
+  const handleOpenModel = () => {
+    setOpenModal(true);
+  };
+
+  const handleCancelClick = () => {
+    setOpenModal(false);
+  };
 
   return (
     <div className="flex w-full flex-col justify-start">
@@ -306,12 +315,51 @@ function ProfileHeader({
         )}
       </div>
 
+      {/**MODAL*************************************************************fixed top-0 left-0  bg-black***************************************/}
+
+      {openModal && (
+        <div className="fixed top-0 left-0  bg-black w-full h-full flex justify-center items-center bg-opacity-50 z-50">
+          <div className="bg-white p-[30px] rounded-lg shadow text-center box-shadow-small max-xs:p-[25px]">
+            {/*QUESTION*/}
+
+            <div className="mb-1 text-heading3-bold  text-dark-1  tracking-tight">
+              Are you sure?
+            </div>
+
+            {/*EXPLANATION*/}
+
+            <div className="text-body2-regular  mt-2 text-dark-1">
+              If you delete your account you will <br />
+              lose forever all the fils you <br />
+              created and all your fils saved
+            </div>
+
+            {/*BUTTONS*/}
+
+            <div className="flex gap-5 justify-center mt-5 ">
+              <button
+                className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
+                onClick={deleteProfile}
+                // disabled={isButtonDisabled}
+              >
+                Delete
+              </button>
+              <button
+                className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-dark-1 hover:text-light-1 text-dark-1"
+                onClick={handleCancelClick}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/*DELETE ACCOUNT BUTTON*/}
 
       {editMode && accountId === currentUserId && type !== "Community" && (
         <div
           className="text-base-regular text-light-1 text-end mt-2 cursor-pointer"
-          onClick={deleteProfile}
+          onClick={handleOpenModel}
         >
           Delete Account
         </div>

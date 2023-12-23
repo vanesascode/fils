@@ -51,6 +51,10 @@ const ThreadText = ({
     }
   };
 
+  const handleCancelClick = () => {
+    setEditThreadMode(false);
+  };
+
   return (
     <>
       {editThreadMode && authorId === currentUserId ? (
@@ -67,10 +71,17 @@ const ThreadText = ({
             ></textarea>
           </div>
           <button
-            className="mt-3 text-base-regular text-dark-1 w-full"
+            className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
             onClick={handleClick}
+            // disabled={isButtonDisabled}
           >
             Save
+          </button>
+          <button
+            className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-dark-1 hover:text-light-1 text-dark-1"
+            onClick={handleCancelClick}
+          >
+            Cancel
           </button>
         </>
       ) : (

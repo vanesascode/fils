@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { deleteThread } from "@/lib/actions/thread.actions";
 
 import Image from "next/image";
+import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
 
 // context:
 
@@ -86,8 +87,17 @@ function ThreadCardOptions({
     setDeleteThreadMode(true);
   };
 
+  console.log(threadId);
+
   return (
     <>
+      {/* <DeleteThreadModalOnPage
+        threadId={threadId}
+        currentUserId={currentUserId}
+        parentId={parentId}
+        authorId={authorId}
+        isComment
+      /> */}
       <>
         {/* OPTIONS ICON */}
         <div className="relative">
@@ -111,7 +121,7 @@ function ThreadCardOptions({
             <div className="absolute right-[0px] top-[30px] w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden">
               {/*OPTIONS*/}
 
-              <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px]">
+              <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-b-2 border-dark-1">
                 {/*EDIT BUTTON*/}
                 <button className="flex items-center" onClick={handleEditClick}>
                   <Image
@@ -126,7 +136,7 @@ function ThreadCardOptions({
                   </div>
                 </button>
               </div>
-              <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px]">
+              <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-t-2 border-dark-1 ">
                 {/*DELETE BUTTON*/}
 
                 <button

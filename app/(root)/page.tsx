@@ -5,9 +5,14 @@ import ThreadCard from "@/components/cards/ThreadCard";
 import Pagination from "@/components/shared/Pagination";
 
 import { fetchPosts } from "@/lib/actions/thread.actions";
+import { fetchFollowingUsersThreads } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import SaveFilModalOnPage from "@/components/modals/SaveFilModalOnPage";
-import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
+
+import { homeTabs } from "@/constants";
 
 async function Home({
   searchParams,
@@ -23,9 +28,9 @@ async function Home({
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  //FETCH POSTS///////////////////////////////////////////////////////////////////////////
+  //FETCH ALL POSTS///////////////////////////////////////////////////////////////////////////
 
-  const result = await fetchPosts(
+  const resultAll = await fetchPosts(
     // if searchParams.page is truthy, it means that the page parameter is present in the URL and has a value. (example: ?page=2) --- +searchParams.page expression is used to convert the value to a number.
 
     // Why is it ".page" ? Because we are using it in the URL and it's between "?"" and "=" (?page=) We are sending it like this from the Pagination.tsx component.
@@ -34,11 +39,35 @@ async function Home({
     5
   );
 
+  console.log("DDDDDDDDDDDDDDDDDDDDDDD", userInfo._id);
+
+  //FETCH ONLY FOLLOWING USERS POSTS//////////////////////////////////////////////////////////
+
+  const resultFollowed = await fetchFollowingUsersThreads(
+    searchParams.page ? +searchParams.page : 1,
+    5,
+    userInfo._id
+  );
+
+  // console.log("result", result);
+
+  // result {
+  //   posts: [
+  //     {
+  //       _id: new ObjectId("6586339232ff2d946c0a3485"),
+  //       text: 'asdf asdf w er63245563 45634563 45 6 3456',
+  //       author: [Object],
+  //       children: [],
+  //       likes: 0,
+  //       createdAt: 2023-12-23T01:10:42.321Z,
+  //       __v: 0
+  //     },
+
   return (
     <>
       <SaveFilModalOnPage currentUserId={user.id} />
 
-      {result.posts.map((post) => (
+      {/* {result.posts.map((post) => (
         <DeleteThreadModalOnPage
           threadId={post._id}
           currentUserId={user.id}
@@ -46,35 +75,99 @@ async function Home({
           authorId={post.author.id}
           isComment
         />
-      ))}
+      ))} */}
+
       <h1 className="head-text ">What's up?</h1>
 
-      <section className="mt-9 flex flex-col gap-6">
-        {result.posts.length === 0 ? (
-          <p className="no-result text-light-1">No threads found </p>
-        ) : (
-          <>
-            {result.posts.map((post) => (
-              <ThreadCard
-                key={post._id}
-                id={post._id}
-                currentUserId={user.id}
-                parentId={post.parentId}
-                content={post.text}
-                author={post.author}
-                createdAt={post.createdAt}
-                comments={post.children}
-              />
-            ))}
-          </>
-        )}
-      </section>
+      {/* TABS LIST*/}
 
-      <Pagination
-        path="/"
-        pageNumber={searchParams?.page ? +searchParams.page : 1}
-        isNext={result.isNext}
-      />
+      <div className="mt-9">
+        <Tabs defaultValue="following" className="w-full">
+          {/* TABS LIST*/}
+
+          <TabsList className="tab">
+            {homeTabs.map((tab) => (
+              <TabsTrigger
+                key={tab.label}
+                value={tab.value}
+                className="tab rounded-lg box-shadow-small"
+              >
+                {/*Label shown only in big screens */}
+
+                <p className=" text-light-1">{tab.label}</p>
+
+                {/* How many threads the user has :  */}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {/* TABS CONTENT*/}
+
+          {/*FOLLOWING USERS POSTS TAB: */}
+
+          <TabsContent value="following" className="w-full text-light-1">
+            {/* @ts-ignore */}
+            <section className="mt-4 flex flex-col gap-6">
+              {resultFollowed.threads.length === 0 ? (
+                <p className="no-result text-light-1">No threads found </p>
+              ) : (
+                <>
+                  {resultFollowed.threads.map((post) => (
+                    <ThreadCard
+                      key={post._id}
+                      id={post._id}
+                      currentUserId={user.id}
+                      parentId={post.parentId}
+                      content={post.text}
+                      author={post.author}
+                      createdAt={post.createdAt}
+                      comments={post.children}
+                    />
+                  ))}
+                </>
+              )}
+            </section>
+
+            <Pagination
+              path="/"
+              pageNumber={searchParams?.page ? +searchParams.page : 1}
+              isNext={resultFollowed.isNext}
+            />
+          </TabsContent>
+
+          {/*ALL USERS POSTS TAB: */}
+
+          <TabsContent value="all fils" className="w-full text-light-1">
+            {/* @ts-ignore */}
+            <section className="mt-4 flex flex-col gap-6">
+              {resultAll.posts.length === 0 ? (
+                <p className="no-result text-light-1">No threads found </p>
+              ) : (
+                <>
+                  {resultAll.posts.map((post) => (
+                    <ThreadCard
+                      key={post._id}
+                      id={post._id}
+                      currentUserId={user.id}
+                      parentId={post.parentId}
+                      content={post.text}
+                      author={post.author}
+                      createdAt={post.createdAt}
+                      comments={post.children}
+                    />
+                  ))}
+                </>
+              )}
+            </section>
+
+            <Pagination
+              path="/"
+              pageNumber={searchParams?.page ? +searchParams.page : 1}
+              isNext={resultAll.isNext}
+            />
+          </TabsContent>
+        </Tabs>
+      </div>
     </>
   );
 }

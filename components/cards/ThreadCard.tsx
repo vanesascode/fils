@@ -9,6 +9,9 @@ import { countLikes, getAllLikedThreadIds } from "@/lib/actions/like.actions";
 import { countSaves, getAllSavedThreadIds } from "@/lib/actions/saved.actions";
 import ThreadCardOptions from "../forms/ThreadCardOptions";
 import ThreadText from "./ThreadText";
+import DeleteThread from "../forms/DeleteThread";
+
+// import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
 
 interface Props {
   id: string;
@@ -47,6 +50,8 @@ async function ThreadCard({
 
   /////////////////////////////////////////////////////////////
 
+  console.log("lllllllllllllllllllllllllllllllllllll", id);
+
   let likedThreadIds = await getAllLikedThreadIds(userId);
   // I pass the array of IDObjects to an array of strings:
   likedThreadIds = likedThreadIds.map((el) => el.toString());
@@ -55,203 +60,193 @@ async function ThreadCard({
   savedThreadIds = savedThreadIds.map((el) => el.toString());
 
   return (
-    <article
-      className={`flex w-full flex-col rounded-xl ${
-        isComment ? "px-0 xs:px-7" : "bg-light-1 p-7 box-shadow-big"
-      }`}
-    >
-      {/*ALL CARDS***/}
+    <>
+      {" "}
+      <DeleteThread
+        threadId={JSON.stringify(id)}
+        currentUserId={currentUserId}
+        authorId={author.id}
+        parentId={parentId}
+        isComment={isComment}
+      />
+      <article
+        className={`flex w-full flex-col rounded-xl ${
+          isComment ? "px-0 xs:px-7" : "bg-light-1 p-7 box-shadow-big"
+        }`}
+      >
+        {/*ALL CARDS***/}
 
-      {/*PROFILE IMAGE */}
+        {/*PROFILE IMAGE */}
 
-      <div className="flex items-start justify-between">
-        <div className="flex w-full flex-1 flex-row gap-4">
-          <div className="flex flex-col items-center">
-            <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
-              <img
-                src={author.image}
-                alt="user_community_image"
-                className="cursor-pointer rounded-full object-cover "
-              />
-            </Link>
-
-            {/*THE VERTICAL LINE */}
-
-            <div
-              className={`thread-card_bar ${
-                isComment ? "bg-light-1" : "bg-dark-1"
-              }`}
-            />
-          </div>
-
-          {/*THE USERNAME */}
-
-          <div className="flex w-full flex-col">
-            <Link href={`/profile/${author.id}`} className="w-fit">
-              <h4
-                className={`cursor-pointer break-all ${
-                  isComment
-                    ? "text-base-bold text-light-1"
-                    : "text-base-semibold text-dark-1 "
-                } `}
+        <div className="flex items-start justify-between">
+          <div className="flex w-full flex-1 flex-row gap-4">
+            <div className="flex flex-col items-center">
+              <Link
+                href={`/profile/${author.id}`}
+                className="relative h-11 w-11"
               >
-                {author.name}
-              </h4>
-            </Link>
-
-            {/*THE TEXT OF THE THREAD */}
-
-            <ThreadText
-              text={content}
-              isComment={isComment}
-              authorId={author.id}
-              currentUserId={currentUserId}
-              author_Id={author_Id}
-              threadId={id}
-            />
-
-            {/*THE FOUR ICONS  */}
-
-            <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
-              <div className="flex xs:gap-5 gap-2">
-                {/* LIKES ************************************************************************************************/}
-
-                <Likes
-                  isComment={isComment}
-                  threadId={id ? id.toString() : ""}
-                  currentUserId={currentUserId.toString()}
-                  userId={userId ? userId.toString() : ""}
-                  likes={likes}
-                  likedThreads={likedThreadIds.includes(id.toString())}
+                <img
+                  src={author.image}
+                  alt="user_community_image"
+                  className="cursor-pointer rounded-full object-cover "
                 />
+              </Link>
 
-                {/* ************************************************************************************************/}
+              {/*THE VERTICAL LINE */}
 
-                {/*REPLIES */}
-                <Link
-                  href={`/thread/${id}`}
-                  className="flex items-center justify-center"
+              <div
+                className={`thread-card_bar ${
+                  isComment ? "bg-light-1" : "bg-dark-1"
+                }`}
+              />
+            </div>
+
+            {/*THE USERNAME */}
+
+            <div className="flex w-full flex-col">
+              <Link href={`/profile/${author.id}`} className="w-fit">
+                <h4
+                  className={`cursor-pointer break-all ${
+                    isComment
+                      ? "text-base-bold text-light-1"
+                      : "text-base-semibold text-dark-1 "
+                  } `}
                 >
-                  <img
-                    src={
-                      isComment
-                        ? "/assets/reply-white.svg"
-                        : "/assets/reply-black.svg"
-                    }
-                    alt="heart"
-                    className="cursor-pointer object-contain w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
+                  {author.name}
+                </h4>
+              </Link>
+
+              {/*THE TEXT OF THE THREAD */}
+
+              <ThreadText
+                text={content}
+                isComment={isComment}
+                authorId={author.id}
+                currentUserId={currentUserId}
+                author_Id={author_Id}
+                threadId={id}
+              />
+
+              {/*THE FOUR ICONS  */}
+
+              <div
+                className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}
+              >
+                <div className="flex xs:gap-5 gap-2">
+                  {/* LIKES ************************************************************************************************/}
+
+                  <Likes
+                    isComment={isComment}
+                    threadId={id ? id.toString() : ""}
+                    currentUserId={currentUserId.toString()}
+                    userId={userId ? userId.toString() : ""}
+                    likes={likes}
+                    likedThreads={likedThreadIds.includes(id.toString())}
                   />
-                </Link>
 
-                {/*SHARE THREAD ICON */}
+                  {/* ************************************************************************************************/}
 
-                <div className="flex items-center justify-center">
-                  <img
-                    src={
-                      isComment
-                        ? "/assets/share-white.svg"
-                        : "/assets/share-black.svg"
-                    }
-                    alt="share icon"
-                    className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
+                  {/*REPLIES */}
+                  <Link
+                    href={`/thread/${id}`}
+                    className="flex items-center justify-center"
+                  >
+                    <img
+                      src={
+                        isComment
+                          ? "/assets/reply-white.svg"
+                          : "/assets/reply-black.svg"
+                      }
+                      alt="heart"
+                      className="cursor-pointer object-contain w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
+                    />
+                  </Link>
+
+                  {/*SHARE THREAD ICON */}
+
+                  <div className="flex items-center justify-center">
+                    <img
+                      src={
+                        isComment
+                          ? "/assets/share-white.svg"
+                          : "/assets/share-black.svg"
+                      }
+                      alt="share icon"
+                      className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
+                    />
+                  </div>
+                  {/*SAVE THREAD ICON */}
+                  <SaveThread
+                    isComment={isComment}
+                    threadId={id ? id.toString() : ""}
+                    currentUserId={currentUserId.toString()}
+                    userId={userId ? userId.toString() : ""}
+                    saves={saves}
+                    savedThreads={savedThreadIds.includes(id.toString())}
                   />
                 </div>
-                {/*SAVE THREAD ICON */}
-                <SaveThread
-                  isComment={isComment}
-                  threadId={id ? id.toString() : ""}
-                  currentUserId={currentUserId.toString()}
-                  userId={userId ? userId.toString() : ""}
-                  saves={saves}
-                  savedThreads={savedThreadIds.includes(id.toString())}
-                />
-              </div>
-              {isComment && (
-                <p className="text-subtle-medium text-light-2 mt-1">
-                  {formatDateString(createdAt)}
-                </p>
-              )}
-
-              {/*DEPENDING WHETHER IT IS ORIGINAL OR COMMENT****/}
-
-              {/*THE NUMBER OF REPLIES IF IT IS A COMMENT*/}
-
-              {isComment && comments.length > 0 && (
-                <Link href={`/thread/${id}`}>
-                  <p className="mt-1 text-subtle-medium text-light-1">
-                    {comments.length} repl{comments.length > 1 ? "ies" : "y"}
+                {isComment && (
+                  <p className="text-subtle-medium text-light-2 mt-1">
+                    {formatDateString(createdAt)}
                   </p>
-                </Link>
-              )}
+                )}
+
+                {/*DEPENDING WHETHER IT IS ORIGINAL OR COMMENT****/}
+
+                {/*THE NUMBER OF REPLIES IF IT IS A COMMENT*/}
+
+                {isComment && comments.length > 0 && (
+                  <Link href={`/thread/${id}`}>
+                    <p className="mt-1 text-subtle-medium text-light-1">
+                      {comments.length} repl{comments.length > 1 ? "ies" : "y"}
+                    </p>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        <ThreadCardOptions
-          threadId={JSON.stringify(id)}
-          currentUserId={currentUserId}
-          authorId={author.id}
-          parentId={parentId}
-          isComment={isComment}
-        />
-      </div>
-
-      {/*THE NUMBER OF REPLIES IF IT IS AN ORIGINAL THREAD*/}
-
-      {!isComment && comments.length > 0 && (
-        <div className="ml-1 mt-3 flex items-center gap-2">
-          {comments.slice(0, 2).map((comment, index) => (
-            <img
-              key={index}
-              src={comment.author.image}
-              alt={`user_${index}`}
-              className={`${
-                index !== 0 && "-ml-5"
-              } rounded-image-profile-reply`}
-            />
-          ))}
-
-          <Link href={`/thread/${id}`}>
-            <p className="mt-1 text-subtle-medium text-dark-1">
-              {comments.length} repl{comments.length > 1 ? "ies" : "y"}
-            </p>
-          </Link>
-        </div>
-      )}
-
-      {/*DATE OF ORIGINAL THREAD*/}
-
-      {!isComment && (
-        <p className="text-subtle-medium text-light-3 mt-5">
-          {formatDateString(createdAt)}
-        </p>
-      )}
-
-      {/*THE COMMUNITY IF IT IS AN ORIGINAL THREAD*/}
-
-      {/* {!isComment  && (
-        <Link
-          href={`/communities/${community.id}`}
-          className="mt-5 flex items-center"
-        >
-          <p className="text-subtle-medium text-light-2">
-            {formatDateString(createdAt)}
-            <span className="text-dark-1 ms-2">
-              {" "}
-              {community && `  ${community.name} Community`}
-            </span>
-          </p>
-
-          <Image
-            src={community.image}
-            alt={community.name}
-            width={20}
-            height={20}
-            className="ml-1 rounded-full object-cover"
+          <ThreadCardOptions
+            threadId={JSON.stringify(id)}
+            currentUserId={currentUserId}
+            authorId={author.id}
+            parentId={parentId}
+            isComment={isComment}
           />
-        </Link>
-      )} */}
-    </article>
+        </div>
+
+        {/*THE NUMBER OF REPLIES IF IT IS AN ORIGINAL THREAD*/}
+
+        {!isComment && comments.length > 0 && (
+          <div className="ml-1 mt-3 flex items-center gap-2">
+            {comments.slice(0, 2).map((comment, index) => (
+              <img
+                key={index}
+                src={comment.author.image}
+                alt={`user_${index}`}
+                className={`${
+                  index !== 0 && "-ml-5"
+                } rounded-image-profile-reply`}
+              />
+            ))}
+
+            <Link href={`/thread/${id}`}>
+              <p className="mt-1 text-subtle-medium text-dark-1">
+                {comments.length} repl{comments.length > 1 ? "ies" : "y"}
+              </p>
+            </Link>
+          </div>
+        )}
+
+        {/*DATE OF ORIGINAL THREAD*/}
+
+        {!isComment && (
+          <p className="text-subtle-medium text-light-3 mt-5">
+            {formatDateString(createdAt)}
+          </p>
+        )}
+      </article>
+    </>
   );
 }
 
