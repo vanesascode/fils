@@ -29,11 +29,11 @@ async function Page({
 
   return (
     <section>
-      <h1 className="head-text mb-10">Search users</h1>
+      <h1 className="head-text mb-9">Search users</h1>
       {/*STEP 1 SEARCHBAR: The Searchbar component makes the URL changed:*/}
       <Searchbar routeType="search" />
 
-      <div className="mt-4 flex flex-col gap-4">
+      <div className="mt-6 flex flex-col gap-4">
         {result.users.length === 0 ? (
           <p className="no-result">No Result</p>
         ) : (

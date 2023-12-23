@@ -32,8 +32,8 @@ function Bottombar() {
               <Image
                 src={isActive ? link.imgURLleftbar : link.imgURLbottombar}
                 alt={link.label}
-                width={16}
-                height={16}
+                width={20}
+                height={20}
                 className="object-contain"
               />
               <div className="max-xs:hidden">{link.label.split(/\s+/)[0]}</div>

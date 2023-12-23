@@ -70,7 +70,7 @@ async function Page() {
           </>
         ) : (
           <p className="!text-base-regular text-light-1 text-center">
-            No activity yet
+            No notifications yet
           </p>
         )}
       </section>

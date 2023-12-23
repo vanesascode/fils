@@ -82,7 +82,7 @@ async function Home({
       {/* TABS LIST*/}
 
       <div className="mt-9">
-        <Tabs defaultValue="following" className="w-full">
+        <Tabs defaultValue="all Fils" className="w-full">
           {/* TABS LIST*/}
 
           <TabsList className="tab">
@@ -107,9 +107,11 @@ async function Home({
 
           <TabsContent value="following" className="w-full text-light-1">
             {/* @ts-ignore */}
-            <section className="mt-4 flex flex-col gap-6">
+            <section className="mt-5 flex flex-col gap-6">
               {resultFollowed.threads.length === 0 ? (
-                <p className="no-result text-light-1">No threads found </p>
+                <p className="no-result text-light-1">
+                  You are not following any users yet.{" "}
+                </p>
               ) : (
                 <>
                   {resultFollowed.threads.map((post) => (
@@ -137,9 +139,9 @@ async function Home({
 
           {/*ALL USERS POSTS TAB: */}
 
-          <TabsContent value="all fils" className="w-full text-light-1">
+          <TabsContent value="all Fils" className="w-full text-light-1">
             {/* @ts-ignore */}
-            <section className="mt-4 flex flex-col gap-6">
+            <section className="mt-5 flex flex-col gap-6">
               {resultAll.posts.length === 0 ? (
                 <p className="no-result text-light-1">No threads found </p>
               ) : (

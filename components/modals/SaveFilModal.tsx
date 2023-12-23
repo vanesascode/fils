@@ -30,7 +30,7 @@ const SaveFilModal = ({ currentUserId }: Props) => {
             <div className="text-base-semibold">Added to your bookmarks</div>
             <Link
               href={`/profile/${currentUserId}`}
-              className="text-light-1 sm:text-body-bold "
+              className="text-light-1 text-base-bold sm:text-body-bold "
             >
               View
             </Link>

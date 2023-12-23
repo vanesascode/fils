@@ -23,12 +23,12 @@ export const sidebarLinks = [
     route: "/create-thread",
     label: "Create Fil",
   },
-  {
-    imgURLleftbar: "/assets/community.svg",
-    imgURLbottombar: "/assets/community-white.svg",
-    route: "/followers",
-    label: "Followers",
-  },
+  // {
+  //   imgURLleftbar: "/assets/community.svg",
+  //   imgURLbottombar: "/assets/community-white.svg",
+  //   route: "/followers",
+  //   label: "Followers",
+  // },
   {
     imgURLleftbar: "/assets/user.svg",
     imgURLbottombar: "/assets/user-white.svg",
@@ -50,6 +50,6 @@ export const followersTabs = [
 ];
 
 export const homeTabs = [
-  { value: "following", label: "Following", icon: "/assets/reply-white.svg" },
-  { value: "all fils", label: "All fils", icon: "/assets/members.svg" },
+  { value: "all Fils", label: "All Fils", icon: "/assets/reply-white.svg" },
+  { value: "following", label: "Following", icon: "/assets/members.svg" },
 ];
