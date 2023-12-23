@@ -24,7 +24,7 @@ async function Topbar() {
       </Link>
 
       <div className="flex items-center ">
-        <div className="block md:hidden">
+        <div className="block md:hidden me-2">
           <SignedIn>
             <SignOutButton>
               <Image

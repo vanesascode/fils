@@ -12,6 +12,10 @@ export const UserValidation = z.object({
     .string()
     .min(3, { message: "Minimum 3 characters." })
     .max(30, { message: "Maximum 30 caracters." }),
+  // .refine((value) => !/\s/.test(value), {
+  //   message: "Username cannot contain spaces",
+  // }),
+
   bio: z
     .string()
     .min(3, { message: "Minimum 3 characters." })

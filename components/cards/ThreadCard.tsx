@@ -132,7 +132,7 @@ async function ThreadCard({
               <div
                 className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}
               >
-                <div className="flex xs:gap-5 gap-2">
+                <div className="flex xxs:gap-5 gap-2">
                   {/* LIKES ************************************************************************************************/}
 
                   <Likes

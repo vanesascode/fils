@@ -24,7 +24,7 @@ interface Result {
       image: string;
     } | null;
     createdAt: string;
-    // likes: number;
+
     children: {
       author: {
         image: string;
@@ -56,32 +56,40 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
 
   return (
     <section className="mt-5 flex flex-col gap-6">
-      {result.threads.reverse().map((thread) => (
-        <ThreadCard
-          key={thread._id}
-          id={thread._id}
-          currentUserId={currentUserId}
-          parentId={thread.parentId}
-          content={thread.text}
-          author={
-            accountType === "User"
-              ? { name: result.name, image: result.image, id: result.id } //** this is why here we get the name, image and id directly from user
-              : {
-                  name: thread.author.name, //** whereas here, we get it from the threads
-                  image: thread.author.image,
-                  id: thread.author.id,
-                }
-          }
-          // community={
-          //   accountType === "Community"
-          //     ? { name: result.name, id: result.id, image: result.image }
-          //     : thread.community
-          // }
-          createdAt={thread.createdAt}
-          comments={thread.children}
-          // likes={thread.likes}
-        />
-      ))}
+      {result.threads.length === 0 ? (
+        <p className="no-result text-light-1">
+          You haven't posted any fils yet
+        </p>
+      ) : (
+        <>
+          {result.threads.reverse().map((thread) => (
+            <ThreadCard
+              key={thread._id}
+              id={thread._id}
+              currentUserId={currentUserId}
+              parentId={thread.parentId}
+              content={thread.text}
+              author={
+                accountType === "User"
+                  ? { name: result.name, image: result.image, id: result.id } //** this is why here we get the name, image and id directly from user
+                  : {
+                      name: thread.author.name, //** whereas here, we get it from the threads
+                      image: thread.author.image,
+                      id: thread.author.id,
+                    }
+              }
+              // community={
+              //   accountType === "Community"
+              //     ? { name: result.name, id: result.id, image: result.image }
+              //     : thread.community
+              // }
+              createdAt={thread.createdAt}
+              comments={thread.children}
+              // likes={thread.likes}
+            />
+          ))}
+        </>
+      )}
     </section>
   );
 }

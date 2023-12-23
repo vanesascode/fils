@@ -71,6 +71,11 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         image: values.profile_photo,
       });
 
+      if (/\s/.test(values.username)) {
+        setErrorMessageUsername("Username cannot contain spaces");
+        return;
+      }
+
       if (pathname === "/profile/edit") {
         router.back();
       } else {
@@ -83,7 +88,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         );
       } else if (error.message.includes("username")) {
         setErrorMessageUsername(
-          "This username is already taken. Please choose a different one."
+          "This username is already taken. \nPlease choose a different one."
         );
       } else {
         setErrorMessageGeneral(
@@ -208,7 +213,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
 
         {errorMessageUsername && (
-          <p className="text-red-500 text-base-semibold">
+          <p className="text-red-500 text-base-semibold text-ellipsis text-center">
             {errorMessageUsername}
           </p>
         )}
@@ -239,26 +244,23 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           </p>
         )}
 
-        <div className="text-dark-1 text-center">
-          Images cannot be bigger than 2MB
+        <div className="text-dark-1 text-center xs:text-base text-small-regular">
+          Images cannot be <br />
+          bigger than 2MB
         </div>
 
         <Button
           type="submit"
-          className="bg-light-1 hover:bg-dark-1 text-dark-1 hover:text-light-1 box-shadow-small"
+          className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
         >
-          {btnTitle}
+          Continue
         </Button>
       </form>
 
-      <div className="bg-light-1 hover:bg-dark-1  box-shadow-small rounded-lg mt-5">
+      <div className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-dark-1 hover:text-light-1 text-dark-1">
         <SignedIn>
           <SignOutButton signOutCallback={() => router.push("/sign-in")}>
-            <div className="cursor-pointer  text-center p-[6px]">
-              <p className="text-dark-1 font-medium hover:text-light-1">
-                Change account
-              </p>
-            </div>
+            Change account
           </SignOutButton>
         </SignedIn>
       </div>

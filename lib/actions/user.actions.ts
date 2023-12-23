@@ -32,17 +32,21 @@ export async function updateUser({
   username,
   image,
 }: Params): Promise<void> {
+  // if (/\s/.test(username)) {
+  //   throw new Error("Username cannot contain spaces");
+  // }
   try {
     connectToDB();
     // Check if the username already exists
     const existingUser = await User.findOne({
       username: username.toLowerCase(),
     });
-    if (existingUser) {
-      throw new Error(
-        "This username is already taken. Please choose a different one."
-      );
-    }
+    // if (existingUser) {
+    //   throw new Error(
+    //     "This username is already taken. Please choose a different oneeee."
+    //   );
+    // }
+
     await User.findOneAndUpdate(
       { id: userId },
 

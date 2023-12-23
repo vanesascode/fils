@@ -90,6 +90,10 @@ function ProfileHeader({
       };
 
       if (newUsername !== username) {
+        // if (/\s/.test(newUsername)) {
+        //   setUsernameError("Username cannot contain spacesssss");
+        //   return;
+        // }
         updatedUser.username = newUsername;
       }
       await updateUserInProfile(updatedUser);
@@ -148,34 +152,34 @@ function ProfileHeader({
           {editMode
             ? accountId === currentUserId &&
               type !== "Community" && (
-                <div className="flex gap-3 max-xs:flex-col">
+                <div className="flex gap-3 ">
                   {/*save changes button*/}
                   <button
-                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center"
+                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center box-shadow-small hover:bg-dark-1 hover:text-light-1"
                     onClick={handleSaveProfileClick}
                   >
-                    <Image
+                    {/* <Image
                       src="/assets/edit-black.svg"
                       alt="save button"
                       width={16}
                       height={16}
-                    />
+                    /> */}
 
-                    <p className="text-dark-1 ">Save</p>
+                    <p>Save</p>
                   </button>
                   {/*cancel changes button*/}
                   <button
-                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center"
+                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center box-shadow-small hover:bg-dark-1 hover:text-light-1"
                     onClick={handleCancelProfileClick}
                   >
-                    <Image
+                    {/* <Image
                       src="/assets/edit-black.svg"
                       alt="save button"
                       width={16}
                       height={16}
-                    />
+                    /> */}
 
-                    <p className="text-dark-1 ">Cancel</p>
+                    <p>Cancel</p>
                   </button>
                 </div>
               )
@@ -184,7 +188,7 @@ function ProfileHeader({
                 <div>
                   {/*cancel changes button*/}
                   <button
-                    className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 items-center justify-center"
+                    className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 items-center justify-center box-shadow-small"
                     onClick={handleEditProfileClick}
                   >
                     <Image
@@ -229,10 +233,12 @@ function ProfileHeader({
               className=" bg-dark-1  w-full outline-none ml-1 "
               onChange={(e) => setNewUsername(e.target.value)}
             ></input>
-            {usernameError && (
-              <p className="text-red-light-1">{usernameError}</p>
-            )}
           </div>
+          {usernameError && (
+            <p className="text-light-2 text-small-semibold whitespace-nowrap text-center mt-2">
+              {usernameError}
+            </p>
+          )}
         </div>
       ) : (
         <div className="flex-1 mt-2">
@@ -358,7 +364,7 @@ function ProfileHeader({
 
       {editMode && accountId === currentUserId && type !== "Community" && (
         <div
-          className="text-base-regular text-light-1 text-end mt-2 cursor-pointer"
+          className="text-base-regular text-light-2 text-end my-2 cursor-pointer"
           onClick={handleOpenModel}
         >
           Delete Account
