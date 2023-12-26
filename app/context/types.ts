@@ -6,4 +6,6 @@ export type DataContextType = {
 
   setEditThreadMode: React.Dispatch<React.SetStateAction<boolean>>;
   editThreadMode: boolean;
+  deleteThreadMode: boolean;
+  setDeleteThreadMode: React.Dispatch<React.SetStateAction<boolean>>;
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { usePathname, useRouter } from "next/navigation";
 
@@ -17,9 +17,11 @@ interface Props {
 }
 
 function PostThread({ userId }: Props) {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [emptyTextError, setEmptyTextError] = useState("");
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [speechRecognitionBrowserError, setSpeechRecognitionBrowserError] =
+    useState(false);
   const [text, setText] = useState("");
   const router = useRouter();
   const pathname = usePathname();
@@ -28,7 +30,7 @@ function PostThread({ userId }: Props) {
     event.preventDefault();
     setIsButtonDisabled(true);
     if (!text) {
-      setErrorMessage("Please write some text before submitting.");
+      setEmptyTextError("Please write some text before submitting.");
       return;
     }
     await createThread({
@@ -51,15 +53,13 @@ function PostThread({ userId }: Props) {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  const copyToClipboard = () => {
-    setText(transcript);
-  };
-
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
-  // console.log(text);
+  useEffect(() => {
+    setText(transcript);
+  }, [transcript]);
 
   return (
     <>
@@ -68,48 +68,38 @@ function PostThread({ userId }: Props) {
         className="mt-10 flex flex-col justify-start gap-10"
         onSubmit={onSubmit}
       >
-        <div className="flex w-full flex-col gap-3 ">
+        <div className="flex w-full flex-col gap-3 relative">
           <textarea
-            className="no-focus border border-dark-4 bg-light-1 text-dark-1 box-shadow-big"
+            className="no-focus no-outline border border-dark-4 bg-dark-1 text-light-1 box-shadow-big p-2"
             placeholder="Write here what you want to tell the world..."
             rows={15}
             value={text}
             onChange={handleChange}
           ></textarea>
-
+          {/* VOICE RECOGNITION BUTTON */}
+          <button
+            type="button"
+            onClick={() => SpeechRecognition.startListening()}
+            className={`absolute bottom-3 right-3 ${
+              listening ? "bg-green-600" : "bg-light-2"
+            } text-light-1 hover:text-dark-1 p-2 rounded-full`}
+          >
+            <img src="/assets/mike.svg" alt="microphone" />
+          </button>
           {/* Add any form validation or error message components here */}
         </div>
-        {errorMessage && (
-          <p className="text-light-1 text-center ">{errorMessage}</p>
+
+        {emptyTextError && (
+          <p className="text-light-1 text-center ">{emptyTextError}</p>
         )}
         <button
           type="submit"
-          className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"
+          className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-dark-1 hover:bg-dark-1 hover:text-light-1"
           disabled={isButtonDisabled}
         >
           Post
         </button>
       </form>
-
-      {/* VOICE RECOGNITION BUTTONS */}
-
-      <div className="mt-10 flex gap-5">
-        <p>Microphone: {listening ? "on" : "off"}</p>
-        <button
-          onClick={() => SpeechRecognition.startListening()}
-          className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"
-        >
-          Start
-        </button>
-
-        <button
-          onClick={copyToClipboard}
-          className="bg-dark-1 text-light-1 hover:bg-light-1 hover:text-dark-1 box-shadow-small"
-        >
-          Add to fil
-        </button>
-        <p>{transcript}</p>
-      </div>
     </>
   );
 }

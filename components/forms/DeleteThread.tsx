@@ -4,6 +4,12 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { deleteThread } from "@/lib/actions/thread.actions";
 
+// context API:
+
+import { DataContext } from "../../app/context/DataContext";
+import { useContext } from "react";
+import { DataContextType } from "../../app/context/types";
+
 interface Props {
   threadId: string;
   currentUserId: string;
@@ -20,7 +26,14 @@ function DeleteThread({
   isComment,
 }: Props) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [deleteThreadMode, setDeleteThreadMode] = useState(false);
+  const { deleteThreadMode, setDeleteThreadMode } = useContext(
+    DataContext
+  ) as DataContextType;
+
+  //context
+  const { unFollowModalAppear, setUnfollowModalAppear } = useContext(
+    DataContext
+  ) as DataContextType;
   const pathname = usePathname();
   const router = useRouter();
 
