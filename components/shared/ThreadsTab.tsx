@@ -58,7 +58,9 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
     <section className="mt-5 flex flex-col gap-6">
       {result.threads.length === 0 ? (
         <p className="no-result text-light-1">
-          You haven't posted any fils yet
+          {currentUserId === accountId
+            ? "You haven't posted any fils yet"
+            : "They haven't posted any fils yet"}
         </p>
       ) : (
         <>

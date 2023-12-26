@@ -13,6 +13,9 @@ import { useRouter } from "next/navigation";
 import FollowUser from "../forms/FollowUser";
 import Link from "next/link";
 
+import * as z from "zod";
+import { UserValidation } from "@/lib/validations/user";
+
 // this info comes from the profile page or the community page?
 interface Props {
   accountId: string;
@@ -90,11 +93,7 @@ function ProfileHeader({
       };
 
       if (newUsername !== username) {
-        // if (/\s/.test(newUsername)) {
-        //   setUsernameError("Username cannot contain spacesssss");
-        //   return;
-        // }
-        updatedUser.username = newUsername;
+        updatedUser.username = newUsername.split(" ").join("");
       }
       await updateUserInProfile(updatedUser);
       setEditMode(false);

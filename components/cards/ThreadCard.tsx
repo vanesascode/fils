@@ -50,8 +50,6 @@ async function ThreadCard({
 
   /////////////////////////////////////////////////////////////
 
-  console.log("lllllllllllllllllllllllllllllllllllll", id);
-
   let likedThreadIds = await getAllLikedThreadIds(userId);
   // I pass the array of IDObjects to an array of strings:
   likedThreadIds = likedThreadIds.map((el) => el.toString());

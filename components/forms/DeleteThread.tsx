@@ -44,6 +44,8 @@ function DeleteThread({
       router.push(pathname);
     }
 
+    setDeleteThreadMode(false);
+
     setTimeout(() => {
       setIsButtonDisabled(false);
     }, 3000);
@@ -57,16 +59,14 @@ function DeleteThread({
     setDeleteThreadMode(false);
   };
 
-  if (currentUserId !== authorId || pathname === "/") return null;
+  if (currentUserId !== authorId) return null;
 
   console.log(threadId);
 
   return (
     <>
-      {/**MODAL*************************************************************fixed top-0 left-0  bg-black***************************************/}
-
       {deleteThreadMode && (
-        <div className=" w-full h-full flex justify-center items-center bg-opacity-50 z-50">
+        <div className="fixed top-0 left-0  bg-black w-full h-full flex justify-center items-center bg-opacity-50 z-50">
           <div className="bg-white p-[30px] rounded-lg shadow text-center box-shadow-small max-xs:p-[25px]">
             {/*QUESTION*/}
 
@@ -103,24 +103,6 @@ function DeleteThread({
           </div>
         </div>
       )}
-
-      {/*DELETE BUTTON *********************************************************************************/}
-      {/* <button
-        className="flex items-center"
-        disabled={isButtonDisabled}
-        onClick={handleClick}
-      >
-        <Image
-          src="/assets/delete-red.svg"
-          alt="delete"
-          width={20}
-          height={20}
-          className="cursor-pointer object-contain me-1"
-        />
-        <div className="text-dark-1 max-xs:text-small-semibold">
-          Delete Post
-        </div>
-      </button> */}
     </>
   );
 }

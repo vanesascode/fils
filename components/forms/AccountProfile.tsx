@@ -65,16 +65,16 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     try {
       await updateUser({
         name: values.name,
-        username: values.username,
+        username: values.username.replace(/\s/g, ""),
         userId: user.id,
         bio: values.bio,
         image: values.profile_photo,
       });
 
-      if (/\s/.test(values.username)) {
-        setErrorMessageUsername("Username cannot contain spaces");
-        return;
-      }
+      // if (/\s/.test(values.username)) {
+      //   setErrorMessageUsername("Username cannot contain spaces");
+      //   return;
+      // }
 
       if (pathname === "/profile/edit") {
         router.back();

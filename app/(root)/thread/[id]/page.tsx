@@ -7,6 +7,7 @@ import { fetchUser } from "@/lib/actions/user.actions";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
 
 import Comment from "@/components/forms/Comment";
+import SaveFilModalOnPage from "@/components/modals/SaveFilModalOnPage";
 
 //The revalidate constant is set to 0, indicating that the page should not be revalidated.
 export const revalidate = 0;
@@ -24,43 +25,46 @@ async function page({ params }: { params: { id: string } }) {
   !thread && redirect("/");
 
   return (
-    <section className="relative">
-      <div>
-        <ThreadCard
-          id={thread._id}
-          currentUserId={user.id}
-          parentId={thread.parentId}
-          content={thread.text}
-          author={thread.author}
-          createdAt={thread.createdAt}
-          comments={thread.children}
-        />
-      </div>
-
-      <div className="mt-7">
-        <Comment
-          threadId={params.id}
-          currentUserImg={userInfo.image}
-          currentUserId={JSON.stringify(userInfo._id)}
-        />
-      </div>
-
-      <div className="mt-10">
-        {thread.children.map((childItem: any) => (
+    <>
+      <SaveFilModalOnPage currentUserId={user.id} />
+      <section className="relative">
+        <div>
           <ThreadCard
-            key={childItem._id}
-            id={childItem._id}
+            id={thread._id}
             currentUserId={user.id}
-            parentId={childItem.parentId}
-            content={childItem.text}
-            author={childItem.author}
-            createdAt={childItem.createdAt}
-            comments={childItem.children}
-            isComment
+            parentId={thread.parentId}
+            content={thread.text}
+            author={thread.author}
+            createdAt={thread.createdAt}
+            comments={thread.children}
           />
-        ))}
-      </div>
-    </section>
+        </div>
+
+        <div className="mt-7">
+          <Comment
+            threadId={params.id}
+            currentUserImg={userInfo.image}
+            currentUserId={JSON.stringify(userInfo._id)}
+          />
+        </div>
+
+        <div className="mt-10">
+          {thread.children.map((childItem: any) => (
+            <ThreadCard
+              key={childItem._id}
+              id={childItem._id}
+              currentUserId={user.id}
+              parentId={childItem.parentId}
+              content={childItem.text}
+              author={childItem.author}
+              createdAt={childItem.createdAt}
+              comments={childItem.children}
+              isComment
+            />
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
 

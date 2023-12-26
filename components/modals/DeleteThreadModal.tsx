@@ -28,16 +28,13 @@ const UnFollowModal = ({
   {
     /*context API*/
   }
-  const {
-    unFollowModalAppear,
-    setUnfollowModalAppear,
-    deleteThreadMode,
-    setDeleteThreadMode,
-  } = useContext(DataContext) as DataContextType;
+  const { deleteThreadMode, setDeleteThreadMode } = useContext(
+    DataContext
+  ) as DataContextType;
   const pathname = usePathname();
   const router = useRouter();
 
-  if (currentUserId !== authorId || pathname === "/") return null;
+  if (currentUserId !== authorId) return null;
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
