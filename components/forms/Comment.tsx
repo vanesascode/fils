@@ -18,13 +18,16 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
 import { CommentValidation } from "@/lib/validations/thread";
-import { addCommentToThread } from "@/lib/actions/thread.actions";
+import { addCommentToThread, postEmail } from "@/lib/actions/thread.actions";
 
 interface Props {
   threadId: string;
   currentUserImg: string;
   currentUserId: string;
 }
+
+const email = "vanesa.juarez.paris@gmail.com";
+const firstName = "Vanesa";
 
 function Comment({ threadId, currentUserImg, currentUserId }: Props) {
   const pathname = usePathname();
@@ -52,6 +55,10 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
     setTimeout(() => {
       setAddComment(false);
     }, 1000);
+
+    //SEND EMAIL PLEASE
+
+    await postEmail(email, firstName);
 
     form.reset();
   };

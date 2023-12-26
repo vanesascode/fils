@@ -10,6 +10,27 @@ import Like from "../models/like.model";
 import Follower from "../models/follower.model";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+import { EmailTemplate } from "@/components/forms/email-template";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function postEmail(email: string, firstName: string) {
+  console.log(email, firstName);
+
+  try {
+    const data = await resend.emails.send({
+      from: "Fils <fils@resend.dev>",
+      to: email,
+      subject: "One your Fils has received a new comment",
+      react: EmailTemplate({ firstName: firstName }),
+      text: "",
+    });
+    console.log(data);
+  } catch (error: any) {
+    throw new Error(`Failed to create thread: ${error.message}`);
+  }
+}
 
 ///////////////////////////////////////// THREADS //////////////////////////////////////////////////////////
 

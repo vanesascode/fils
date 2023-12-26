@@ -32,6 +32,8 @@ In process:
 
 - npm install mongoose
 
+- npm install resend
+
 ---
 
 For the Speech Recognition:
@@ -79,6 +81,46 @@ Video explanation [here](https://www.youtube.com/watch?v=L6BE-U3oy80).
           </div>
         </div>
       )}
+```
+
+---
+
+[Resend](https://resend.com/docs/send-with-nextjs) is a
+
+- You create an account and get your RESEND_API_KEY
+
+- You create a component to edit how your email will be (email-template.tsx)
+
+- Then, the docs tell you to create an API, but a server action worked better for me (remember to add the 'text' field or it won't work - It is not seen in the Resend examples):
+
+```
+import { EmailTemplate } from "@/components/forms/email-template";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function postEmail(email: string, firstName: string) {
+  console.log(email, firstName);
+
+  try {
+    const data = await resend.emails.send({
+      from: "Fils <fils@resend.dev>",
+      to: email,
+      subject: "One your Fils has received a new comment",
+      react: EmailTemplate({ firstName: firstName }),
+      text: "",
+    });
+    console.log(data);
+  } catch (error: any) {
+    throw new Error(`Failed to create thread: ${error.message}`);
+  }
+}
+```
+
+Then you can use it in your component when you like:
+
+```
+ await postEmail(email, firstName);
 ```
 
 ### 🔹 NextJS: Route Groups
