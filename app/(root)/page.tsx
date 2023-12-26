@@ -7,10 +7,8 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchFollowingUsersThreads } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
-import SaveFilModalOnPage from "@/components/modals/SaveFilModalOnPage";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
 
 import { homeTabs } from "@/constants";
 
@@ -39,8 +37,6 @@ async function Home({
     5
   );
 
-  console.log("DDDDDDDDDDDDDDDDDDDDDDD", userInfo._id);
-
   //FETCH ONLY FOLLOWING USERS POSTS//////////////////////////////////////////////////////////
 
   const resultFollowed = await fetchFollowingUsersThreads(
@@ -49,34 +45,8 @@ async function Home({
     userInfo._id
   );
 
-  // console.log("result", result);
-
-  // result {
-  //   posts: [
-  //     {
-  //       _id: new ObjectId("6586339232ff2d946c0a3485"),
-  //       text: 'asdf asdf w er63245563 45634563 45 6 3456',
-  //       author: [Object],
-  //       children: [],
-  //       likes: 0,
-  //       createdAt: 2023-12-23T01:10:42.321Z,
-  //       __v: 0
-  //     },
-
   return (
     <>
-      <SaveFilModalOnPage currentUserId={user.id} />
-
-      {/* {result.posts.map((post) => (
-        <DeleteThreadModalOnPage
-          threadId={post._id}
-          currentUserId={user.id}
-          parentId={post.parentId}
-          authorId={post.author.id}
-          isComment
-        />
-      ))} */}
-
       <h1 className="head-text ">What's up?</h1>
 
       {/* TABS LIST*/}

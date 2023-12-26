@@ -17,7 +17,6 @@ import {
 } from "@/lib/actions/user.actions";
 import { fetchSavedThreadsIds } from "@/lib/actions/saved.actions";
 import UnFollowModalOnPage from "@/components/modals/UnFollowModalOnPage";
-import SaveFilModalOnPage from "@/components/modals/SaveFilModalOnPage";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -49,7 +48,6 @@ async function Page({ params }: { params: { id: string } }) {
 
   return (
     <section>
-      <SaveFilModalOnPage currentUserId={user.id} />
       <UnFollowModalOnPage
         currentUserIdObject={currentUserIdObject} // current MongoDB user profile id
         accountUserIdObject={accountUserIdObject}
