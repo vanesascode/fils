@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   image: String,
   bio: String,
   threads: [
@@ -26,6 +31,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
   communities: [
     {
       type: mongoose.Schema.Types.ObjectId,

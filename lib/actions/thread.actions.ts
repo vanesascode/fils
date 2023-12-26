@@ -9,7 +9,8 @@ import Saved from "../models/saved.model";
 import Like from "../models/like.model";
 import Follower from "../models/follower.model";
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Send email when comment is created //////////////////////////////////////////////////////////////////
+
 import { EmailTemplate } from "@/components/forms/email-template";
 import { Resend } from "resend";
 

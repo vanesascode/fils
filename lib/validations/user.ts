@@ -15,6 +15,7 @@ export const UserValidation = z.object({
   // .refine((value) => !/\s/.test(value), {
   //   message: "Username cannot contain spaces",
   // }),
+  // email: z.string().email({ message: "Invalid email address" }),
 
   bio: z
     .string()

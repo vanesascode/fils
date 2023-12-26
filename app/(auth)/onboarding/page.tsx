@@ -6,9 +6,12 @@ import AccountProfile from "@/components/forms/AccountProfile";
 
 async function Page() {
   const user = await currentUser();
+
+  console.log(user);
   if (!user) return null; // to avoid typescript warnings
 
   const userInfo = await fetchUser(user.id);
+
   if (userInfo?.onboarded) redirect("/");
 
   const userData = {
@@ -18,6 +21,7 @@ async function Page() {
     name: userInfo ? userInfo?.name : user.firstName ?? "",
     bio: userInfo ? userInfo?.bio : "",
     image: userInfo ? userInfo?.image : user.imageUrl,
+    email: userInfo ? userInfo?.email : user.emailAddresses[0].emailAddress,
   };
 
   return (
@@ -28,7 +32,7 @@ async function Page() {
       </p>
 
       <section className="mt-9 bg-light-1 p-10 rounded-lg box-shadow-big">
-        <AccountProfile user={userData} btnTitle="Continue" />
+        <AccountProfile user={userData} />
       </section>
     </main>
   );

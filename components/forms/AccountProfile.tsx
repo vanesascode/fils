@@ -31,14 +31,16 @@ interface Props {
     name: string;
     bio: string;
     image: string;
+    email: string;
   };
-  btnTitle: string;
 }
 
-const AccountProfile = ({ user, btnTitle }: Props) => {
+const AccountProfile = ({ user }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const { startUpload } = useUploadThing("media");
+
+  console.log(user.email);
 
   const [files, setFiles] = useState<File[]>([]);
   //The File type comes from the File interface defined in the File API provided by the browser. The File interface represents a file (or blob) and provides information about the file, such as its name, size, type, and last modified date.
@@ -69,6 +71,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         userId: user.id,
         bio: values.bio,
         image: values.profile_photo,
+        email: user.email,
       });
 
       // if (/\s/.test(values.username)) {

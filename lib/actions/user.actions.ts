@@ -19,6 +19,7 @@ interface Params {
   name: string;
   bio: string;
   image: string;
+  email: string;
 }
 
 // the order of the name, path, username, userId, bio, and image values in the object passed to the updateUser function does not matter. The function is designed to extract those values from the object and use them in the correct order, regardless of the order in which they were passed.
@@ -31,6 +32,7 @@ export async function updateUser({
   name,
   username,
   image,
+  email,
 }: Params): Promise<void> {
   // no username with spaces can be saved in the database
 
@@ -59,6 +61,7 @@ export async function updateUser({
         name,
         bio,
         image,
+        email,
         onboarded: true,
       },
 
