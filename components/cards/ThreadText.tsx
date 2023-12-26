@@ -19,6 +19,8 @@ interface Props {
   threadId: string;
 }
 
+const MAX_WORD_LENGTH = 20;
+
 const ThreadText = ({
   text,
   isComment,
@@ -55,18 +57,33 @@ const ThreadText = ({
     setEditThreadMode(false);
   };
 
+  //To know if words are longer than 20 characters:
+  const shouldBreakWord = (word: string) => {
+    return word.length > MAX_WORD_LENGTH;
+  };
+
+  // To render the text:
+  const renderText = () => {
+    const words = text.split(" ");
+
+    return words.map((word, index) => {
+      return (
+        <span key={index} className={shouldBreakWord(word) ? "break-all" : ""}>
+          {word}
+          {index !== words.length - 1 && " "}{" "}
+          {/* Add a space between words, except for the last word */}
+        </span>
+      );
+    });
+  };
   return (
     <>
       {editThreadMode && authorId === currentUserId ? (
-        // &&
-        // currentThreadId === threadId ?
-
         <>
           <div className="mt-3 text-base-regular text-light-1 w-full">
             <textarea
               defaultValue={text}
-              className="rounded-lg bg-dark-1 px-4 py-2 w-full outline-none"
-              style={{ height: "200px", overflow: "auto" }}
+              className="rounded-lg bg-dark-1 px-4 py-2 w-full outline-none overflow-auto h-[200px]"
               onChange={(e) => setNewText(e.target.value)}
             ></textarea>
           </div>
@@ -86,11 +103,11 @@ const ThreadText = ({
         </>
       ) : (
         <div
-          className={`mt-2 break-all text-small-regular ${
+          className={`mt-2 break-words text-small-regular ${
             isComment ? "text-light-1" : "text-dark-1"
           }`}
         >
-          {text}
+          {renderText()}
         </div>
       )}
     </>

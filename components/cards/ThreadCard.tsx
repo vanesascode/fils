@@ -11,8 +11,6 @@ import ThreadCardOptions from "../forms/ThreadCardOptions";
 import ThreadText from "./ThreadText";
 import DeleteThread from "../forms/DeleteThread";
 
-// import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
-
 interface Props {
   id: string;
   currentUserId: string;
@@ -59,7 +57,7 @@ async function ThreadCard({
 
   return (
     <>
-      {" "}
+      {/*DELETE THREAD MODAL*/}
       <DeleteThread
         threadId={JSON.stringify(id)}
         currentUserId={currentUserId}
@@ -67,13 +65,13 @@ async function ThreadCard({
         parentId={parentId}
         isComment={isComment}
       />
+
+      {/*THREAD CARDS*/}
       <article
         className={`flex w-full flex-col rounded-xl ${
           isComment ? "px-0 xs:px-7" : "bg-light-1 p-7 box-shadow-big"
         }`}
       >
-        {/*ALL CARDS***/}
-
         {/*PROFILE IMAGE */}
 
         <div className="flex items-start justify-between">
@@ -102,20 +100,20 @@ async function ThreadCard({
             {/*THE USERNAME */}
 
             <div className="flex w-full flex-col">
-              <Link href={`/profile/${author.id}`} className="w-fit">
-                <h4
-                  className={`cursor-pointer break-all ${
-                    isComment
-                      ? "text-base-bold text-light-1"
-                      : "text-base-semibold text-dark-1 "
-                  } `}
-                >
-                  {author.name}
-                </h4>
-              </Link>
-
-              {/*THE TEXT OF THE THREAD */}
-
+              <div className="flex justify-between">
+                <Link href={`/profile/${author.id}`} className="w-fit">
+                  <h4
+                    className={`cursor-pointer break-all ${
+                      isComment
+                        ? "text-base-bold text-light-1"
+                        : "text-base-semibold text-dark-1 "
+                    } `}
+                  >
+                    {author.name}
+                  </h4>
+                </Link>
+              </div>
+              {/*THE TEXT OF THE THREAD */}{" "}
               <ThreadText
                 text={content}
                 isComment={isComment}
@@ -124,15 +122,11 @@ async function ThreadCard({
                 author_Id={author_Id}
                 threadId={id}
               />
-
               {/*THE FOUR ICONS  */}
-
               <div
                 className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}
               >
                 <div className="flex xxs:gap-5 gap-2">
-                  {/* LIKES ************************************************************************************************/}
-
                   <Likes
                     isComment={isComment}
                     threadId={id ? id.toString() : ""}
@@ -141,8 +135,6 @@ async function ThreadCard({
                     likes={likes}
                     likedThreads={likedThreadIds.includes(id.toString())}
                   />
-
-                  {/* ************************************************************************************************/}
 
                   {/*REPLIES */}
                   <Link
@@ -173,7 +165,9 @@ async function ThreadCard({
                       className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
                     />
                   </div>
+
                   {/*SAVE THREAD ICON */}
+
                   <SaveThread
                     isComment={isComment}
                     threadId={id ? id.toString() : ""}
