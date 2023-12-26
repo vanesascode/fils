@@ -3,10 +3,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 // import DeleteThread from "../forms/DeleteThread";
-import { deleteThread } from "@/lib/actions/thread.actions";
 
 import Image from "next/image";
-import DeleteThreadModalOnPage from "@/components/modals/DeleteThreadModalOnPage";
 
 // context:
 
@@ -35,12 +33,9 @@ function ThreadCardOptions({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   //context
 
-  const {
-    editThreadMode,
-    setEditThreadMode,
-    deleteThreadMode,
-    setDeleteThreadMode,
-  } = useContext(DataContext) as DataContextType;
+  const { editThreadMode, setEditThreadMode } = useContext(
+    DataContext
+  ) as DataContextType;
 
   //pathname
 
@@ -71,7 +66,6 @@ function ThreadCardOptions({
 
   const handleDeleteThreadClick = () => {
     setIsMenuOpen(false);
-    setDeleteThreadMode(true);
   };
 
   console.log(threadId);
