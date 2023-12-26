@@ -1,16 +1,8 @@
 "use client";
-
-import React from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { saveThread } from "@/lib/actions/saved.actions";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-
-// context:
-
-import { DataContext } from "../../app/context/DataContext";
-import { useContext } from "react";
-import { DataContextType } from "../../app/context/types";
 
 interface Props {
   threadId: string;
@@ -29,8 +21,8 @@ const SaveThread = ({
   saves,
   savedThreads,
 }: Props) => {
-  const { addBookmarks, removeBookmarks, setAddBookmarks, setRemoveBookmarks } =
-    useContext(DataContext) as DataContextType;
+  const [addBookmarks, setAddBookmarks] = useState(false);
+  const [removeBookmarks, setRemoveBookmarks] = useState(false);
 
   const pathname = usePathname();
 
