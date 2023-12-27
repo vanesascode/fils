@@ -16,15 +16,19 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function postEmail(email: string, firstName: string) {
-  console.log(email, firstName);
+export async function postEmail(
+  authorEmail: string,
+  authorName: string,
+  replierName: string
+) {
+  console.log(authorEmail, authorName);
 
   try {
     const data = await resend.emails.send({
       from: "Fils <fils@resend.dev>",
-      to: email,
-      subject: "One your Fils has received a new comment",
-      react: EmailTemplate({ firstName: firstName }),
+      to: ["vanesa.juarez.paris@gmail.com"],
+      subject: `${replierName} commented one of your fils`,
+      react: EmailTemplate({ firstName: authorName, replierName: replierName }),
       text: "",
     });
     console.log(data);
@@ -222,7 +226,7 @@ export async function fetchThreadById(threadId: string) {
       .populate({
         path: "author",
         model: User,
-        select: "_id id name image",
+        select: "_id id name image email",
       }) // Populate the author field with _id and username
       .populate({
         path: "community",

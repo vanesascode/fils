@@ -43,6 +43,9 @@ async function page({ params }: { params: { id: string } }) {
             threadId={params.id}
             currentUserImg={userInfo.image}
             currentUserId={JSON.stringify(userInfo._id)}
+            authorEmail={thread.author.email}
+            authorName={thread.author.name}
+            replierName={userInfo.name}
           />
         </div>
 

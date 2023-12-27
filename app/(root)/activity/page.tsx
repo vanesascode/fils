@@ -46,7 +46,7 @@ async function Page() {
                       </span>
                       <span className="mr-1 text-small-regular text-light-2 break-all">
                         {" "}
-                        replied to your thread
+                        replied to your fil
                       </span>
                       <span className="!text-small-regular text-light-1 sm:hidden">
                         {" "}

@@ -24,12 +24,22 @@ interface Props {
   threadId: string;
   currentUserImg: string;
   currentUserId: string;
+  authorEmail: string;
+  authorName: string;
+  replierName: string;
 }
 
-const email = "vanesa.juarez.paris@gmail.com";
-const firstName = "Vanesa";
+// const email = "vanesa.juarez.paris@gmail.com";
+// const firstName = "Vanesa";
 
-function Comment({ threadId, currentUserImg, currentUserId }: Props) {
+function Comment({
+  threadId,
+  currentUserImg,
+  currentUserId,
+  authorEmail,
+  authorName,
+  replierName,
+}: Props) {
   const pathname = usePathname();
 
   const [addComment, setAddComment] = useState(false);
@@ -58,7 +68,7 @@ function Comment({ threadId, currentUserImg, currentUserId }: Props) {
 
     //SEND EMAIL PLEASE
 
-    await postEmail(email, firstName);
+    await postEmail(authorEmail, authorName, replierName);
 
     form.reset();
   };

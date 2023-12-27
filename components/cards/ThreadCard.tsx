@@ -77,14 +77,11 @@ async function ThreadCard({
         <div className="flex items-start justify-between">
           <div className="flex w-full flex-1 flex-row gap-4">
             <div className="flex flex-col items-center">
-              <Link
-                href={`/profile/${author.id}`}
-                className="relative h-11 w-11"
-              >
+              <Link href={`/profile/${author.id}`}>
                 <img
                   src={author.image}
                   alt="user_community_image"
-                  className="cursor-pointer rounded-full object-cover "
+                  className=" rounded-image-profile-cards"
                 />
               </Link>
 
