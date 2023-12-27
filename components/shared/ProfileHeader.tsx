@@ -272,7 +272,7 @@ function ProfileHeader({
       {/*current user*/}
 
       <div className="mt-2 flex ">
-        <Link href={`/followers`}>
+        <Link href={`/followers/${currentUserId}`}>
           {accountId === currentUserId && !editMode && (
             <div className="me-[24px]">
               <span className="text-base-regular text-light-1">
@@ -285,17 +285,21 @@ function ProfileHeader({
           )}
         </Link>
         {/*other users*/}
-        {accountId !== currentUserId && !editMode && (
-          <div className="me-[24px]">
-            <span className="text-base-regular text-light-1 ">
-              {totalFollowedUsersIdsOtherUsers}{" "}
-            </span>{" "}
-            <span className="text-light-2 text-small-semibold">Following</span>
-          </div>
-        )}
+        <Link href={`/followers/${accountId}`}>
+          {accountId !== currentUserId && !editMode && (
+            <div className="me-[24px]">
+              <span className="text-base-regular text-light-1 ">
+                {totalFollowedUsersIdsOtherUsers}{" "}
+              </span>{" "}
+              <span className="text-light-2 text-small-semibold">
+                Following
+              </span>
+            </div>
+          )}
+        </Link>
         {/*TOTAL FOLLOWERS*/}
         {/*current user*/}
-        <Link href={`/followers`}>
+        <Link href={`/followers/${currentUserId}`}>
           {accountId === currentUserId && !editMode && (
             <div>
               <span className="text-base-regular text-light-1">
@@ -308,16 +312,18 @@ function ProfileHeader({
           )}
         </Link>
         {/*other users*/}
-        {accountId !== currentUserId && !editMode && (
-          <div>
-            <span className="text-base-regular text-light-1">
-              {totalFollowersOtherUsers}{" "}
-            </span>{" "}
-            <span className="text-light-2 text-small-semibold">
-              {totalFollowersOtherUsers === 1 ? "Follower" : "Followers"}
-            </span>
-          </div>
-        )}
+        <Link href={`/followers/${accountId}`}>
+          {accountId !== currentUserId && !editMode && (
+            <div>
+              <span className="text-base-regular text-light-1">
+                {totalFollowersOtherUsers}{" "}
+              </span>{" "}
+              <span className="text-light-2 text-small-semibold">
+                {totalFollowersOtherUsers === 1 ? "Follower" : "Followers"}
+              </span>
+            </div>
+          )}
+        </Link>
       </div>
 
       {/**MODAL*************************************************************fixed top-0 left-0  bg-black***************************************/}

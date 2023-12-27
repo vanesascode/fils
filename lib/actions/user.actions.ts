@@ -280,7 +280,7 @@ export async function fetchUsers({
   }
 }
 
-// FETCH FOLLOWERS OF THE CURRENT LOGGED IN USER ///////////////////////////////////////////////////////
+// FETCH FOLLOWERS ///////////////////////////////////////////////////////
 
 export async function fetchFollowers({ userId }: { userId: string }) {
   try {
@@ -301,7 +301,7 @@ export async function fetchFollowers({ userId }: { userId: string }) {
   }
 }
 
-// FETCH FOLLOWED USERS FOR THE FOLLOWERS PAGE ///////////////////////////////////////////////////////
+// FETCH FOLLOWED USERS  ///////////////////////////////////////////////////////
 
 export async function fetchFollowedUsers({ userId }: { userId: string }) {
   try {

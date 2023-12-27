@@ -7,37 +7,42 @@ import {
   fetchFollowedUsers,
   getAllFollowedUsersIds,
   fetchFollowers,
+  getUserId,
 } from "@/lib/actions/user.actions";
 
 import { followersTabs } from "@/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// import UnFollowModalOnPage from "@/components/modals/UnFollowModalOnPage";
+import UnFollowModalOnPage from "@/components/modals/UnFollowModalOnPage";
 
-async function Page() {
+async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
+  //Here we get the MongoDB _id by taking the clerk id from the params, and passing it through the function 'getUserId':
+  const idFromParams = await getUserId(params.id);
+
   const resultFollowed = await fetchFollowedUsers({
-    userId: userInfo._id,
+    userId: idFromParams,
   });
 
-  const resultFollowers = await fetchFollowers({ userId: userInfo._id });
+  const resultFollowers = await fetchFollowers({ userId: idFromParams });
 
-  let followedUsersIds = await getAllFollowedUsersIds(userInfo._id);
+  let followedUsersIds = await getAllFollowedUsersIds(idFromParams);
   followedUsersIds = followedUsersIds.map((el) => el.toString());
 
   return (
     <section>
-      {/* {resultFollowed.map((person) => (
+      {resultFollowed.map((person) => (
         <UnFollowModalOnPage
           currentUserIdObject={userInfo._id}
           accountUserIdObject={person.accountUserId._id}
           userName={person.accountUserId.name}
         />
-      ))} */}
+      ))}
+
       <h1 className="head-text mb-10">Followers</h1>
 
       <div className="mt-9">
@@ -66,9 +71,7 @@ async function Page() {
             {/* @ts-ignore */}
             <div className="mt-4 flex flex-col gap-4">
               {resultFollowed.length === 0 ? (
-                <p className="no-result text-light-1">
-                  You haven't followed any users yet
-                </p>
+                <p className="no-result text-light-1">No users followed yet</p>
               ) : (
                 <>
                   {resultFollowed.map((person) => (
@@ -94,9 +97,7 @@ async function Page() {
             {/* @ts-ignore */}
             <div className="mt-4 flex flex-col gap-4">
               {resultFollowers.length === 0 ? (
-                <p className="no-result text-light-1">
-                  You don't have any followers yet
-                </p>
+                <p className="no-result text-light-1">No followers yet</p>
               ) : (
                 <>
                   {resultFollowers.map((person) => (
