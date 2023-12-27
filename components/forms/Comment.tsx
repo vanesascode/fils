@@ -29,9 +29,6 @@ interface Props {
   replierName: string;
 }
 
-// const email = "vanesa.juarez.paris@gmail.com";
-// const firstName = "Vanesa";
-
 function Comment({
   threadId,
   currentUserImg,
@@ -66,7 +63,16 @@ function Comment({
       setAddComment(false);
     }, 1000);
 
-    //SEND EMAIL PLEASE
+    //SEND EMAIL - NODEMAILER
+
+    // sendEmail(
+    //   "fils@example.com",
+    //   "vanesa.juarez.paris@gmail.com",
+    //   "Subject",
+    //   "Message"
+    // );
+
+    //SEND EMAIL - RESEND
 
     await postEmail(authorEmail, authorName, replierName);
 

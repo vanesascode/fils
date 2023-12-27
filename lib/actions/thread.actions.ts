@@ -25,8 +25,8 @@ export async function postEmail(
 
   try {
     const data = await resend.emails.send({
-      from: "Fils <fils@resend.dev>",
-      to: ["vanesa.juarez.paris@gmail.com"],
+      from: "Fils <no-reply@fils.website>",
+      to: authorEmail,
       subject: `${replierName} commented one of your fils`,
       react: EmailTemplate({ firstName: authorName, replierName: replierName }),
       text: "",

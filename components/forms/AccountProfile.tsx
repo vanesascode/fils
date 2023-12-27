@@ -40,7 +40,7 @@ const AccountProfile = ({ user }: Props) => {
   const pathname = usePathname();
   const { startUpload } = useUploadThing("media");
 
-  console.log(user.email);
+  // console.log(user.email);
 
   const [files, setFiles] = useState<File[]>([]);
   //The File type comes from the File interface defined in the File API provided by the browser. The File interface represents a file (or blob) and provides information about the file, such as its name, size, type, and last modified date.

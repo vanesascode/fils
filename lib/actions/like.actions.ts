@@ -53,7 +53,7 @@ export async function countLikes(threadId: string) {
 
 // GET ALL LIKED THREAD IDS /////////////////////////////////////////
 export async function getAllLikedThreadIds(userId: string) {
-  console.log(userId);
+  // console.log(userId);
   try {
     connectToDB();
 

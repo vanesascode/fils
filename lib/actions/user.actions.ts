@@ -324,7 +324,7 @@ export async function fetchFollowedUsers({ userId }: { userId: string }) {
 
 // GET ALL FOLLOWED USERS IDS /////////////////////////////////////////
 export async function getAllFollowedUsersIds(currentUserId: string) {
-  console.log(currentUserId);
+  // console.log(currentUserId);
   try {
     connectToDB();
 
@@ -424,7 +424,7 @@ export async function saveFollower(
     if (existingFollower) {
       await Follower.findOneAndDelete({ currentUserId, accountUserId });
       revalidatePath(path);
-      console.log(`Unfollowed`);
+      // console.log(`Unfollowed`);
       return `Unfollowed`;
     } else {
       const savedFollower = new Follower({

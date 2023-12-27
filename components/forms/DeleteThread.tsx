@@ -61,7 +61,7 @@ function DeleteThread({
 
   if (currentUserId !== authorId) return null;
 
-  console.log(threadId);
+  // console.log(threadId);
 
   return (
     <>

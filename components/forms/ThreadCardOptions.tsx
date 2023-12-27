@@ -74,7 +74,7 @@ function ThreadCardOptions({
     setDeleteThreadMode(true);
   };
 
-  console.log(threadId);
+  // console.log(threadId);
 
   return (
     <>
