@@ -15,6 +15,15 @@
   color: black;
 }
 
+.rounded-image-profile-activity {
+  /*tried with Tailwind but not responding well*/
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
 .rounded-image-profile-cards {
   /*tried with Tailwind but not responding well*/
   height: 50px;

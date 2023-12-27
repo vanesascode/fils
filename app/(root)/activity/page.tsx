@@ -30,14 +30,13 @@ async function Page() {
 
                   <div className="flex gap-2 sm:items-center max-sm2:flex-col">
                     {/*IMAGE*/}
-
-                    <Image
-                      src={activity.author.image}
-                      alt="user_logo"
-                      width={25}
-                      height={25}
-                      className="rounded-full object-cover"
-                    />
+                    <div className=" relative h-7 w-7">
+                      <img
+                        src={activity.author.image}
+                        alt="user_logo"
+                        className="rounded-image-profile-activity"
+                      />{" "}
+                    </div>
                     {/*USER NAME*/}
 
                     <div className=" text-light-1">

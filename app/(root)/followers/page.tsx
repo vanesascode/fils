@@ -11,7 +11,7 @@ import {
 
 import { followersTabs } from "@/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import UnFollowModalOnPage from "@/components/modals/UnFollowModalOnPage";
+// import UnFollowModalOnPage from "@/components/modals/UnFollowModalOnPage";
 
 async function Page() {
   const user = await currentUser();
@@ -31,13 +31,13 @@ async function Page() {
 
   return (
     <section>
-      {resultFollowed.map((person) => (
+      {/* {resultFollowed.map((person) => (
         <UnFollowModalOnPage
           currentUserIdObject={userInfo._id}
           accountUserIdObject={person.accountUserId._id}
           userName={person.accountUserId.name}
         />
-      ))}
+      ))} */}
       <h1 className="head-text mb-10">Followers</h1>
 
       <div className="mt-9">
