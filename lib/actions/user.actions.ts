@@ -39,25 +39,25 @@ export async function updateUser({
   try {
     connectToDB();
     // Check if the username already exists
-    const existingUser = await User.findOne({
-      username: username.toLowerCase(),
-    });
+    // const existingUser = await User.findOne({
+    //   username: username.toLowerCase(),
+    // });
 
-    if (/\s/.test(username)) {
-      return;
-    }
+    // if (/\s/.test(username)) {
+    //   return;
+    // }
 
-    if (existingUser) {
-      throw new Error(
-        "This username is already taken. Please choose a different one."
-      );
-    }
+    // if (existingUser) {
+    //   throw new Error(
+    //     "This username is already taken. Please choose a different one."
+    //   );
+    // }
 
     await User.findOneAndUpdate(
       { id: userId },
 
       {
-        username: username.toLowerCase(),
+        username,
         name,
         bio,
         image,
@@ -78,10 +78,10 @@ export async function updateUser({
 
 interface ParamsInProfile {
   userId: string;
-  username?: string;
+  username: string;
   name: string;
   bio: string;
-  image: string | null;
+  image?: string | null;
 }
 
 export async function updateUserInProfile({
@@ -94,19 +94,19 @@ export async function updateUserInProfile({
   try {
     connectToDB();
     // Check if the username already exists
-    const existingUser = await User.findOne({
-      username: username?.toLowerCase(),
-    });
-    if (existingUser) {
-      throw new Error(
-        "This username is already taken. Please choose a different one."
-      );
-    }
+    // const existingUser = await User.findOne({
+    //   username: username?.toLowerCase(),
+    // });
+    // if (existingUser) {
+    //   throw new Error(
+    //     "This username is already taken. Please choose a different one."
+    //   );
+    // }
     await User.findOneAndUpdate(
       { id: userId },
 
       {
-        username: username?.toLowerCase(),
+        username: username,
         name,
         bio,
         image,

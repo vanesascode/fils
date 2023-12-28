@@ -67,17 +67,12 @@ const AccountProfile = ({ user }: Props) => {
     try {
       await updateUser({
         name: values.name,
-        username: values.username.replace(/\s/g, ""),
+        username: values.username,
         userId: user.id,
         bio: values.bio,
         image: values.profile_photo,
         email: user.email,
       });
-
-      // if (/\s/.test(values.username)) {
-      //   setErrorMessageUsername("Username cannot contain spaces");
-      //   return;
-      // }
 
       if (pathname === "/profile/edit") {
         router.back();
@@ -88,10 +83,6 @@ const AccountProfile = ({ user }: Props) => {
       if (error.message.includes("image")) {
         setErrorMessageImage(
           "Please add a valid image. The image cannot be bigger than 2MB."
-        );
-      } else if (error.message.includes("username")) {
-        setErrorMessageUsername(
-          "This username is already taken. \nPlease choose a different one."
         );
       } else {
         setErrorMessageGeneral(

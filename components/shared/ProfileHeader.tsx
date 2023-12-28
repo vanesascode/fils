@@ -16,6 +16,8 @@ import Link from "next/link";
 import * as z from "zod";
 import { UserValidation } from "@/lib/validations/user";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+
 // this info comes from the profile page or the community page?
 interface Props {
   accountId: string;
@@ -66,7 +68,7 @@ function ProfileHeader({
   const [newBio, setNewBio] = useState(bio);
   const [newUsername, setNewUsername] = useState(username);
   const [newName, setNewName] = useState(name);
-  const [usernameError, setUsernameError] = useState("");
+  const [saveError, setSaveError] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
   // HANDLERS DELETE PROFILE
@@ -120,34 +122,37 @@ function ProfileHeader({
 
   interface UpdatedUser {
     name: string;
-    username?: string;
+    username: string;
     userId: string;
     bio: string;
-    image: string | null;
+    image?: string | null;
   }
 
   const handleSaveProfileClick = async () => {
     try {
       const updatedUser: UpdatedUser = {
         name: newName,
+        username: newUsername,
         userId: currentUserId,
         bio: newBio,
-        image: imageUrl,
       };
 
-      if (newUsername !== username) {
-        updatedUser.username = newUsername.split(" ").join("");
+      if (imageUrl !== imgUrl) {
+        updatedUser.image = imageUrl;
       }
+      console.log(imageUrl);
       await updateUserInProfile(updatedUser);
       setEditMode(false);
-      setUsernameError("");
+      setSaveError("");
     } catch (error: any) {
       console.error("Error updating user:", error);
-      setUsernameError("Username already exists");
+      setSaveError("Error updating user");
     }
 
     router.refresh();
   };
+
+  console.log(imgUrl);
 
   return (
     <div className="flex w-full flex-col justify-start">
@@ -155,7 +160,8 @@ function ProfileHeader({
         <div className="flex xxs:items-start w-full  justify-center">
           <input
             type="file"
-            accept="image/*"
+            // defaultValue={imgUrl}
+            // accept="image/*"
             placeholder="Add profile photo"
             className=" box-shadow-small  bg-light-1 px-4 py-2 max-xxs:text-small-regular max-xxs:px-3 max-xxs:py-1 max-xxs:w-[250px]
             "
@@ -221,18 +227,12 @@ function ProfileHeader({
             ></input>
           </div>
           <div className="text-base-medium text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
-            {/* <p>@</p> */}
             <input
               defaultValue={username}
               className=" bg-dark-1  w-full outline-none ml-1 "
               onChange={(e) => setNewUsername(e.target.value)}
             ></input>
           </div>
-          {usernameError && (
-            <p className="text-light-2 text-small-semibold whitespace-nowrap text-center mt-2">
-              {usernameError}
-            </p>
-          )}
         </div>
       ) : (
         <div className="flex-1 mt-2">
@@ -254,7 +254,13 @@ function ProfileHeader({
             className="rounded-lg bg-dark-1 px-4 py-2 w-full outline-none"
             style={{ height: "200px", overflow: "auto" }}
             onChange={(e) => setNewBio(e.target.value)}
+            placeholder="Tell us more about yourself"
           ></textarea>
+          {saveError && (
+            <p className="text-light-2 text-small-semibold whitespace-nowrap text-center mt-2">
+              {saveError}
+            </p>
+          )}
         </div>
       ) : (
         <div className="mt-2  text-base-regular leading-7 text-light-1 w-full">
@@ -299,7 +305,7 @@ function ProfileHeader({
 
       {/*current user*/}
 
-      <div className="mt-2 flex ">
+      <div className=" flex ">
         <Link href={`/followers/${currentUserId}`}>
           {accountId === currentUserId && !editMode && (
             <div className="me-[24px]">
@@ -354,7 +360,7 @@ function ProfileHeader({
         </Link>
       </div>
 
-      {/**MODAL**************************************************************************************/}
+      {/**DELETE ACCOUNT MODAL****************************************************/}
 
       {openModal && (
         <div className="fixed top-0 left-0  bg-black w-full h-full flex justify-center items-center bg-opacity-50 z-50">
