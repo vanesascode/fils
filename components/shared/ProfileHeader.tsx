@@ -157,7 +157,7 @@ function ProfileHeader({
             type="file"
             accept="image/*"
             placeholder="Add profile photo"
-            className=" box-shadow-small  bg-light-1 px-4 py-2 max-xs:text-small-regular max-xs:px-3 max-xs:py-1 max-xxs:w-[250px]
+            className=" box-shadow-small  bg-light-1 px-4 py-2 max-xxs:text-small-regular max-xxs:px-3 max-xxs:py-1 max-xxs:w-[250px]
             "
             onChange={handleImageChange}
           />
@@ -221,7 +221,7 @@ function ProfileHeader({
             ></input>
           </div>
           <div className="text-base-medium text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
-            <p>@</p>
+            {/* <p>@</p> */}
             <input
               defaultValue={username}
               className=" bg-dark-1  w-full outline-none ml-1 "
@@ -240,7 +240,7 @@ function ProfileHeader({
             {name}
           </div>
           <p className="text-small-semibold  text-light-2 break-all mt-[-2px]">
-            @{username}
+            {username}
           </p>
         </div>
       )}

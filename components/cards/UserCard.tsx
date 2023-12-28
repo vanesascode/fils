@@ -24,18 +24,20 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
       <Link href={`/profile/${id}`}>
         <div className="user-card_avatar">
           <div className="relative h-12 w-12">
-            <Image
-              src={imgUrl}
-              alt="user_logo"
-              fill
-              className="rounded-full object-cover"
-              priority
-            />
+            {imgUrl && (
+              <Image
+                src={imgUrl}
+                alt="user_logo"
+                fill
+                className="rounded-full object-cover"
+                priority
+              />
+            )}
           </div>
 
           <div className="flex-1 break-all">
             <h4 className="text-base-semibold text-light-1">{name}</h4>
-            <p className="text-small-medium text-light-1">@{username}</p>
+            <p className="text-small-medium text-light-2">{username}</p>
           </div>
         </div>
       </Link>

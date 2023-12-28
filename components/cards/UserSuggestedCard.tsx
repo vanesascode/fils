@@ -24,12 +24,14 @@ function UserSuggestedCard({ id, name, username, imgUrl }: Props) {
         {/*IMAGE*/}
 
         <div className="relative h-12 w-12">
-          <Image
-            src={imgUrl}
-            alt="user_logo"
-            fill
-            className="rounded-full object-cover"
-          />
+          {imgUrl && (
+            <Image
+              src={imgUrl}
+              alt="user_logo"
+              fill
+              className="rounded-full object-cover"
+            />
+          )}
         </div>
 
         {/*INFO*/}

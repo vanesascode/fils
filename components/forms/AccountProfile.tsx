@@ -201,7 +201,7 @@ const AccountProfile = ({ user }: Props) => {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-1">
               <FormLabel className="text-base-semibold text-dark-1">
-                Username
+                Short description
               </FormLabel>
               <FormControl>
                 <Input
@@ -227,7 +227,7 @@ const AccountProfile = ({ user }: Props) => {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-1">
               <FormLabel className="text-base-semibold text-dark-1">
-                Bio
+                Bio (optional)
               </FormLabel>
               <FormControl>
                 <Textarea

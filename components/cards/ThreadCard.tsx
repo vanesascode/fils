@@ -18,7 +18,7 @@ interface Props {
   parentId: string | null | undefined;
   author: {
     name: string;
-    image: string;
+    image?: string;
     id: string;
   };
   createdAt: string;
@@ -79,11 +79,13 @@ async function ThreadCard({
             <div className="flex flex-col items-center">
               <Link href={`/profile/${author.id}`}>
                 <div className="relative h-12 w-12">
-                  <img
-                    src={author.image}
-                    alt="user_community_image"
-                    className="rounded-image-profile-cards"
-                  />
+                  {author.image && (
+                    <img
+                      src={author.image}
+                      alt="user_community_image"
+                      className="rounded-image-profile-cards"
+                    />
+                  )}
                 </div>
               </Link>
 
