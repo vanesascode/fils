@@ -81,7 +81,7 @@ interface ParamsInProfile {
   username?: string;
   name: string;
   bio: string;
-  image: string;
+  image: string | null;
 }
 
 export async function updateUserInProfile({

@@ -1,7 +1,7 @@
 "use client";
 // import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { usePathname } from "next/navigation";
 import {
   updateUser,
@@ -69,18 +69,61 @@ function ProfileHeader({
   const [usernameError, setUsernameError] = useState("");
   const [openModal, setOpenModal] = useState(false);
 
-  // HANDLERS EDIT PROFILE
+  // HANDLERS DELETE PROFILE
+
+  const deleteProfile = async () => {
+    try {
+      const response = await deleteUser(currentUserId, pathname);
+      // console.log(response);
+    } catch (error: any) {
+      console.error("Error updating user:", error);
+    }
+    router.push("/");
+  };
+
+  // HANDLE EDIT MODE AND MODAL
 
   const handleEditProfileClick = () => {
     setEditMode(true);
   };
+
+  const handleCancelProfileClick = () => {
+    setEditMode(false);
+  };
+
+  const handleOpenModel = () => {
+    setOpenModal(true);
+  };
+
+  const handleCancelClick = () => {
+    setOpenModal(false);
+  };
+
+  // PICTURE UPLOAD
+
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageUrl(reader.result as string);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  /// SAVE ALL:
 
   interface UpdatedUser {
     name: string;
     username?: string;
     userId: string;
     bio: string;
-    image: string;
+    image: string | null;
   }
 
   const handleSaveProfileClick = async () => {
@@ -89,7 +132,7 @@ function ProfileHeader({
         name: newName,
         userId: currentUserId,
         bio: newBio,
-        image: imgUrl,
+        image: imageUrl,
       };
 
       if (newUsername !== username) {
@@ -106,101 +149,52 @@ function ProfileHeader({
     router.refresh();
   };
 
-  const handleCancelProfileClick = () => {
-    setEditMode(false);
-  };
-
-  // HANDLERS DELETE PROFILE
-
-  const deleteProfile = async () => {
-    try {
-      const response = await deleteUser(currentUserId, pathname);
-      // console.log(response);
-    } catch (error: any) {
-      console.error("Error updating user:", error);
-    }
-    router.push("/");
-  };
-
-  // HANDLE MODAL
-
-  const handleOpenModel = () => {
-    setOpenModal(true);
-  };
-
-  const handleCancelClick = () => {
-    setOpenModal(false);
-  };
-
   return (
     <div className="flex w-full flex-col justify-start">
+      {editMode && (
+        <div className="flex items-start w-full flex-col">
+          <input
+            type="file"
+            accept="image/*"
+            placeholder="Add profile photo"
+            className=" box-shadow-small  bg-light-1 px-4 py-2"
+            onChange={handleImageChange}
+          />
+        </div>
+      )}
       <div className="flex items-center justify-between">
         {/*IMAGE - */}
 
-        <div className="relative h-20 w-20 object-cover">
-          <Image
-            src={imgUrl}
-            alt="profile pic"
-            fill
-            className="rounded-full object-cover shadow-2xl"
-          />
-        </div>
+        {!editMode && (
+          <div className="relative h-20 w-20 object-cover">
+            <img
+              src={imageUrl || imgUrl}
+              alt="profile pic"
+              className="rounded-image-profile-page"
+            />
+          </div>
+        )}
 
-        {/*EDIT PROFILE BUTTONS*/}
         <div>
-          {editMode
-            ? accountId === currentUserId &&
-              type !== "Community" && (
-                <div className="flex gap-3 ">
-                  {/*save changes button*/}
-                  <button
-                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center box-shadow-small hover:bg-dark-1 hover:text-light-1"
-                    onClick={handleSaveProfileClick}
-                  >
-                    {/* <Image
-                      src="/assets/edit-black.svg"
-                      alt="save button"
-                      width={16}
-                      height={16}
-                    /> */}
+          {/*BUTTON TO EDIT PROFILE*/}
+          {!editMode && accountId === currentUserId && type !== "Community" && (
+            <div>
+              {/*cancel changes button*/}
+              <button
+                className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 items-center justify-center box-shadow-small"
+                onClick={handleEditProfileClick}
+              >
+                <Image
+                  src="/assets/edit-white.svg"
+                  alt="logout"
+                  width={16}
+                  height={16}
+                />
 
-                    <p>Save</p>
-                  </button>
-                  {/*cancel changes button*/}
-                  <button
-                    className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center box-shadow-small hover:bg-dark-1 hover:text-light-1"
-                    onClick={handleCancelProfileClick}
-                  >
-                    {/* <Image
-                      src="/assets/edit-black.svg"
-                      alt="save button"
-                      width={16}
-                      height={16}
-                    /> */}
-
-                    <p>Cancel</p>
-                  </button>
-                </div>
-              )
-            : accountId === currentUserId &&
-              type !== "Community" && (
-                <div>
-                  {/*cancel changes button*/}
-                  <button
-                    className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 items-center justify-center box-shadow-small"
-                    onClick={handleEditProfileClick}
-                  >
-                    <Image
-                      src="/assets/edit-white.svg"
-                      alt="logout"
-                      width={16}
-                      height={16}
-                    />
-
-                    <p className="text-light-1">Edit</p>
-                  </button>
-                </div>
-              )}
+                <p className="text-light-1">Edit</p>
+              </button>
+            </div>
+          )}
 
           {/*FOLLOW USER BUTTON */}
 
@@ -267,6 +261,39 @@ function ProfileHeader({
         </div>
       )}
 
+      {/*SAVE AND CANCEL EDIT PROFILE BUTTONS*/}
+      <div className="flex items-center justify-between mt-2">
+        {editMode && accountId === currentUserId && type !== "Community" && (
+          <div className="flex gap-3 ">
+            {/*save changes button*/}
+            <button
+              className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center box-shadow-small hover:bg-dark-1 hover:text-light-1"
+              onClick={handleSaveProfileClick}
+            >
+              <p>Save</p>
+            </button>
+            {/*cancel changes button*/}
+            <button
+              className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center box-shadow-small hover:bg-dark-1 hover:text-light-1"
+              onClick={handleCancelProfileClick}
+            >
+              <p>Cancel</p>
+            </button>
+          </div>
+        )}
+
+        {/*DELETE ACCOUNT BUTTON*/}
+
+        {editMode && accountId === currentUserId && type !== "Community" && (
+          <div
+            className="text-base-regular text-light-2 text-end my-2 cursor-pointer"
+            onClick={handleOpenModel}
+          >
+            Delete Account
+          </div>
+        )}
+      </div>
+
       {/*TOTAL FOLLOWED USERS*/}
 
       {/*current user*/}
@@ -326,7 +353,7 @@ function ProfileHeader({
         </Link>
       </div>
 
-      {/**MODAL*************************************************************fixed top-0 left-0  bg-black***************************************/}
+      {/**MODAL**************************************************************************************/}
 
       {openModal && (
         <div className="fixed top-0 left-0  bg-black w-full h-full flex justify-center items-center bg-opacity-50 z-50">
@@ -363,16 +390,6 @@ function ProfileHeader({
               </button>
             </div>
           </div>
-        </div>
-      )}
-      {/*DELETE ACCOUNT BUTTON*/}
-
-      {editMode && accountId === currentUserId && type !== "Community" && (
-        <div
-          className="text-base-regular text-light-2 text-end my-2 cursor-pointer"
-          onClick={handleOpenModel}
-        >
-          Delete Account
         </div>
       )}
     </div>

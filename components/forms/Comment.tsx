@@ -69,15 +69,6 @@ function Comment({
       setIsButtonDisabled(false);
     }, 4000);
 
-    //SEND EMAIL - NODEMAILER
-
-    // sendEmail(
-    //   "fils@example.com",
-    //   "vanesa.juarez.paris@gmail.com",
-    //   "Subject",
-    //   "Message"
-    // );
-
     //SEND EMAIL - RESEND
 
     await postEmail(authorEmail, authorName, replierName);
