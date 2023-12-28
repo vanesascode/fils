@@ -39,6 +39,7 @@ function Comment({
 }: Props) {
   const pathname = usePathname();
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [addComment, setAddComment] = useState(false);
   const commentRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +51,7 @@ function Comment({
   });
 
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
+    setIsButtonDisabled(true);
     await addCommentToThread(
       threadId,
       values.thread,
@@ -62,6 +64,10 @@ function Comment({
     setTimeout(() => {
       setAddComment(false);
     }, 1000);
+
+    setTimeout(() => {
+      setIsButtonDisabled(false);
+    }, 4000);
 
     //SEND EMAIL - NODEMAILER
 
@@ -133,6 +139,7 @@ function Comment({
           <Button
             type="submit"
             className="user-card_btn bg-light-1 text-dark-1 box-shadow-small hover:bg-dark-1 hover:text-light-1"
+            disabled={isButtonDisabled}
           >
             Reply
           </Button>
