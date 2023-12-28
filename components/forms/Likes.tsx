@@ -37,7 +37,7 @@ export default function Likes({
     <>
       <div className="flex  items-center gap-[6px]">
         <img
-          alt="heart"
+          alt="heart icon"
           src={
             likedThreads && isComment
               ? "/assets/heart-filled-white.svg"

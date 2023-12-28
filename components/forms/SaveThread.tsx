@@ -90,7 +90,7 @@ const SaveThread = ({
                 ? "/assets/save-white.svg"
                 : "/assets/save-black.svg"
             }
-            alt="save button"
+            alt="save icon"
             onClick={HandleSaveThread}
             className="cursor-pointer object-contain w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
           />

@@ -136,6 +136,51 @@ Then you can use it in your component when you like:
 
 ---
 
+## 🌟 Testing with Playwright
+
+Follow steps from [Next Docs](https://nextjs.org/docs/pages/building-your-application/testing/playwright) and [Playwright](https://playwright.dev/docs/intro)
+
+To install: `npm init playwright` and just press enter to all questions.
+
+👉 If you have trouble, try disabling the AntiVirus of your computer.
+
+---
+
+You can run several commands:
+
+`npx playwright test`
+Runs the end-to-end tests.
+
+`npx playwright test --ui`
+Starts the interactive UI mode.
+
+`npx playwright test --project=chromium`
+Runs the tests only on Desktop Chrome.
+
+`npx playwright test example`
+Runs the tests in a specific file.
+
+`npx playwright test --debug`
+Runs the tests in debug mode.
+
+`npx playwright codegen`
+Auto generate tests with Codegen.
+
+---
+
+---
+
+👉 Also, you can download extension `Playwright Test for VSCode` by Microsoft.
+
+---
+
+---
+
+1- Run your app
+2 - Use the codegen command in another terminal to run the test generator followed by the URL of the website you want to generate tests for:
+
+`npx playwright codegen http://localhost:3000/`
+
 ## 🌟 Threaded conversations platform
 
 In this social media app, users can post comments on existing threads. By using the parentId and children properties, it is possible to create a `nested structure of comments`, allowing for threaded conversations. Each comment can have multiple replies, and these replies can have their own replies, creating a tree-like structure of comments.
