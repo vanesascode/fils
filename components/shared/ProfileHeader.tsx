@@ -152,12 +152,13 @@ function ProfileHeader({
   return (
     <div className="flex w-full flex-col justify-start">
       {editMode && (
-        <div className="flex items-start w-full flex-col">
+        <div className="flex xxs:items-start w-full  justify-center">
           <input
             type="file"
             accept="image/*"
             placeholder="Add profile photo"
-            className=" box-shadow-small  bg-light-1 px-4 py-2"
+            className=" box-shadow-small  bg-light-1 px-4 py-2 max-xs:text-small-regular max-xs:px-3 max-xs:py-1 max-xxs:w-[250px]
+            "
             onChange={handleImageChange}
           />
         </div>
