@@ -10,6 +10,7 @@ import { countSaves, getAllSavedThreadIds } from "@/lib/actions/saved.actions";
 import ThreadCardOptions from "../forms/ThreadCardOptions";
 import ThreadText from "./ThreadText";
 import DeleteThread from "../forms/DeleteThread";
+import SharePostOptions from "../forms/SharePostOptions";
 
 interface Props {
   id: string;
@@ -155,7 +156,16 @@ async function ThreadCard({
 
                   {/*SHARE THREAD ICON */}
 
-                  <div className="flex items-center justify-center">
+                  <SharePostOptions
+                    threadId={JSON.stringify(id)}
+                    currentUserId={currentUserId}
+                    authorId={author.id}
+                    parentId={parentId}
+                    isComment={isComment}
+                    text={content}
+                  />
+
+                  {/* <div className="flex items-center justify-center">
                     <img
                       src={
                         isComment
@@ -165,7 +175,7 @@ async function ThreadCard({
                       alt="share icon"
                       className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
                     />
-                  </div>
+                  </div> */}
 
                   {/*SAVE THREAD ICON */}
 
