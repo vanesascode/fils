@@ -110,7 +110,7 @@ function ProfileHeader({
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-      const reader = new FileReader();
+      const reader = new FileReader(); // read a file
       reader.onload = () => {
         setImageUrl(reader.result as string);
       };
@@ -137,7 +137,7 @@ function ProfileHeader({
         bio: newBio,
       };
 
-      if (imageUrl !== imgUrl) {
+      if (file) {
         updatedUser.image = imageUrl;
       }
       console.log(imageUrl);

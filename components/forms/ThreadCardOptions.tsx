@@ -59,7 +59,9 @@ function ThreadCardOptions({
 
   // EDIT THREAD
 
-  const handleEditClick = async () => {
+  const handleEditClick = async (id: string) => {
+    console.log(id);
+    // pasar al context
     setEditThreadMode(true);
     setIsMenuOpen(false);
   };
@@ -102,7 +104,10 @@ function ThreadCardOptions({
 
             <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-b-2 border-dark-1">
               {/*EDIT BUTTON*/}
-              <button className="flex items-center" onClick={handleEditClick}>
+              <button
+                className="flex items-center"
+                onClick={() => handleEditClick(threadId)}
+              >
                 <Image
                   src="/assets/edit.svg"
                   alt="delete"
@@ -131,7 +136,8 @@ function ThreadCardOptions({
                   className="cursor-pointer object-contain me-1"
                 />
                 <div className="text-dark-1 max-xs:text-small-semibold">
-                  Delete Post
+                  Delete Post{" "}
+                  {/* almacenar id del THREAD en context, y cuando elimine*/}
                 </div>
               </button>
             </div>

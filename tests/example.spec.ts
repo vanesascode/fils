@@ -1,5 +1,29 @@
 import { test, expect } from "@playwright/test";
 
+test("sign up as Pepe", async ({ page }) => {
+  await page.goto("http://localhost:3000/");
+  await page.goto(
+    "http://localhost:3000/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2F"
+  );
+  await page.getByRole("link", { name: "Sign up" }).click();
+  await page.goto(
+    "http://localhost:3000/sign-up?redirect_url=http%3A%2F%2Flocalhost%3A3000%2F"
+  );
+  await page.getByLabel("Email address").click();
+  await page.getByLabel("Email address").fill("pepe@gmail.com");
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await page
+    .getByLabel("Password", { exact: true })
+    .fill("1a2s3d4f5g6h7j8k9l0ññññññññ");
+  await page.getByRole("button", { name: "Continue" }).click();
+  await page.goto("http://localhost:3000/onboarding");
+  await page.getByLabel("Name").click();
+  await page.getByLabel("Name").fill("pepe");
+  await page.getByLabel("Short description").click();
+  await page.getByLabel("Short description").fill("pepe");
+  await page.getByRole("button", { name: "Continue" }).click();
+});
+
 //////////////////////////////////////////////////////////////////////////////
 
 test("Log in and post", async ({ page }) => {

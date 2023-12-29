@@ -78,7 +78,7 @@ const ThreadText = ({
   };
   return (
     <>
-      {editThreadMode && authorId === currentUserId ? (
+      {editThreadMode && authorId === currentUserId ? ( // & threadid  ==== id(en context)
         <>
           <div className="mt-3 text-base-regular text-light-1 w-full">
             <textarea
