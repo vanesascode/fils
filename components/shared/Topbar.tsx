@@ -19,7 +19,7 @@ async function Topbar() {
   return (
     <nav className="topbar">
       <Link href="/" className="flex items-center gap-3">
-        <Image src="/assets/ball.svg" alt="logo" width={40} height={40} />
+        <Image src="/assets/logo-white.svg" alt="logo" width={40} height={40} />
         <p className="text-heading1-bold text-light-1 font-lobster ">Fils</p>
       </Link>
 

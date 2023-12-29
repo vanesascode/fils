@@ -6,7 +6,7 @@ export default function Page() {
       <div className="flex flex-col items-center relative ">
         <div className="flex items-center gap-3 md:mb-6 mt-20 mb-5">
           <img
-            src="/assets/ball.svg"
+            src="/assets/logo-white.svg"
             alt="logo"
             className="md:w-[70px] w-[50px]"
           />
