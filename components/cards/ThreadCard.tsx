@@ -163,6 +163,7 @@ async function ThreadCard({
                     parentId={parentId}
                     isComment={isComment}
                     text={content}
+                    authorName={author.name}
                   />
 
                   {/*SAVE THREAD ICON */}

@@ -20,6 +20,7 @@ interface Props {
   isComment?: boolean;
   parentId: string | null | undefined;
   text: string;
+  authorName: string;
 }
 
 function SharePostOptions({
@@ -29,6 +30,7 @@ function SharePostOptions({
   parentId,
   isComment,
   text,
+  authorName,
 }: Props) {
   //states
 
@@ -55,7 +57,7 @@ function SharePostOptions({
   )
     return null;
 
-  const threadWithoutQuotes = threadId.slice(1, -1);
+  // const threadWithoutQuotes = threadId.slice(1, -1);
 
   //OPEN MENU
 
@@ -71,9 +73,7 @@ function SharePostOptions({
   // COPY LINK
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(
-      `https://fils.vercel.app/thread/${threadWithoutQuotes}`
-    );
+    navigator.clipboard.writeText(`https://fils.vercel.app/thread/${threadId}`);
     setIsMenuOpen(false);
   };
 
@@ -88,7 +88,7 @@ function SharePostOptions({
 
   const handleEmailShare = () => {
     const subject = "Check out this post";
-    const body = `I wanted to share this Fil with you:\n\n${text}\n\nCheck it out at: https://fils.vercel.app/thread/${threadWithoutQuotes}`;
+    const body = `I wanted to share this Fil with you:\n\n${text}\n\nCheck it out at: https://fils.vercel.app/thread/${threadId}`;
 
     const mailtoLink = `mailto:?subject=${encodeURIComponent(
       subject
@@ -97,20 +97,24 @@ function SharePostOptions({
     setIsSocialMediaModalOpen(false);
   };
 
+  // WHATSAPP SHARE
+
+  const handleWhatsAppShare = () => {
+    const message = `Check out this Fil by ${authorName}: https://fils.vercel.app/thread/${threadId}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, "_blank");
+  };
+
   return (
     <>
       {/*BACKGROUNDS TO TURN OFF MENUS WHEN CLICKED*/}
 
-      {isMenuOpen && (
+      {(isMenuOpen || isSocialMediaModalOpen) && (
         <div
-          className="fixed top-0 left-0   w-full h-full flex justify-center items-center z-30"
-          onClick={handleCloseMenusClick}
-        ></div>
-      )}
-
-      {isSocialMediaModalOpen && (
-        <div
-          className="fixed top-0 left-0  w-full h-full flex justify-center items-center z-30"
+          className="fixed top-0 left-0   w-full h-full flex justify-center items-center z-30 bg-black opacity-30"
           onClick={handleCloseMenusClick}
         ></div>
       )}
@@ -130,26 +134,26 @@ function SharePostOptions({
 
         {/*POP-UP MENU*/}
         {isMenuOpen && (
-          <div className="absolute right-[0px] top-[30px] w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden z-50">
+          <div className="absolute max-sm2:right-[-30px] top-[30px] w-[180px] max-sm2:w-[170px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden z-50">
             {/*OPTIONS*/}
 
-            <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-b-2 border-dark-1">
-              {/*EDIT BUTTON*/}
-              <button className="flex items-center" onClick={handleCopyLink}>
+            <button className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-sm2:w-[170px] hover:border-b-2 border-dark-1">
+              {/*COPY LINK BUTTON*/}
+              <div className="flex items-center" onClick={handleCopyLink}>
                 <Image
-                  src="/assets/edit.svg"
+                  src="/assets/link.svg"
                   alt="delete"
                   width={20}
                   height={20}
-                  className="cursor-pointer object-contain me-1"
+                  className="cursor-pointer object-contain me-2"
                 />
-                <div className="text-dark-1 max-xs:text-small-semibold">
+                <div className="text-dark-1 max-sm2:text-small-semibold">
                   Copy Link
                 </div>
-              </button>
-            </div>
-            <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-t-2 border-dark-1 ">
-              {/*DELETE BUTTON*/}
+              </div>
+            </button>
+            <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 w-[180px] max-sm2:w-[150px] hover:border-t-2 border-dark-1  ">
+              {/*SHARE BUTTON*/}
 
               <button
                 className="flex items-center"
@@ -157,13 +161,13 @@ function SharePostOptions({
                 onClick={handleOpenSocialMediaModal}
               >
                 <Image
-                  src="/assets/delete-red.svg"
+                  src="/assets/send-fil.svg"
                   alt="delete"
                   width={20}
                   height={20}
-                  className="cursor-pointer object-contain me-1"
+                  className="cursor-pointer object-contain me-2"
                 />
-                <div className="text-dark-1 max-xs:text-small-semibold">
+                <div className="text-dark-1 max-sm2:text-small-semibold whitespace-nowrap">
                   Share fil via...
                 </div>
               </button>
@@ -174,41 +178,20 @@ function SharePostOptions({
         {/*SOCIAL MEDIA MODAL*/}
 
         {isSocialMediaModalOpen && (
-          <div className="fixed top-0 left-0  bg-black w-full h-full flex justify-center items-center bg-opacity-50 z-10">
-            <div className="bg-white p-[30px] rounded-lg shadow text-center box-shadow-small max-xs:p-[25px] z-50">
-              {/*DELETE FIL BUTTONS*/}
+          <div className="bg-light-1 p-[10px] max-sm2:right-[-30px] rounded-lg shadow text-center box-shadow-small z-50 absolute top-[30px] flex gap-5 items-center sm2:w-[170px] w-[150px] justify-center">
+            <img
+              src="/assets/email.svg"
+              alt="email icon"
+              className="cursor-pointer object-contain me-2 sm2:h-[44px] sm2:w-[44px] h-[35px] w-[35px]"
+              onClick={handleEmailShare}
+            />
 
-              <div className="flex gap-5 justify-center mt-5 ">
-                <button
-                  className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
-                  onClick={handleEmailShare}
-                  disabled={isButtonDisabled}
-                >
-                  Email
-                </button>
-
-                <button
-                  className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-dark-1 hover:text-light-1 text-dark-1"
-                  // onClick={handleCancelClick}
-                >
-                  Whasapp
-                </button>
-                <button
-                  className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
-                  // onClick={handleClick}
-                  disabled={isButtonDisabled}
-                >
-                  Twitter
-                </button>
-
-                <button
-                  className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-dark-1 hover:text-light-1 text-dark-1"
-                  // onClick={handleCancelClick}
-                >
-                  Facebook
-                </button>
-              </div>
-            </div>
+            <img
+              src="/assets/whatsapp.svg"
+              alt="whatsapp icon"
+              className="cursor-pointer object-contain me-2 sm2:h-[40px] sm2:w-[40px] h-[35px] w-[35px]"
+              onClick={handleWhatsAppShare}
+            />
           </div>
         )}
       </div>

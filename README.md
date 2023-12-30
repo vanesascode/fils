@@ -244,4 +244,9 @@ It is also prepared to be both a `desktop` and a `native mobile` web application
 
 They are taken from [google icons](https://fonts.google.com/icons), the rounded type.
 
+Social media icons:
+
+- https://www.svgrepo.com/svg/353196/mail-with-circle
+- https://www.svgrepo.com/svg/475692/whatsapp-color
+
 ---
