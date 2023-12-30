@@ -58,7 +58,13 @@ function ThreadCardOptions({
   //OPEN MENU
 
   const handleOpenMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen(true);
+  };
+
+  // CLOSE MENU
+
+  const handleCloseMenuClick = () => {
+    setIsMenuOpen(false);
   };
 
   // EDIT THREAD
@@ -77,10 +83,19 @@ function ThreadCardOptions({
     setThreadToBeDeleted(id);
     setIsMenuOpen(false);
     setDeleteThreadMode(true);
+    setEditThreadMode(false);
   };
 
   return (
     <>
+      {/*BACKGROUND TO TURN OFF MENU WHEN CLICKED*/}
+      {isMenuOpen && (
+        <div
+          className="fixed top-0 left-0   w-full h-full flex justify-center items-center z-30"
+          onClick={handleCloseMenuClick}
+        ></div>
+      )}
+
       {/* OPTIONS ICON */}
       <div className="relative">
         <div>
@@ -96,7 +111,7 @@ function ThreadCardOptions({
 
         {/*POP-UP MENU*/}
         {isMenuOpen && (
-          <div className="absolute right-[0px] top-[30px] w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden">
+          <div className="absolute right-[0px] top-0  w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden z-50">
             {/*OPTIONS*/}
 
             <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-b-2 border-dark-1">

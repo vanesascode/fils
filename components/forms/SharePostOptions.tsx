@@ -55,13 +55,18 @@ function SharePostOptions({
   )
     return null;
 
+  const threadWithoutQuotes = threadId.slice(1, -1);
+
   //OPEN MENU
 
-  const handleOpenMenu = () => {
+  const handleOpenMenuClick = () => {
     setIsMenuOpen(true);
   };
 
-  const threadWithoutQuotes = threadId.slice(1, -1);
+  const handleCloseMenusClick = () => {
+    setIsMenuOpen(false);
+    setIsSocialMediaModalOpen(false);
+  };
 
   // COPY LINK
 
@@ -69,6 +74,7 @@ function SharePostOptions({
     navigator.clipboard.writeText(
       `https://fils.vercel.app/thread/${threadWithoutQuotes}`
     );
+    setIsMenuOpen(false);
   };
 
   // SOCIAL MEDIA MODAL
@@ -93,26 +99,38 @@ function SharePostOptions({
 
   return (
     <>
+      {/*BACKGROUNDS TO TURN OFF MENUS WHEN CLICKED*/}
+
+      {isMenuOpen && (
+        <div
+          className="fixed top-0 left-0   w-full h-full flex justify-center items-center z-30"
+          onClick={handleCloseMenusClick}
+        ></div>
+      )}
+
+      {isSocialMediaModalOpen && (
+        <div
+          className="fixed top-0 left-0  w-full h-full flex justify-center items-center z-30"
+          onClick={handleCloseMenusClick}
+        ></div>
+      )}
+
       {/* OPTIONS ICON */}
       <div className="relative">
-        <div
-
-        // onBlur={() => setIsMenuOpen(false)}
-        // onFocus={() => setIsMenuOpen(true)}
-        >
+        <div>
           <img
             alt="share icon"
             src={
               isComment ? "/assets/share-white.svg" : "/assets/share-black.svg"
             }
             className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
-            onClick={handleOpenMenu}
+            onClick={handleOpenMenuClick}
           />
         </div>
 
         {/*POP-UP MENU*/}
         {isMenuOpen && (
-          <div className="absolute right-[0px] top-[30px] w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden">
+          <div className="absolute right-[0px] top-[30px] w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden z-50">
             {/*OPTIONS*/}
 
             <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-b-2 border-dark-1">
@@ -156,8 +174,8 @@ function SharePostOptions({
         {/*SOCIAL MEDIA MODAL*/}
 
         {isSocialMediaModalOpen && (
-          <div className="fixed top-0 left-0  bg-black w-full h-full flex justify-center items-center bg-opacity-50 z-50">
-            <div className="bg-white p-[30px] rounded-lg shadow text-center box-shadow-small max-xs:p-[25px]">
+          <div className="fixed top-0 left-0  bg-black w-full h-full flex justify-center items-center bg-opacity-50 z-10">
+            <div className="bg-white p-[30px] rounded-lg shadow text-center box-shadow-small max-xs:p-[25px] z-50">
               {/*DELETE FIL BUTTONS*/}
 
               <div className="flex gap-5 justify-center mt-5 ">
