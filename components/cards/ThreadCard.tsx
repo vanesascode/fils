@@ -165,18 +165,6 @@ async function ThreadCard({
                     text={content}
                   />
 
-                  {/* <div className="flex items-center justify-center">
-                    <img
-                      src={
-                        isComment
-                          ? "/assets/share-white.svg"
-                          : "/assets/share-black.svg"
-                      }
-                      alt="share icon"
-                      className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
-                    />
-                  </div> */}
-
                   {/*SAVE THREAD ICON */}
 
                   <SaveThread

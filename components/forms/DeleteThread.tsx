@@ -26,9 +26,12 @@ function DeleteThread({
   isComment,
 }: Props) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const { deleteThreadMode, setDeleteThreadMode } = useContext(
-    DataContext
-  ) as DataContextType;
+  const {
+    deleteThreadMode,
+    setDeleteThreadMode,
+    setThreadToBeDeleted,
+    threadToBeDeleted,
+  } = useContext(DataContext) as DataContextType;
 
   //context
   const { unFollowModalAppear, setUnfollowModalAppear } = useContext(
@@ -39,13 +42,11 @@ function DeleteThread({
 
   const handleClick = async () => {
     setIsButtonDisabled(true);
-    await deleteThread(JSON.parse(threadId), pathname);
+    await deleteThread(JSON.parse(threadToBeDeleted), pathname);
     if (!parentId || !isComment) {
       router.push(pathname);
     }
-
     setDeleteThreadMode(false);
-
     setTimeout(() => {
       setIsButtonDisabled(false);
     }, 3000);

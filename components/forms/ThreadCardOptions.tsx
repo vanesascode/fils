@@ -35,6 +35,8 @@ function ThreadCardOptions({
   //context
 
   const {
+    threadToBeDeleted,
+    setThreadToBeDeleted,
     editThreadMode,
     setEditThreadMode,
     deleteThreadMode,
@@ -53,13 +55,13 @@ function ThreadCardOptions({
 
   //OPEN MENU
 
-  const handleImageClick = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleOpenMenuClick = () => {
+    setIsMenuOpen(true);
   };
 
   // EDIT THREAD
 
-  const handleEditClick = async (id: string) => {
+  const handleEditThreadClick = async (id: string) => {
     console.log(id);
     // pasar al context
     setEditThreadMode(true);
@@ -70,30 +72,24 @@ function ThreadCardOptions({
 
   const router = useRouter();
 
-  const handleDeleteThreadClick = () => {
+  const handleDeleteThreadClick = async (id: string) => {
+    setThreadToBeDeleted(id);
     setIsMenuOpen(false);
-    // deleteThread(JSON.parse(threadId), pathname);
     setDeleteThreadMode(true);
   };
-
-  // console.log(threadId);
 
   return (
     <>
       {/* OPTIONS ICON */}
       <div className="relative">
-        <div
-
-        // onBlur={() => setIsMenuOpen(false)}
-        // onFocus={() => setIsMenuOpen(true)}
-        >
+        <div>
           <img
             alt="card options dots"
             src={
               isComment ? "/assets/dots-white.svg" : "/assets/dots-black.svg"
             }
             className="cursor-pointer object-contain xs:h-[40px] xs:w-[40px] h-[20px] w-[20px]"
-            onClick={handleImageClick}
+            onClick={handleOpenMenuClick}
           />
         </div>
 
@@ -106,7 +102,7 @@ function ThreadCardOptions({
               {/*EDIT BUTTON*/}
               <button
                 className="flex items-center"
-                onClick={() => handleEditClick(threadId)}
+                onClick={() => handleEditThreadClick(threadId)}
               >
                 <Image
                   src="/assets/edit.svg"
@@ -126,7 +122,7 @@ function ThreadCardOptions({
               <button
                 className="flex items-center"
                 disabled={isButtonDisabled}
-                onClick={handleDeleteThreadClick}
+                onClick={() => handleDeleteThreadClick(threadId)}
               >
                 <Image
                   src="/assets/delete-red.svg"
@@ -137,7 +133,6 @@ function ThreadCardOptions({
                 />
                 <div className="text-dark-1 max-xs:text-small-semibold">
                   Delete Post{" "}
-                  {/* almacenar id del THREAD en context, y cuando elimine*/}
                 </div>
               </button>
             </div>

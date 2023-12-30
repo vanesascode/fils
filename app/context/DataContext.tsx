@@ -2,13 +2,11 @@
 
 import React, { useState } from "react";
 
-// import { createContext, useState, ReactNode } from "react";
-
 import { DataContextType } from "./types";
 
 export const DataContext = React.createContext<DataContextType>({
-  message: "",
-  setMessage: () => {},
+  threadToBeDeleted: "",
+  setThreadToBeDeleted: () => {},
   unFollowModalAppear: false,
   setUnfollowModalAppear: () => {},
   editThreadMode: false,
@@ -18,7 +16,7 @@ export const DataContext = React.createContext<DataContextType>({
 });
 
 export const DataContextProvider = (props: { children: React.ReactNode }) => {
-  const [message, setMessage] = useState<string>("");
+  const [threadToBeDeleted, setThreadToBeDeleted] = useState<string>("");
   const [unFollowModalAppear, setUnfollowModalAppear] = useState(false);
   const [editThreadMode, setEditThreadMode] = useState(false);
   const [deleteThreadMode, setDeleteThreadMode] = useState(false);
@@ -26,8 +24,8 @@ export const DataContextProvider = (props: { children: React.ReactNode }) => {
   return (
     <DataContext.Provider
       value={{
-        message,
-        setMessage,
+        threadToBeDeleted,
+        setThreadToBeDeleted,
         unFollowModalAppear,
         setUnfollowModalAppear,
 
