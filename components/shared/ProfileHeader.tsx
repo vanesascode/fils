@@ -181,11 +181,21 @@ function ProfileHeader({
         {editMode && (
           <div className="flex items-center gap-3 w-full justify-start max-xs:justify-center flex-col">
             <div className="relative h-20 w-20 object-cover">
-              <img
-                src={imgUrl || blob?.url} // Standard mode: src={imageUrl || imgUrl}
-                alt="profile pic"
-                className="rounded-image-profile-page"
-              />
+              {!blob?.url && (
+                <img
+                  src={imgUrl} // Standard mode: src={imageUrl || imgUrl}
+                  alt="profile pic"
+                  className="rounded-image-profile-page"
+                />
+              )}
+
+              {blob?.url && (
+                <img
+                  src={blob?.url} // Standard mode: src={imageUrl || imgUrl}
+                  alt="profile pic"
+                  className="rounded-image-profile-page"
+                />
+              )}
             </div>
 
             {/* BLOB VERCEL MODE */}

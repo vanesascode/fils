@@ -57,6 +57,8 @@ For uploading the pictures in [Vercel Blob](https://vercel.com/dashboard/stores/
 - In the console, run: `vercel link`
 - `vercel env pull .env.development.local`
 
+https://www.youtube.com/watch?v=PeXV-4CldnA
+
 ---
 
 ### 🔹 [Clerk](https://clerk.com/docs/quickstarts/nextjs)
