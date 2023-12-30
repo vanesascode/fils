@@ -178,18 +178,18 @@ function SharePostOptions({
         {/*SOCIAL MEDIA MODAL*/}
 
         {isSocialMediaModalOpen && (
-          <div className="bg-light-1 p-[10px] max-sm2:right-[-30px] rounded-lg shadow text-center box-shadow-small z-50 absolute top-[30px] flex gap-5 items-center sm2:w-[170px] w-[150px] justify-center">
+          <div className="bg-light-1 p-[10px] max-sm2:right-[-30px] rounded-lg shadow text-center box-shadow-small z-50 absolute top-[30px] flex xs:gap-5 gap-3 items-center sm2:w-[170px] w-[150px] justify-center">
             <img
               src="/assets/email.svg"
               alt="email icon"
-              className="cursor-pointer object-contain me-2 sm2:h-[44px] sm2:w-[44px] h-[35px] w-[35px]"
+              className="cursor-pointer object-contain me-2 sm2:h-[40px] sm2:w-[40px] h-[33px] w-[35px]"
               onClick={handleEmailShare}
             />
 
             <img
               src="/assets/whatsapp.svg"
               alt="whatsapp icon"
-              className="cursor-pointer object-contain me-2 sm2:h-[40px] sm2:w-[40px] h-[35px] w-[35px]"
+              className="cursor-pointer object-contain me-2 sm2:h-[45px] sm2:w-[45px] h-[35px] w-[35px]"
               onClick={handleWhatsAppShare}
             />
           </div>

@@ -49,6 +49,16 @@ More info [HERE](https://github.com/vanesascode/react-speech-recognition-test-ty
 
 ---
 
+For uploading the pictures in [Vercel Blob](https://vercel.com/dashboard/stores/blob/store_dC2sM4VZ0I7bcHf0/guides):
+
+- Create a Blob database in Vercel and link it to the project
+
+- In the console, run: `npm i -g vercel`
+- In the console, run: `vercel link`
+- `vercel env pull .env.development.local`
+
+---
+
 ### 🔹 [Clerk](https://clerk.com/docs/quickstarts/nextjs)
 
 handles tasks like user authentication, password reset, email verification, and more. It also provides an API that allows you to interact with the user data and perform actions like creating new users, updating user profiles, and managing user sessions. `Themes` lets you personalize styles.
