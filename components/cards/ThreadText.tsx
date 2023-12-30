@@ -30,6 +30,7 @@ const ThreadText = ({
   threadId,
 }: Props) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [emptyTextError, setEmptyTextError] = useState("");
 
   const { editThreadMode, setEditThreadMode, threadToBeEdited } = useContext(
     DataContext
@@ -41,6 +42,13 @@ const ThreadText = ({
 
   const handleClick = async () => {
     setIsButtonDisabled(true);
+
+    if (newText.trim() === "") {
+      setEmptyTextError("Please write some text before submitting.");
+      setIsButtonDisabled(false);
+      return;
+    }
+
     try {
       await updateThread({
         text: newText,
@@ -87,7 +95,6 @@ const ThreadText = ({
       {editThreadMode &&
       authorId === currentUserId &&
       threadId === threadToBeEdited.slice(1, -1) ? (
-        // & threadid  ==== id(en context)
         <>
           <div className="mt-3 text-base-regular text-light-1 w-full">
             <textarea
@@ -96,6 +103,15 @@ const ThreadText = ({
               onChange={(e) => setNewText(e.target.value)}
             ></textarea>
           </div>
+
+          {/* Form validation so post is not empty */}
+          {emptyTextError && (
+            <p className="text-dark-1 text-center mt-2 mb-3 max-xs:text-small-regular">
+              {emptyTextError}
+            </p>
+          )}
+
+          {/* Save and Cancel buttons */}
           <button
             className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
             onClick={handleClick}

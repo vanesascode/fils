@@ -155,15 +155,23 @@ function ProfileHeader({
   console.log(imgUrl);
 
   return (
-    <div className="flex w-full flex-col justify-start">
+    <div className="flex w-full flex-col  ">
       {editMode && (
-        <div className="flex xxs:items-start w-full  justify-center">
+        <div className="flex items-center gap-3 w-full justify-start max-xs:justify-center max-xs:flex-col">
+          <div className="relative h-20 w-20 object-cover">
+            <img
+              src={imageUrl || imgUrl}
+              alt="profile pic"
+              className="rounded-image-profile-page"
+            />
+          </div>
           <input
             type="file"
             // defaultValue={imgUrl}
             // accept="image/*"
             placeholder="Add profile photo"
-            className=" box-shadow-small  bg-light-1 px-4 py-2 max-xxs:text-small-regular max-xxs:px-3 max-xxs:py-1 max-xxs:w-[250px]
+            className="   px-4 py-2 text-light-1
+            max-xs:text-small-regular max-xs:px-3 max-xs:py-1 max-xs:w-[290px]
             "
             onChange={handleImageChange}
           />
@@ -219,14 +227,14 @@ function ProfileHeader({
       {/* NAME - USERNAME */}
       {editMode ? (
         <div className="flex-1 mt-4">
-          <div className="text-left text-heading3-bold text-light-1 ">
+          <div className="text-left text-heading4-bold text-light-1 ">
             <input
               defaultValue={name}
               className="rounded-lg bg-dark-1 px-4 py-1 w-full outline-none text-light-1"
               onChange={(e) => setNewName(e.target.value)}
             ></input>
           </div>
-          <div className="text-base-medium text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
+          <div className="text-small-semibold text-light-1 mt-3 flex flex-row justify-start items-center rounded-lg bg-dark-1 px-4 py-2 w-full ">
             <input
               defaultValue={username}
               className=" bg-dark-1  w-full outline-none ml-1 "
@@ -248,7 +256,7 @@ function ProfileHeader({
       {/*BIO*/}
 
       {editMode ? (
-        <div className="mt-3 text-base-regular text-light-1 w-full">
+        <div className="mt-3 text-small-regular text-light-1 w-full">
           <textarea
             defaultValue={bio}
             className="rounded-lg bg-dark-1 px-4 py-2 w-full outline-none"
@@ -269,7 +277,7 @@ function ProfileHeader({
       )}
 
       {/*SAVE AND CANCEL EDIT PROFILE BUTTONS*/}
-      <div className="flex items-center justify-between mt-2">
+      <div className="flex items-center justify-between mt-2 mb-4">
         {editMode && accountId === currentUserId && type !== "Community" && (
           <div className="flex gap-3 ">
             {/*save changes button*/}
@@ -293,7 +301,7 @@ function ProfileHeader({
 
         {editMode && accountId === currentUserId && type !== "Community" && (
           <div
-            className="text-base-regular text-light-2 text-end my-2 cursor-pointer"
+            className="xs:text-base-regular text-light-2 text-end my-2 cursor-pointer text-small-semibold"
             onClick={handleOpenModel}
           >
             Delete Account

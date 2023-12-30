@@ -88,7 +88,7 @@ function SharePostOptions({
 
   const handleEmailShare = () => {
     const subject = "Check out this post";
-    const body = `I wanted to share this Fil with you:\n\n${text}\n\nCheck it out at: https://fils.vercel.app/thread/${threadId}`;
+    const body = `I wanted to share this Fil by ${authorName} with you:\n\n${text}\n\nCheck it out at: https://fils.vercel.app/thread/${threadId}`;
 
     const mailtoLink = `mailto:?subject=${encodeURIComponent(
       subject

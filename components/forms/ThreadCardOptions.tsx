@@ -91,7 +91,7 @@ function ThreadCardOptions({
       {/*BACKGROUND TO TURN OFF MENU WHEN CLICKED*/}
       {isMenuOpen && (
         <div
-          className="fixed top-0 left-0   w-full h-full flex justify-center items-center z-30"
+          className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-30"
           onClick={handleCloseMenuClick}
         ></div>
       )}
@@ -104,7 +104,7 @@ function ThreadCardOptions({
             src={
               isComment ? "/assets/dots-white.svg" : "/assets/dots-black.svg"
             }
-            className="cursor-pointer object-contain xs:h-[40px] xs:w-[40px] h-[20px] w-[20px]"
+            className="cursor-pointer object-contain xs:h-[40px] xs:w-[40px] h-[25px] w-[25px]"
             onClick={handleOpenMenuClick}
           />
         </div>
