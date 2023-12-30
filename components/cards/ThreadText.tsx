@@ -29,7 +29,9 @@ const ThreadText = ({
   author_Id,
   threadId,
 }: Props) => {
-  const { editThreadMode, setEditThreadMode } = useContext(
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  const { editThreadMode, setEditThreadMode, threadToBeEdited } = useContext(
     DataContext
   ) as DataContextType;
 
@@ -37,9 +39,8 @@ const ThreadText = ({
 
   const [newText, setNewText] = useState(text);
 
-  // console.log(author_Id);
-
   const handleClick = async () => {
+    setIsButtonDisabled(true);
     try {
       await updateThread({
         text: newText,
@@ -51,6 +52,10 @@ const ThreadText = ({
     } catch (error) {
       console.log("Error updating text:", error);
     }
+
+    setTimeout(() => {
+      setIsButtonDisabled(false);
+    }, 2000);
   };
 
   const handleCancelClick = () => {
@@ -76,9 +81,13 @@ const ThreadText = ({
       );
     });
   };
+
   return (
     <>
-      {editThreadMode && authorId === currentUserId ? ( // & threadid  ==== id(en context)
+      {editThreadMode &&
+      authorId === currentUserId &&
+      threadId === threadToBeEdited.slice(1, -1) ? (
+        // & threadid  ==== id(en context)
         <>
           <div className="mt-3 text-base-regular text-light-1 w-full">
             <textarea
@@ -90,7 +99,7 @@ const ThreadText = ({
           <button
             className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
             onClick={handleClick}
-            // disabled={isButtonDisabled}
+            disabled={isButtonDisabled}
           >
             Save
           </button>

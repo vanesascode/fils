@@ -35,6 +35,8 @@ function ThreadCardOptions({
   //context
 
   const {
+    threadToBeEdited,
+    setThreadToBeEdited,
     threadToBeDeleted,
     setThreadToBeDeleted,
     editThreadMode,
@@ -56,14 +58,13 @@ function ThreadCardOptions({
   //OPEN MENU
 
   const handleOpenMenuClick = () => {
-    setIsMenuOpen(true);
+    setIsMenuOpen(!isMenuOpen);
   };
 
   // EDIT THREAD
 
   const handleEditThreadClick = async (id: string) => {
-    console.log(id);
-    // pasar al context
+    setThreadToBeEdited(id);
     setEditThreadMode(true);
     setIsMenuOpen(false);
   };

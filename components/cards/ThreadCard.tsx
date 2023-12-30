@@ -157,7 +157,7 @@ async function ThreadCard({
                   {/*SHARE THREAD ICON */}
 
                   <SharePostOptions
-                    threadId={JSON.stringify(id)}
+                    threadId={id}
                     currentUserId={currentUserId}
                     authorId={author.id}
                     parentId={parentId}
