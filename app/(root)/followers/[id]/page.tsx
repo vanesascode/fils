@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
 import UserCard from "@/components/cards/UserCard";
-import FollowedCard from "@/components/cards/FollowedCard";
+
 import {
   fetchUser,
   fetchFollowedUsers,
@@ -43,7 +43,12 @@ async function Page({ params }: { params: { id: string } }) {
         />
       ))}
 
-      <h1 className="head-text mb-10">Followers</h1>
+      {/* Title*/}
+      {params.id === user.id ? (
+        <h1 className="head-text mb-10">Your follows</h1>
+      ) : (
+        <h1 className="head-text mb-10">{userInfo.name}'s follows</h1>
+      )}
 
       <div className="mt-9">
         <Tabs defaultValue="following" className="w-full">
@@ -75,17 +80,13 @@ async function Page({ params }: { params: { id: string } }) {
               ) : (
                 <>
                   {resultFollowed.map((person) => (
-                    <FollowedCard
+                    <UserCard
                       key={person.accountUserId.id}
                       id={person.accountUserId.id}
-                      accountId={person.accountUserId._id}
-                      currentUserId={userInfo._id}
                       name={person.accountUserId.name}
                       username={person.accountUserId.username}
                       imgUrl={person.accountUserId.image}
-                      followedUsersIds={followedUsersIds.includes(
-                        person.accountUserId._id
-                      )}
+                      personType="User"
                     />
                   ))}
                 </>

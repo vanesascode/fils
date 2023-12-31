@@ -25,9 +25,7 @@ export default function Page() {
           <Link href="/conditions" className="me-5 md:me-8">
             Conditions
           </Link>
-          <Link href="/privacy" className="me-5 md:me-8">
-            Privacy policy{" "}
-          </Link>
+          <Link href="/privacy">Privacy policy </Link>
         </div>
       </div>
     </>

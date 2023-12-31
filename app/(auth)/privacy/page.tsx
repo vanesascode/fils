@@ -123,7 +123,7 @@ export default function Page() {
           <Link href="/conditions" className="me-5 md:me-8">
             Conditions
           </Link>
-          <div className="me-5 md:me-8">Privacy policy</div>
+          <div>Privacy policy</div>
         </div>
       </div>
     </>
