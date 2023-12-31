@@ -234,7 +234,7 @@ module.exports = {
         "dark-4": "#530019",
         "light-1": "#ede8e8", /* white */
         "light-2": "#d9a9a9", /* light red */
-        "light-3": "#e44242", /* red */
+        "light-3": "#c13535", /* red */
         "light-4": "#5C5C7B",
         "gray-1": "#ec9d9d",
         glassmorphism: "rgba(16, 16, 18, 0.60)",

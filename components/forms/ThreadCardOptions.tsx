@@ -91,7 +91,7 @@ function ThreadCardOptions({
       {/*BACKGROUND TO TURN OFF MENU WHEN CLICKED*/}
       {isMenuOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-30"
+          className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-30 bg-black opacity-30"
           onClick={handleCloseMenuClick}
         ></div>
       )}
@@ -125,7 +125,7 @@ function ThreadCardOptions({
                   alt="delete"
                   width={20}
                   height={20}
-                  className="cursor-pointer object-contain me-1"
+                  className="cursor-pointer object-contain me-2"
                 />
                 <div className="text-dark-1 max-xs:text-small-semibold">
                   Edit Post
@@ -145,7 +145,7 @@ function ThreadCardOptions({
                   alt="delete"
                   width={20}
                   height={20}
-                  className="cursor-pointer object-contain me-1"
+                  className="cursor-pointer object-contain me-2"
                 />
                 <div className="text-dark-1 max-xs:text-small-semibold">
                   Delete Post{" "}

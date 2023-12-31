@@ -26,6 +26,9 @@ function DeleteThread({
   isComment,
 }: Props) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+  //context API:
+
   const {
     deleteThreadMode,
     setDeleteThreadMode,
@@ -33,10 +36,6 @@ function DeleteThread({
     threadToBeDeleted,
   } = useContext(DataContext) as DataContextType;
 
-  //context
-  const { unFollowModalAppear, setUnfollowModalAppear } = useContext(
-    DataContext
-  ) as DataContextType;
   const pathname = usePathname();
   const router = useRouter();
 
@@ -52,9 +51,9 @@ function DeleteThread({
     }, 3000);
   };
 
-  const handleModalClick = () => {
-    setDeleteThreadMode(!deleteThreadMode);
-  };
+  // const handleModalClick = () => {
+  //   setDeleteThreadMode(!deleteThreadMode);
+  // };
 
   const handleCancelClick = () => {
     setDeleteThreadMode(false);
@@ -75,10 +74,11 @@ function DeleteThread({
               Delete Fil?
             </div>
             <div className="text-body2-regular  mt-2 text-dark-1">
-              This can't be undone and it will be <br />
-              removed from your profile, the <br /> timeline of any accounts
-              that follow <br />
-              you, and from search results.
+              This can't be undone and it will
+              <br /> be removed from your profile, and
+              <br /> the timeline of any accounts
+              <br />
+              that follow you.{" "}
             </div>
 
             {/*DELETE FIL BUTTONS*/}
