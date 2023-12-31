@@ -1,5 +1,6 @@
 import UsersList from "./UsersList";
 import CommunitiesList from "./CommunitiesList";
+import Link from "next/link";
 
 export default function RightSidebar() {
   return (
@@ -16,6 +17,20 @@ export default function RightSidebar() {
           Welcome New Users!
         </h3>
         <UsersList />
+      </div>
+
+      <div className="text-light-1 text-[12px] text-center ">
+        <div className="justify-center flex gap-5 ">
+          <Link href="/conditions" className="">
+            Conditions
+          </Link>
+
+          <Link href="/privacy" className="  mb-3">
+            Privacy policy{" "}
+          </Link>
+        </div>
+
+        <div className="mb-3">&copy; 2023 Fils</div>
       </div>
     </section>
   );

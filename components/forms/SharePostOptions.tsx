@@ -51,14 +51,6 @@ function SharePostOptions({
 
   const pathname = usePathname();
 
-  if (
-    currentUserId !== authorId
-    // || pathname === "/"
-  )
-    return null;
-
-  // const threadWithoutQuotes = threadId.slice(1, -1);
-
   //OPEN MENU
 
   const handleOpenMenuClick = () => {

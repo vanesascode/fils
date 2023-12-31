@@ -1,4 +1,5 @@
 import { SignUp } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -18,10 +19,15 @@ export default function Page() {
           <SignUp />
         </div>
         <div className="text-light-1 fixed bottom-0 md:text-[12px] text-[10px] justify-center flex  flex-wrap   bg-glassmorphism p-4 backdrop-blur-lg xs:px-7 w-full">
-          <div className="me-5 md:me-8">&copy; 2023 </div>
-          <div className="me-5 md:me-8">Fils conditions</div>
-          <div className="me-5 md:me-8">Privacy policy</div>
-          <div>Cookies policy</div>
+          <Link href="/" className="me-5 md:me-8">
+            &copy; 2023 Fils
+          </Link>
+          <Link href="/conditions" className="me-5 md:me-8">
+            Conditions
+          </Link>
+          <Link href="/privacy" className="me-5 md:me-8">
+            Privacy policy{" "}
+          </Link>
         </div>
       </div>
     </>
