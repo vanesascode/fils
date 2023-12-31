@@ -16,7 +16,6 @@ import {
   fetchFollowers,
 } from "@/lib/actions/user.actions";
 import { fetchSavedThreadsIds } from "@/lib/actions/saved.actions";
-import UnFollowModalOnPage from "@/components/modals/UnFollowModalOnPage";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -48,11 +47,11 @@ async function Page({ params }: { params: { id: string } }) {
 
   return (
     <section>
-      <UnFollowModalOnPage
+      {/* <UnFollowModalOnPage
         currentUserIdObject={currentUserIdObject} // current MongoDB user profile id
         accountUserIdObject={accountUserIdObject}
         userName={userInfo.username}
-      />
+      /> */}
       <ProfileHeader
         currentUserIdObject={currentUserIdObject} // current MongoDB user profile id
         accountUserIdObject={accountUserIdObject} // other MongoDB users profile id

@@ -11,9 +11,6 @@ export const DataContext = React.createContext<DataContextType>({
   threadToBeDeleted: "",
   setThreadToBeDeleted: () => {},
 
-  unFollowModalAppear: false,
-  setUnfollowModalAppear: () => {},
-
   editThreadMode: false,
   setEditThreadMode: () => {},
 
@@ -23,7 +20,6 @@ export const DataContext = React.createContext<DataContextType>({
 
 export const DataContextProvider = (props: { children: React.ReactNode }) => {
   const [threadToBeDeleted, setThreadToBeDeleted] = useState<string>("");
-  const [unFollowModalAppear, setUnfollowModalAppear] = useState(false);
   const [editThreadMode, setEditThreadMode] = useState(false);
   const [deleteThreadMode, setDeleteThreadMode] = useState(false);
   const [threadToBeEdited, setThreadToBeEdited] = useState<string>("");
@@ -33,9 +29,6 @@ export const DataContextProvider = (props: { children: React.ReactNode }) => {
       value={{
         threadToBeDeleted,
         setThreadToBeDeleted,
-
-        unFollowModalAppear,
-        setUnfollowModalAppear,
 
         editThreadMode,
         setEditThreadMode,

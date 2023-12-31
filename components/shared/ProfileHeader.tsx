@@ -305,6 +305,7 @@ function ProfileHeader({
                 accountUserIdObject={accountUserIdObject}
                 currentUserId={currentUserId}
                 followedUsersIds={followedUsersIds}
+                userName={name}
               />
             )}
           </div>
