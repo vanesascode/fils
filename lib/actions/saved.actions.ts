@@ -18,7 +18,6 @@ interface Thread {
     image: string;
   };
   parentId?: string | null;
-  community?: { id: string; name: string; image: string } | string | null;
   createdAt: Date;
   children: { author: { image: string } }[];
   likes: number;

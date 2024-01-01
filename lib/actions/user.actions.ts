@@ -2,7 +2,6 @@
 
 import { FilterQuery, SortOrder } from "mongoose";
 import { revalidatePath } from "next/cache";
-import Community from "../models/community.model";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import Like from "../models/like.model";
@@ -159,10 +158,7 @@ export async function fetchUser(userId: string) {
   try {
     connectToDB();
 
-    return await User.findOne({ id: userId }).populate({
-      path: "communities",
-      model: Community,
-    });
+    return await User.findOne({ id: userId });
   } catch (error: any) {
     throw new Error(`Failed to fetch user: ${error.message}`);
   }
@@ -179,11 +175,6 @@ export async function fetchUserPosts(userId: string) {
       path: "threads",
       model: Thread,
       populate: [
-        {
-          path: "community",
-          model: Community,
-          select: "name id image _id", // Select the "name" and "_id" fields from the "Community" model
-        },
         {
           path: "children",
           model: Thread,
@@ -221,7 +212,6 @@ export async function fetchSuggestedUsers({ userId }: { userId: string }) {
 
 // FETCH USERS FOR THE SEARCH PAGE //////////////////////////////////////////////////////////////////
 
-// Almost similar to Thead (search + pagination) and Community (search + pagination)
 export async function fetchUsers({
   userId,
   searchString = "",

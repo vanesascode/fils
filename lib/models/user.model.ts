@@ -29,12 +29,6 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  communities: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Community",
-    },
-  ],
 });
 
 // The mongoose.models.User property checks if a model with the name "User" already exists, and if so, assigns it to the User variable. If no such model exists, the mongoose.model("User", userSchema) method creates a new model with the name "User" and the userSchema as its schema.

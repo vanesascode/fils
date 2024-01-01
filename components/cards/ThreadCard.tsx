@@ -82,7 +82,7 @@ async function ThreadCard({
                   {author.image && (
                     <img
                       src={author.image}
-                      alt="user_community_image"
+                      alt="user_image"
                       className="rounded-image-profile-cards"
                     />
                   )}
