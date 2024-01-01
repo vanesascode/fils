@@ -23,12 +23,6 @@ export const sidebarLinks = [
     route: "/create-thread",
     label: "Create Fil",
   },
-  // {
-  //   imgURLleftbar: "/assets/community.svg",
-  //   imgURLbottombar: "/assets/community-white.svg",
-  //   route: "/followers",
-  //   label: "Followers",
-  // },
   {
     imgURLleftbar: "/assets/user.svg",
     imgURLbottombar: "/assets/user-white.svg",
@@ -36,8 +30,6 @@ export const sidebarLinks = [
     label: "Profile",
   },
 ];
-
-
 
 export const profileTabs = [
   { value: "fils", label: "Fils", icon: "/assets/reply-white.svg" },

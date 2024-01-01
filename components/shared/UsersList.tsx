@@ -1,5 +1,4 @@
 import { fetchSuggestedUsers } from "@/lib/actions/user.actions";
-
 import { currentUser } from "@clerk/nextjs";
 import UserSuggestedCard from "../cards/UserSuggestedCard";
 

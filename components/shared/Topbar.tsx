@@ -1,11 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import {
-  OrganizationSwitcher,
-  currentUser,
-  SignOutButton,
-  SignedIn,
-} from "@clerk/nextjs";
+import { currentUser, SignOutButton, SignedIn } from "@clerk/nextjs";
 import { getUserId, fetchUser } from "@/lib/actions/user.actions";
 
 async function Topbar() {

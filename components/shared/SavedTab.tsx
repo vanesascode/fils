@@ -1,10 +1,5 @@
-import { redirect } from "next/navigation";
 import { getUserId } from "@/lib/actions/user.actions";
-import {
-  fetchSavedThreadsIds,
-  getSavedPosts,
-} from "@/lib/actions/saved.actions";
-
+import { getSavedPosts } from "@/lib/actions/saved.actions";
 import ThreadCard from "../cards/ThreadCard";
 
 interface Props {
@@ -15,8 +10,6 @@ async function SavedTab({ currentUserId }: Props) {
   const userId = await getUserId(currentUserId);
 
   let savedResults = await getSavedPosts(userId);
-
-  /////////////////////////////////////////////////////////////
 
   return (
     <section className="mt-5 flex flex-col gap-6">
