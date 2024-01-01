@@ -121,7 +121,7 @@ function ThreadCardOptions({
                 onClick={() => handleEditThreadClick(threadId)}
               >
                 <Image
-                  src="/assets/edit.svg"
+                  src="/assets/edit-black.svg"
                   alt="delete"
                   width={20}
                   height={20}

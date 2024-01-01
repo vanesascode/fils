@@ -152,7 +152,7 @@ Then you can use it in your component when you like:
 
 Follow steps from [Next Docs](https://nextjs.org/docs/pages/building-your-application/testing/playwright) and [Playwright](https://playwright.dev/docs/intro)
 
-To install: `npm init playwright` and just press enter to all questions.
+To install run: `npm init playwright` and just press enter to all questions.
 
 👉 If you have trouble, try disabling the AntiVirus of your computer.
 
@@ -188,10 +188,19 @@ Auto generate tests with Codegen.
 
 ---
 
-1- Run your app
+1 - Run your app
+
+`npm run dev`
+
 2 - Use the codegen command in another terminal to run the test generator followed by the URL of the website you want to generate tests for:
 
 `npx playwright codegen http://localhost:3000/`
+
+3 - Copy them into your tests file (edit the names of the tests for better organization). Then, open the UI mode, and run the tests your want.
+
+`npx playwright test --ui`
+
+---
 
 ## 🌟 Threaded conversations platform
 

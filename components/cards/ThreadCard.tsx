@@ -104,7 +104,7 @@ async function ThreadCard({
             <div className="flex w-full flex-col">
               <div className="flex justify-between">
                 <Link href={`/profile/${author.id}`} className="w-fit">
-                  <h4
+                  <div
                     className={`cursor-pointer break-all ${
                       isComment
                         ? "text-base-bold text-light-1"
@@ -112,7 +112,7 @@ async function ThreadCard({
                     } `}
                   >
                     {author.name}
-                  </h4>
+                  </div>
                 </Link>
               </div>
               {/*THE TEXT OF THE THREAD */}{" "}
@@ -147,7 +147,7 @@ async function ThreadCard({
                       src={
                         isComment
                           ? "/assets/reply-white.svg"
-                          : "/assets/reply-black.svg"
+                          : "/assets/reply.svg"
                       }
                       alt="reply icon"
                       className="cursor-pointer object-contain w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"

@@ -282,14 +282,14 @@ function ProfileHeader({
               type !== "Community" && (
                 <div>
                   <button
-                    className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 px-4 py-2 items-center justify-center box-shadow-small"
+                    className="flex cursor-pointer gap-2 rounded-lg bg-dark-1 px-3 py-2 items-center justify-center box-shadow-small"
                     onClick={handleEditProfileClick}
                   >
                     <Image
                       src="/assets/edit-white.svg"
                       alt="logout"
-                      width={16}
-                      height={16}
+                      width={18}
+                      height={18}
                     />
 
                     <p className="text-light-1">Edit</p>

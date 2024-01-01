@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useRef, useEffect } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 import {
   Form,
@@ -116,11 +117,11 @@ function Comment({
                   </div>
                 </FormLabel>
                 <FormControl className="border-none bg-transparent text-light-1">
-                  <Input
-                    type="text"
+                  <Textarea
+                    rows={1}
                     {...field}
                     placeholder="Comment..."
-                    className="no-focus text-light-1 outline-none placeholder:text-light-1"
+                    className="no-focus text-light-1 outline-none placeholder:text-light-1 custom-scrollbar"
                   />
                 </FormControl>
               </FormItem>

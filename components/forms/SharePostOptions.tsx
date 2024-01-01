@@ -116,9 +116,7 @@ function SharePostOptions({
         <div>
           <img
             alt="share icon"
-            src={
-              isComment ? "/assets/share-white.svg" : "/assets/share-black.svg"
-            }
+            src={isComment ? "/assets/share-white.svg" : "/assets/share.svg"}
             className="cursor-pointer object-contain  w-[20px] h-[20px] xxs:w-[24px] xxs:h-[24px]"
             onClick={handleOpenMenuClick}
           />

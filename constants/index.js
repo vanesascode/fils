@@ -45,11 +45,11 @@ export const profileTabs = [
 ];
 
 export const followersTabs = [
-  { value: "following", label: "Following", icon: "/assets/reply-white.svg" },
-  { value: "followers", label: "Followers", icon: "/assets/members.svg" },
+  { value: "following", label: "Following" },
+  { value: "followers", label: "Followers" },
 ];
 
 export const homeTabs = [
-  { value: "all Fils", label: "All Fils", icon: "/assets/reply-white.svg" },
-  { value: "following", label: "Following", icon: "/assets/members.svg" },
+  { value: "all Fils", label: "All Fils" },
+  { value: "following", label: "Following" },
 ];

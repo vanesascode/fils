@@ -24,14 +24,14 @@ async function Topbar() {
       </Link>
 
       <div className="flex items-center ">
-        <div className="block md:hidden me-2">
+        <div className="block md:hidden me-2 cursor-pointer">
           <SignedIn>
             <SignOutButton>
               <Image
                 src="/assets/logout.svg"
                 alt="logout"
-                width={24}
-                height={24}
+                width={30}
+                height={30}
               />
             </SignOutButton>
           </SignedIn>
