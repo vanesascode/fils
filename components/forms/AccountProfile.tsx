@@ -17,8 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useUploadThing } from "@/lib/uploadthing";
-import { isBase64Image } from "@/lib/utils";
 import { UserValidation } from "@/lib/validations/user";
 import { updateUser } from "@/lib/actions/user.actions";
 import { SignOutButton, SignedIn, useAuth } from "@clerk/nextjs";
@@ -38,20 +36,10 @@ interface Props {
 const AccountProfile = ({ user }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
-  const { startUpload } = useUploadThing("media");
-
-  // console.log(user.email);
-
   const [files, setFiles] = useState<File[]>([]);
-  //The File type comes from the File interface defined in the File API provided by the browser. The File interface represents a file (or blob) and provides information about the file, such as its name, size, type, and last modified date.
 
   const [errorMessageGeneral, setErrorMessageGeneral] = useState("");
-  const [errorMessageUsername, setErrorMessageUsername] = useState("");
   const [errorMessageImage, setErrorMessageImage] = useState("");
-
-  //// the order of the name, path, username, userId, bio, and image values in the object passed to the updateUser function does not matter. The function is designed to extract those values from the object and use them in the correct order, regardless of the order in which they were passed.
-
-  // This is because the function is using object destructuring to extract the values of those properties from the object. Object destructuring allows you to extract values from objects by specifying the property names you want to extract, and the order of the property names in the destructuring statement does not matter.
 
   const form = useForm<z.infer<typeof UserValidation>>({
     resolver: zodResolver(UserValidation),
@@ -99,24 +87,14 @@ const AccountProfile = ({ user }: Props) => {
     e.preventDefault();
 
     const fileReader = new FileReader();
-    //The FileReader constructor is a built-in JavaScript object that provides functionality to asynchronously read the contents of files (or blobs) stored on the user's computer.
-
-    //The e.target.files property is a FileList object that represents the files selected by the user. The FileList object is an array-like object that contains File objects, one for each selected file.
     if (e.target.files && e.target.files.length > 0) {
-      // = if (there are files)
       const file = e.target.files[0];
-      //In this case, the code assumes that the user has selected only one file. The [0] index is used to retrieve the first element of the FileList object, which is the first file selected by the user.
-      // The File object returned by this line can then be used to access information about the file, such as its name, size, type, and last modified date.
-
       setFiles(Array.from(e.target.files));
-
       if (!file.type.includes("image")) return;
-
       fileReader.onload = async (event) => {
         const imageDataUrl = event.target?.result?.toString() || "";
         fieldChange(imageDataUrl);
       };
-
       fileReader.readAsDataURL(file);
     }
   };
@@ -205,12 +183,6 @@ const AccountProfile = ({ user }: Props) => {
             </FormItem>
           )}
         />
-
-        {errorMessageUsername && (
-          <p className="text-red-500 text-base-semibold text-ellipsis text-center">
-            {errorMessageUsername}
-          </p>
-        )}
 
         <FormField
           control={form.control}

@@ -1,15 +1,11 @@
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
 import ThreadCard from "@/components/cards/ThreadCard";
 import Pagination from "@/components/shared/Pagination";
-
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import { fetchFollowingUsersThreads } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { homeTabs } from "@/constants";
 
 async function Home({
@@ -18,7 +14,7 @@ async function Home({
   searchParams: { [key: string]: string | undefined };
 }) {
   // console.log("searchParams", searchParams); // searchParams { page: '2' }
-  //It is like this as long as you have an URL such as: http://localhost:3000/?page=2
+  // It is like this as long as you have an URL such as: http://localhost:3000/?page=2
 
   const user = await currentUser();
   if (!user) return null;
@@ -26,10 +22,10 @@ async function Home({
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  //FETCH ALL POSTS///////////////////////////////////////////////////////////////////////////
+  // FETCH ALL POSTS
 
   const resultAll = await fetchPosts(
-    // if searchParams.page is truthy, it means that the page parameter is present in the URL and has a value. (example: ?page=2) --- +searchParams.page expression is used to convert the value to a number.
+    // If searchParams.page is truthy, it means that the page parameter is present in the URL and has a value. (example: ?page=2) --- +searchParams.page expression is used to convert the value to a number.
 
     // Why is it ".page" ? Because we are using it in the URL and it's between "?"" and "=" (?page=) We are sending it like this from the Pagination.tsx component.
 
@@ -37,7 +33,7 @@ async function Home({
     5
   );
 
-  //FETCH ONLY FOLLOWING USERS POSTS//////////////////////////////////////////////////////////
+  // FETCH ONLY FOLLOWING USERS POSTS
 
   const resultFollowed = await fetchFollowingUsersThreads(
     searchParams.page ? +searchParams.page : 1,
@@ -62,11 +58,7 @@ async function Home({
                 value={tab.value}
                 className="tab rounded-lg box-shadow-small"
               >
-                {/*Label shown only in big screens */}
-
                 <p className=" text-light-1">{tab.label}</p>
-
-                {/* How many threads the user has :  */}
               </TabsTrigger>
             ))}
           </TabsList>

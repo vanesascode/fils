@@ -1,9 +1,7 @@
 import React from "react";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { neobrutalism } from "@clerk/themes";
-
 import "../globals.css";
 import LeftSidebar from "@/components/shared/LeftSidebar";
 import Bottombar from "@/components/shared/Bottombar";
@@ -75,5 +73,3 @@ export default function RootLayout({
     </DataContextProvider>
   );
 }
-
-// in big screens it's going to go as wide as max-w-4xl

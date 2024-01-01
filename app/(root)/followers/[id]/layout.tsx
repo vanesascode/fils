@@ -2,7 +2,7 @@ export const metadata = {
   title: "Followers",
 };
 
-export default function CommunitiesLayout({
+export default function FollowersLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -1,14 +1,10 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
-
 import ThreadCard from "@/components/cards/ThreadCard";
-
 import { fetchUser } from "@/lib/actions/user.actions";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
-
 import Comment from "@/components/forms/Comment";
 
-//The revalidate constant is set to 0, indicating that the page should not be revalidated.
 export const revalidate = 0;
 
 async function page({ params }: { params: { id: string } }) {

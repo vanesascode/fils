@@ -1,15 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
 import { usePathname, useRouter } from "next/navigation";
-
 import "regenerator-runtime/runtime";
-
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-
 import { createThread } from "@/lib/actions/thread.actions";
 
 interface Props {
@@ -18,10 +14,7 @@ interface Props {
 
 function PostThread({ userId }: Props) {
   const [emptyTextError, setEmptyTextError] = useState("");
-
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [speechRecognitionBrowserError, setSpeechRecognitionBrowserError] =
-    useState(false);
   const [text, setText] = useState("");
   const router = useRouter();
   const pathname = usePathname();
@@ -46,12 +39,7 @@ function PostThread({ userId }: Props) {
     }, 4000);
   };
 
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
+  const { transcript, listening } = useSpeechRecognition();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
@@ -86,12 +74,12 @@ function PostThread({ userId }: Props) {
           >
             <img src="/assets/mike.svg" alt="microphone" />
           </button>
-          {/* Add any form validation or error message components here */}
         </div>
 
         {emptyTextError && (
           <p className="text-light-1 text-center ">{emptyTextError}</p>
         )}
+        {/* SUBMIT BUTTON */}
         <button
           type="submit"
           className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-dark-1 hover:bg-dark-1 hover:text-light-1"

@@ -1,10 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
 import { fetchUser, getActivity } from "@/lib/actions/user.actions";
-
 import { formatDistanceToNow } from "date-fns"; //npm install date-fns
 
 async function Page() {
@@ -26,10 +23,10 @@ async function Page() {
             {activity.map((activity) => (
               <Link key={activity._id} href={`/thread/${activity.parentId}`}>
                 <article className="activity-card ">
-                  {/*LEFT SIDE**************************/}
+                  {/*LEFT SIDE*/}
 
                   <div className="flex gap-2 sm:items-center max-sm2:flex-col">
-                    {/*IMAGE*/}
+                    {/*Image*/}
                     <div className=" relative h-7 w-7">
                       <img
                         src={activity.author.image}
@@ -37,7 +34,7 @@ async function Page() {
                         className="rounded-image-profile-activity"
                       />{" "}
                     </div>
-                    {/*USER NAME*/}
+                    {/*User name*/}
 
                     <div className=" text-light-1">
                       <span className="mr-1 text-light-1 text-small-bold break-all">
@@ -56,7 +53,7 @@ async function Page() {
                     </div>
                   </div>
 
-                  {/*RIGHT SIDE**************************/}
+                  {/*RIGHT SIDE*/}
 
                   <div className="!text-small-regular text-light-1 max-sm:hidden">
                     {formatDistanceToNow(new Date(activity.createdAt), {

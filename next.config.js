@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     serverActions: {
-      bodySizeLimit: '2mb', // super important for uploadthing be able to get images up to 2mb
+      bodySizeLimit: '2mb',
     },
   },
   eslint: {
@@ -19,10 +19,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "images.clerk.dev",
-      },
-      {
-        protocol: "https",
-        hostname: "uploadthing.com",
       },
       {
         protocol: "https",

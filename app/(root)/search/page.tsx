@@ -1,10 +1,8 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
-
 import UserCard from "@/components/cards/UserCard";
 import Searchbar from "@/components/shared/Searchbar";
 import Pagination from "@/components/shared/Pagination";
-
 import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
 
 async function Page({
@@ -22,7 +20,7 @@ async function Page({
     userId: user.id,
     searchString: searchParams.q, // STEP 3 SEARCHBAR: we send what's after the ?q= in the URL to our fetch function
 
-    // however, if there are no searchString, all users will be included in 'result' (except from the current user) // Why is it "?q=" ? We are sending it like this from the Searchbar.tsx component.
+    // however, if there are no searchString, all users will be included in 'result' (except from the current user) // Why is it "?q=" ? Because we are sending it like this from the Searchbar.tsx component.
     pageNumber: searchParams?.page ? +searchParams.page : 1,
     pageSize: 8,
   });

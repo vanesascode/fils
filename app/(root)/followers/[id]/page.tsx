@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs";
 import UserCard from "@/components/cards/UserCard";
-
 import {
   fetchUser,
   fetchFollowedUsers,
@@ -9,7 +8,6 @@ import {
   fetchFollowers,
   getUserId,
 } from "@/lib/actions/user.actions";
-
 import { followersTabs } from "@/constants";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -34,7 +32,7 @@ async function Page({ params }: { params: { id: string } }) {
 
   return (
     <section>
-      {/* Title*/}
+      {/* TITLE*/}
       {params.id === user.id ? (
         <h1 className="head-text mb-10">Your follows</h1>
       ) : (
@@ -52,11 +50,7 @@ async function Page({ params }: { params: { id: string } }) {
                 value={tab.value}
                 className="tab rounded-lg box-shadow-small"
               >
-                {/*Label shown only in big screens */}
-
                 <p className=" text-light-1">{tab.label}</p>
-
-                {/* How many threads the user has :  */}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -108,8 +102,6 @@ async function Page({ params }: { params: { id: string } }) {
           </TabsContent>
         </Tabs>
       </div>
-
-      {/*********************************************** */}
     </section>
   );
 }

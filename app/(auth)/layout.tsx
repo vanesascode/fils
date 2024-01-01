@@ -1,5 +1,3 @@
-//  File to allow us to specify different rules for the authentication route:
-
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import { neobrutalism } from "@clerk/themes";
@@ -58,5 +56,3 @@ export default function RootLayout({
     </ClerkProvider>
   );
 }
-
-//the ClerkProvider wrapping allows us to use all of the clerk's functionalities

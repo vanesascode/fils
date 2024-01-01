@@ -1,14 +1,11 @@
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
 import { profileTabs } from "@/constants";
-
 import ThreadsTab from "@/components/shared/ThreadsTab";
 import SavedTab from "@/components/shared/SavedTab";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import {
   fetchUser,
   getUserId,
@@ -47,11 +44,6 @@ async function Page({ params }: { params: { id: string } }) {
 
   return (
     <section>
-      {/* <UnFollowModalOnPage
-        currentUserIdObject={currentUserIdObject} // current MongoDB user profile id
-        accountUserIdObject={accountUserIdObject}
-        userName={userInfo.username}
-      /> */}
       <ProfileHeader
         currentUserIdObject={currentUserIdObject} // current MongoDB user profile id
         accountUserIdObject={accountUserIdObject} // other MongoDB users profile id
@@ -92,11 +84,9 @@ async function Page({ params }: { params: { id: string } }) {
                     height={24}
                     className="object-contain"
                   />
-                  {/*Label shown only in big screens */}
-
                   <p className="max-sm:hidden text-light-1">{tab.label}</p>
 
-                  {/* How many threads the user has :  */}
+                  {/* How many fils and saved fils the user has:*/}
 
                   {tab.label === "Fils" && (
                     <p className="ml-1 rounded-sm bg-light-1 px-2 py-1 !text-tiny-medium text-dark-1">
