@@ -29,8 +29,6 @@
 
 - npx shadcn-ui@latest add form (also with input, textarea, tabs, etc.)
 
-- npm install @uploadthing/react uploadthing
-
 - npm install mongoose
 
 - npm install resend
