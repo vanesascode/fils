@@ -51,17 +51,11 @@ function DeleteThread({
     }, 3000);
   };
 
-  // const handleModalClick = () => {
-  //   setDeleteThreadMode(!deleteThreadMode);
-  // };
-
   const handleCancelClick = () => {
     setDeleteThreadMode(false);
   };
 
   if (currentUserId !== authorId) return null;
-
-  // console.log(threadId);
 
   return (
     <>
