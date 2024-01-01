@@ -7,7 +7,6 @@ import { useState } from "react";
 interface Props {
   currentUserIdObject: string;
   accountUserIdObject: string;
-  currentUserId: string;
   followedUsersIds: boolean;
   userName: string;
 }
@@ -15,7 +14,6 @@ interface Props {
 const FollowUser = ({
   currentUserIdObject,
   accountUserIdObject,
-  currentUserId,
   followedUsersIds,
   userName,
 }: Props) => {
@@ -97,6 +95,7 @@ const FollowUser = ({
           <button
             className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 text-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-light-2 hover:text-dark-1"
             onClick={handleModalQuestion}
+            disabled={isButtonDisabled}
           >
             Following
           </button>
@@ -104,6 +103,7 @@ const FollowUser = ({
           <button
             className="flex cursor-pointer gap-3 rounded-lg bg-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-dark-1 hover:text-light-1"
             onClick={handleFollowUserClick}
+            disabled={isButtonDisabled}
           >
             Follow
           </button>

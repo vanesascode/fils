@@ -1,55 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
-// import DeleteThread from "../forms/DeleteThread"
-import { deleteThread } from "@/lib/actions/thread.actions";
-
+import React, { useState } from "react";
 import Image from "next/image";
-
-// context:
-
-import { DataContext } from "../../app/context/DataContext";
-import { useContext } from "react";
-import { DataContextType } from "../../app/context/types";
 
 interface Props {
   threadId: string;
-  currentUserId: string;
-  authorId: string;
   isComment?: boolean;
-  parentId: string | null | undefined;
   text: string;
   authorName: string;
 }
 
-function SharePostOptions({
-  threadId,
-  currentUserId,
-  authorId,
-  parentId,
-  isComment,
-  text,
-  authorName,
-}: Props) {
+function SharePostOptions({ threadId, isComment, text, authorName }: Props) {
   //states
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSocialMediaModalOpen, setIsSocialMediaModalOpen] = useState(false);
-
-  //context
-
-  const {
-    editThreadMode,
-    setEditThreadMode,
-    deleteThreadMode,
-    setDeleteThreadMode,
-  } = useContext(DataContext) as DataContextType;
-
-  //pathname
-
-  const pathname = usePathname();
 
   //OPEN MENU
 
@@ -147,7 +112,6 @@ function SharePostOptions({
 
               <button
                 className="flex items-center"
-                disabled={isButtonDisabled}
                 onClick={handleOpenSocialMediaModal}
               >
                 <Image

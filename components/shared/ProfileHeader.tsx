@@ -1,14 +1,9 @@
 "use client";
-// import Link from "next/link";
+
 import Image from "next/image";
 import { useState, ChangeEvent, useRef } from "react";
 import { usePathname } from "next/navigation";
-import {
-  updateUser,
-  deleteUser,
-  getAllFollowedUsersIds,
-  updateUserInProfile,
-} from "@/lib/actions/user.actions";
+import { deleteUser, updateUserInProfile } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
 import FollowUser from "../forms/FollowUser";
 import Link from "next/link";
@@ -25,8 +20,7 @@ interface Props {
   username: string;
   imgUrl: string;
   bio: string;
-  type?: string;
-  communityId?: string;
+
   currentUserIdObject: string;
   accountUserIdObject: string;
   followedUsersIds: boolean;
@@ -43,8 +37,7 @@ function ProfileHeader({
   username,
   imgUrl,
   bio,
-  type,
-  communityId,
+
   accountUserIdObject,
   currentUserIdObject,
   followedUsersIds,
@@ -99,33 +92,32 @@ function ProfileHeader({
   const handleCancelClick = () => {
     setOpenModal(false);
   };
-
-  // PICTURE UPLOAD
-
-  const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      const reader = new FileReader(); // read a file
-      reader.onload = () => {
-        setImageUrl(reader.result as string);
-      };
-      reader.readAsDataURL(selectedFile);
-    }
-  };
+  // THE MODE USED RIGHT NOW TO UPLOAD A NEW PROFILE IMAGE IS THROUGH "BLOB VERCEL MODE" (see Readme for more info). SINCE IT IS A BETA SERVICE, AND IT IS THE FREE VERSION WITH NOT MUCH MEMORY ALLOWED EVERY MONTH, THE "STANDARD MODE" OF UPDATING THE PROFILE IMAGE CODE IS KEPT COMMENTED BELOW JUST IN CASE.
 
-  // BLOB VERCEL
+  //STANDARD MODE:
+
+  // const [file, setFile] = useState<File | null>(null);
+
+  // const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const selectedFile = e.target.files?.[0];
+  //   if (selectedFile) {
+  //     setFile(selectedFile);
+  //     const reader = new FileReader(); // read a file
+  //     reader.onload = () => {
+  //       setImageUrl(reader.result as string);
+  //     };
+  //     reader.readAsDataURL(selectedFile);
+  //   }
+  // };
+
+  // BLOB VERCEL MODE:
 
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
 
-  console.log("blob.url", blob ? blob.url : null);
-
-  console.log("imgUrl", imgUrl);
-  /// SAVE ALL:
+  /// UPDATE PROFILE:
 
   interface UpdatedUser {
     name: string;
@@ -147,7 +139,7 @@ function ProfileHeader({
       });
     }
 
-    // REST OF CODE:
+    // UPDATE USER FUNCTION:
 
     try {
       const updatedUser: UpdatedUser = {
@@ -158,8 +150,8 @@ function ProfileHeader({
       };
 
       if (blob) {
-        // Standard mode: if (file)
-        updatedUser.image = blob.url; // Standard mode: updatedUser.image = imageUrl;
+        // STANDARD MODE: if (file)
+        updatedUser.image = blob.url; // STANDARD MODE: updatedUser.image = imageUrl;
       }
       console.log(imageUrl);
       await updateUserInProfile(updatedUser);
@@ -183,7 +175,7 @@ function ProfileHeader({
             <div className="relative h-20 w-20 object-cover">
               {!blob?.url && (
                 <img
-                  src={imgUrl} // Standard mode: src={imageUrl || imgUrl}
+                  src={imgUrl} // STANDARD MODE: src={imageUrl || imgUrl}
                   alt="profile pic"
                   className="rounded-image-profile-page"
                 />
@@ -191,7 +183,7 @@ function ProfileHeader({
 
               {blob?.url && (
                 <img
-                  src={blob?.url} // Standard mode: src={imageUrl || imgUrl}
+                  src={blob?.url} // STANDARD MODE: src={imageUrl || imgUrl}
                   alt="profile pic"
                   className="rounded-image-profile-page"
                 />
@@ -277,25 +269,23 @@ function ProfileHeader({
           {/*BUTTON TO EDIT PROFILE*/}
 
           <div>
-            {!editMode &&
-              accountId === currentUserId &&
-              type !== "Community" && (
-                <div>
-                  <button
-                    className="flex cursor-pointer gap-2 rounded-lg bg-dark-1 px-3 py-2 items-center justify-center box-shadow-small"
-                    onClick={handleEditProfileClick}
-                  >
-                    <Image
-                      src="/assets/edit-white.svg"
-                      alt="logout"
-                      width={18}
-                      height={18}
-                    />
+            {!editMode && accountId === currentUserId && (
+              <div>
+                <button
+                  className="flex cursor-pointer gap-2 rounded-lg bg-dark-1 px-3 py-2 items-center justify-center box-shadow-small"
+                  onClick={handleEditProfileClick}
+                >
+                  <Image
+                    src="/assets/edit-white.svg"
+                    alt="logout"
+                    width={18}
+                    height={18}
+                  />
 
-                    <p className="text-light-1">Edit</p>
-                  </button>
-                </div>
-              )}
+                  <p className="text-light-1">Edit</p>
+                </button>
+              </div>
+            )}
 
             {/*FOLLOW USER BUTTON */}
 
@@ -303,7 +293,6 @@ function ProfileHeader({
               <FollowUser
                 currentUserIdObject={currentUserIdObject}
                 accountUserIdObject={accountUserIdObject}
-                currentUserId={currentUserId}
                 followedUsersIds={followedUsersIds}
                 userName={name}
               />
@@ -365,7 +354,7 @@ function ProfileHeader({
 
         {/*SAVE AND CANCEL EDIT PROFILE BUTTONS*/}
         <div className="flex flex-col items-center justify-between mt-2 mb-4 gap-2">
-          {editMode && accountId === currentUserId && type !== "Community" && (
+          {editMode && accountId === currentUserId && (
             <div className="flex gap-3 ">
               {/*save changes button*/}
               <button
@@ -386,7 +375,7 @@ function ProfileHeader({
 
           {/*DELETE ACCOUNT BUTTON*/}
 
-          {editMode && accountId === currentUserId && type !== "Community" && (
+          {editMode && accountId === currentUserId && (
             <div
               className="xs:text-base-regular text-light-2 text-end my-2 cursor-pointer text-small-semibold"
               onClick={handleOpenModel}
@@ -480,7 +469,6 @@ function ProfileHeader({
                 <button
                   className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
                   onClick={deleteProfile}
-                  // disabled={isButtonDisabled}
                 >
                   Delete
                 </button>

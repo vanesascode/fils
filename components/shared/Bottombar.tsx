@@ -3,12 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { sidebarLinks } from "@/constants";
 
 function Bottombar() {
-  // navigation:
-
   const pathname = usePathname();
 
   return (
@@ -32,8 +29,8 @@ function Bottombar() {
               <Image
                 src={isActive ? link.imgURLleftbar : link.imgURLbottombar}
                 alt={link.label}
-                width={20}
-                height={20}
+                width={22}
+                height={22}
                 className="object-contain"
               />
               <div className="max-xs:hidden">{link.label.split(/\s+/)[0]}</div>

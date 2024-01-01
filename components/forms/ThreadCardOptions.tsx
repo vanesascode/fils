@@ -1,10 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
-// import DeleteThread from "../forms/DeleteThread"
-import { deleteThread } from "@/lib/actions/thread.actions";
-
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 // context:
@@ -18,14 +15,12 @@ interface Props {
   currentUserId: string;
   authorId: string;
   isComment?: boolean;
-  parentId: string | null | undefined;
 }
 
 function ThreadCardOptions({
   threadId,
   currentUserId,
   authorId,
-  parentId,
   isComment,
 }: Props) {
   //states
@@ -49,11 +44,7 @@ function ThreadCardOptions({
 
   const pathname = usePathname();
 
-  if (
-    currentUserId !== authorId
-    // || pathname === "/"
-  )
-    return null;
+  if (currentUserId !== authorId) return null;
 
   //OPEN MENU
 
@@ -76,8 +67,6 @@ function ThreadCardOptions({
   };
 
   // DELETE THREAD
-
-  const router = useRouter();
 
   const handleDeleteThreadClick = async (id: string) => {
     setThreadToBeDeleted(id);

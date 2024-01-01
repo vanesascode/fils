@@ -156,9 +156,6 @@ async function ThreadCard({
 
                   <SharePostOptions
                     threadId={id}
-                    currentUserId={currentUserId}
-                    authorId={author.id}
-                    parentId={parentId}
                     isComment={isComment}
                     text={content}
                     authorName={author.name}
@@ -200,7 +197,6 @@ async function ThreadCard({
             threadId={JSON.stringify(id)}
             currentUserId={currentUserId}
             authorId={author.id}
-            parentId={parentId}
             isComment={isComment}
           />
         </div>
