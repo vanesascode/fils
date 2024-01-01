@@ -1,5 +1,4 @@
 import UsersList from "./UsersList";
-import CommunitiesList from "./CommunitiesList";
 import Link from "next/link";
 
 export default function RightSidebar() {

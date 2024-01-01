@@ -131,7 +131,6 @@ async function ThreadCard({
                   <Likes
                     isComment={isComment}
                     threadId={id ? id.toString() : ""}
-                    currentUserId={currentUserId.toString()}
                     userId={userId ? userId.toString() : ""}
                     likes={likes}
                     likedThreads={likedThreadIds.includes(id.toString())}

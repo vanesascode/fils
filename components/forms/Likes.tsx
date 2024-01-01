@@ -1,14 +1,10 @@
 "use client";
 
-import Image from "next/image";
-
-import { useEffect, useState } from "react";
-import { saveLike, getAllLikedThreadIds } from "@/lib/actions/like.actions";
+import { saveLike } from "@/lib/actions/like.actions";
 import { usePathname } from "next/navigation";
 
 interface Props {
   threadId: string;
-  currentUserId: string;
   userId: string;
   isComment?: boolean;
   likes: number;
@@ -17,7 +13,6 @@ interface Props {
 
 export default function Likes({
   threadId,
-  currentUserId,
   isComment,
   userId,
   likes,

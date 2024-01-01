@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { saveFollower } from "@/lib/actions/user.actions";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
