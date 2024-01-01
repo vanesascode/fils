@@ -60,7 +60,6 @@ async function ThreadCard({
     <>
       {/*DELETE THREAD MODAL*/}
       <DeleteThread
-        threadId={JSON.stringify(id)}
         currentUserId={currentUserId}
         authorId={author.id}
         parentId={parentId}

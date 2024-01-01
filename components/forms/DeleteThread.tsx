@@ -11,30 +11,19 @@ import { useContext } from "react";
 import { DataContextType } from "../../app/context/types";
 
 interface Props {
-  threadId: string;
   currentUserId: string;
   authorId: string;
   isComment?: boolean;
   parentId: string | null | undefined;
 }
 
-function DeleteThread({
-  threadId,
-  currentUserId,
-  authorId,
-  parentId,
-  isComment,
-}: Props) {
+function DeleteThread({ currentUserId, authorId, parentId, isComment }: Props) {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   //context API:
 
-  const {
-    deleteThreadMode,
-    setDeleteThreadMode,
-    setThreadToBeDeleted,
-    threadToBeDeleted,
-  } = useContext(DataContext) as DataContextType;
+  const { deleteThreadMode, setDeleteThreadMode, threadToBeDeleted } =
+    useContext(DataContext) as DataContextType;
 
   const pathname = usePathname();
   const router = useRouter();
