@@ -21,6 +21,8 @@ async function Page({ params }: { params: { id: string } }) {
   //Here we get the MongoDB _id by taking the clerk id from the params, and passing it through the function 'getUserId':
   const idFromParams = await getUserId(params.id);
 
+  const otherUserInfo = await fetchUser(params.id);
+
   const resultFollowed = await fetchFollowedUsers({
     userId: idFromParams,
   });
@@ -36,7 +38,7 @@ async function Page({ params }: { params: { id: string } }) {
       {params.id === user.id ? (
         <h1 className="head-text mb-10">Your follows</h1>
       ) : (
-        <h1 className="head-text mb-10">{userInfo.name}'s follows</h1>
+        <h1 className="head-text mb-10">{otherUserInfo.name}'s follows</h1>
       )}
 
       <div className="mt-9">

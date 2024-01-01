@@ -211,7 +211,7 @@ async function ThreadCard({
                 src={comment.author.image}
                 alt={`user_${index}`}
                 className={`${
-                  index !== 0 && "-ml-5"
+                  index !== 0 && "-ml-3"
                 } rounded-image-profile-reply`}
               />
             ))}
