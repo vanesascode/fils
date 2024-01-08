@@ -173,7 +173,7 @@ async function ThreadCard({
                   />
                 </div>
                 {isComment && (
-                  <p className="text-subtle-medium text-light-2 mt-1">
+                  <p className="text-subtle-medium text-light-2 dark:text-green-1 mt-1">
                     {formatDateString(createdAt)}
                   </p>
                 )}
@@ -227,7 +227,7 @@ async function ThreadCard({
         {/*DATE OF ORIGINAL THREAD*/}
 
         {!isComment && (
-          <p className="text-subtle-medium text-light-3 mt-5">
+          <p className="text-subtle-medium text-light-3 dark:text-green-2 mt-5">
             {formatDateString(createdAt)}
           </p>
         )}

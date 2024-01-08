@@ -30,7 +30,7 @@ const LeftSidebar = () => {
                 } `}
               >
                 <Image
-                  src={link.imgURLleftbar}
+                  src={isActive ? link.imgURLActive : link.imgURLnotActive}
                   alt={link.label}
                   width={24}
                   height={24}

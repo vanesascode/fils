@@ -10,4 +10,7 @@ export type DataContextType = {
 
   threadToBeEdited: string;
   setThreadToBeEdited: React.Dispatch<React.SetStateAction<string>>;
+
+  colorMode: string;
+  setColorMode: React.Dispatch<React.SetStateAction<string>>;
 };

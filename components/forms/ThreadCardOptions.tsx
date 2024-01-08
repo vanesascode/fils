@@ -103,7 +103,7 @@ function ThreadCardOptions({
           <div className="absolute right-[0px] top-0  w-[180px] max-xs:w-[150px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden z-50">
             {/*OPTIONS*/}
 
-            <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-b-2 border-dark-1">
+            <div className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 dark:hover:bg-green-1 w-[180px] max-xs:w-[150px] hover:border-b-2 border-dark-1">
               {/*EDIT BUTTON*/}
               <button
                 className="flex items-center"
@@ -121,7 +121,7 @@ function ThreadCardOptions({
                 </div>
               </button>
             </div>
-            <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 w-[180px] max-xs:w-[150px] hover:border-t-2 border-dark-1 ">
+            <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 dark:hover:bg-green-1 w-[180px] max-xs:w-[150px] hover:border-t-2 border-dark-1 ">
               {/*DELETE BUTTON*/}
 
               <button

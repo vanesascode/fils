@@ -8,6 +8,12 @@ import { useRouter } from "next/navigation";
 import FollowUser from "../forms/FollowUser";
 import Link from "next/link";
 
+// context:
+
+import { DataContext } from "../../app/context/DataContext";
+import { useContext } from "react";
+import { DataContextType } from "../../app/context/types";
+
 // BLOB VERCEL:
 
 import type { PutBlobResult } from "@vercel/blob";
@@ -20,7 +26,6 @@ interface Props {
   username: string;
   imgUrl: string;
   bio: string;
-
   currentUserIdObject: string;
   accountUserIdObject: string;
   followedUsersIds: boolean;
@@ -37,7 +42,6 @@ function ProfileHeader({
   username,
   imgUrl,
   bio,
-
   accountUserIdObject,
   currentUserIdObject,
   followedUsersIds,
@@ -73,6 +77,16 @@ function ProfileHeader({
       console.error("Error updating user:", error);
     }
     router.push("/");
+  };
+
+  // HANDLE COLOR MODE:
+
+  const { setColorMode, colorMode } = useContext(
+    DataContext
+  ) as DataContextType;
+
+  const handleChangeColorMode = () => {
+    setColorMode((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
 
   // HANDLE EDIT MODE AND MODAL
@@ -267,28 +281,38 @@ function ProfileHeader({
           )}
 
           {/*BUTTON TO EDIT PROFILE*/}
-
-          <div>
+          <div className="flex items-center gap-3">
             {!editMode && accountId === currentUserId && (
-              <div>
-                <button
-                  className="flex cursor-pointer gap-2 rounded-lg bg-dark-1 px-3 py-2 items-center justify-center box-shadow-small"
-                  onClick={handleEditProfileClick}
-                >
-                  <Image
-                    src="/assets/edit-white.svg"
-                    alt="logout"
-                    width={18}
-                    height={18}
-                  />
-
-                  <p className="text-light-1">Edit</p>
-                </button>
-              </div>
+              <img
+                onClick={handleChangeColorMode}
+                src={
+                  colorMode === "dark"
+                    ? "/assets/change-red-mode.png"
+                    : "/assets/change-green-mode.png"
+                }
+                className="color-toggler"
+              />
             )}
+            <div>
+              {!editMode && accountId === currentUserId && (
+                <div>
+                  <button
+                    className="flex cursor-pointer gap-2 rounded-lg bg-dark-1 px-3 py-2 items-center justify-center box-shadow-small"
+                    onClick={handleEditProfileClick}
+                  >
+                    <Image
+                      src="/assets/edit-white.svg"
+                      alt="logout"
+                      width={18}
+                      height={18}
+                    />
 
+                    <p className="text-light-1">Edit</p>
+                  </button>
+                </div>
+              )}
+            </div>
             {/*FOLLOW USER BUTTON */}
-
             {accountId !== currentUserId && (
               <FollowUser
                 currentUserIdObject={currentUserIdObject}
@@ -323,7 +347,7 @@ function ProfileHeader({
             <div className="text-left text-heading3-bold text-light-1 break-all">
               {name}
             </div>
-            <p className="text-small-semibold  text-light-2 break-all mt-[-2px]">
+            <p className="text-small-semibold  text-light-2 dark:text-green-1 break-all mt-[-2px]">
               {username}
             </p>
           </div>
@@ -341,7 +365,7 @@ function ProfileHeader({
               placeholder="Tell us more about yourself"
             ></textarea>
             {saveError && (
-              <p className="text-light-2 text-small-semibold whitespace-nowrap text-center mt-2">
+              <p className="text-light-2 dark:text-green-1 text-small-semibold whitespace-nowrap text-center mt-2">
                 {saveError}
               </p>
             )}
@@ -377,7 +401,7 @@ function ProfileHeader({
 
           {editMode && accountId === currentUserId && (
             <div
-              className="xs:text-base-regular text-light-2 text-end my-2 cursor-pointer text-small-semibold"
+              className="xs:text-base-regular text-light-2 dark:text-green-1 text-end my-2 cursor-pointer text-small-semibold"
               onClick={handleOpenModel}
             >
               Delete Account
@@ -396,7 +420,7 @@ function ProfileHeader({
                 <span className="text-base-regular text-light-1">
                   {totalFollowedUsersCurrentUser}{" "}
                 </span>{" "}
-                <span className="text-light-2 text-small-semibold">
+                <span className="text-light-2 dark:text-green-1 text-small-semibold">
                   Following
                 </span>
               </div>
@@ -409,7 +433,7 @@ function ProfileHeader({
                 <span className="text-base-regular text-light-1 ">
                   {totalFollowedUsersIdsOtherUsers}{" "}
                 </span>{" "}
-                <span className="text-light-2 text-small-semibold">
+                <span className="text-light-2 dark:text-green-1 text-small-semibold">
                   Following
                 </span>
               </div>
@@ -423,7 +447,7 @@ function ProfileHeader({
                 <span className="text-base-regular text-light-1">
                   {totalFollowersCurrentUser}{" "}
                 </span>{" "}
-                <span className="text-light-2 text-small-semibold">
+                <span className="text-light-2 dark:text-green-1 text-small-semibold">
                   {totalFollowersCurrentUser === 1 ? "Follower" : "Followers"}
                 </span>
               </div>
@@ -436,7 +460,7 @@ function ProfileHeader({
                 <span className="text-base-regular text-light-1">
                   {totalFollowersOtherUsers}{" "}
                 </span>{" "}
-                <span className="text-light-2 text-small-semibold">
+                <span className="text-light-2 dark:text-green-1 text-small-semibold">
                   {totalFollowersOtherUsers === 1 ? "Follower" : "Followers"}
                 </span>
               </div>
@@ -467,7 +491,7 @@ function ProfileHeader({
 
               <div className="flex gap-5 justify-center mt-5 ">
                 <button
-                  className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
+                  className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 dark:bg-green-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 dark:hover:bg-green-1 hover:text-dark-1"
                   onClick={deleteProfile}
                 >
                   Delete

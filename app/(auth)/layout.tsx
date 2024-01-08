@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <ClerkProvider appearance={{ baseTheme: neobrutalism }}>
       <html lang="en">
-        <body className={`${inter.className} bg-dark-2`}>
+        <body className={`${inter.className} bg-dark-2 dark:bg-green-2`}>
           <div className="w-full flex justify-center items-center ">
             {children}
           </div>

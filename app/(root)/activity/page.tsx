@@ -40,7 +40,7 @@ async function Page() {
                       <span className="mr-1 text-light-1 text-small-bold break-all">
                         {activity.author.name}
                       </span>
-                      <span className="mr-1 text-small-regular text-light-2 break-all">
+                      <span className="mr-1 text-small-regular text-light-2 dark:text-green-1 break-all">
                         {" "}
                         replied to your fil
                       </span>

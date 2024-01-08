@@ -4,11 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.dsdf {
-  color: #ede8e8;
-}
-.dsdf {
-  color: #c13535;
+.toTestColors {
+  color: #e1fb81;
 }
 
 .hover-black-text:hover p {
@@ -103,7 +100,7 @@
 @layer components {
   /* main */
   .main-container {
-    @apply flex min-h-screen flex-1 flex-col items-center bg-dark-2 px-6 pb-10 pt-28 max-md:pb-32 sm:px-10;
+    @apply flex min-h-screen flex-1 flex-col items-center bg-dark-2 dark:bg-green-2 px-6 pb-10 pt-28 max-md:pb-32 sm:px-10;
   }
 
   /* Head Text */
@@ -178,6 +175,9 @@
   .rightsidebar {
     @apply sticky right-0 top-0 z-20 flex h-screen w-fit flex-col justify-between gap-6 overflow-auto border-l border-l-light-1 bg-dark-1 px-10 pb-6 pt-28 max-xl:hidden;
   }
+  .color-toggler {
+    @apply xs:h-9 h-5;
+  }
 }
 
 @layer utilities {
@@ -220,7 +220,7 @@
 
 /* Tab */
 .tab {
-  @apply flex min-h-[50px] flex-1 items-center gap-3 bg-dark-2 text-light-2 data-[state=active]:bg-[#0e0e12] data-[state=active]:text-light-2 !important;
+  @apply flex min-h-[50px] flex-1 items-center gap-3 bg-transparent text-light-2 data-[state=active]:bg-[#0e0e12] data-[state=active]:text-light-2 !important;
 }
 
 .no-focus {
@@ -233,7 +233,7 @@
 }
 
 .account-form_image-input {
-  @apply cursor-pointer border-none bg-transparent outline-none file:text-blue !important;
+  @apply cursor-pointer border-none bg-transparent outline-none file:text-black !important;
 }
 
 .account-form_input {
@@ -245,6 +245,6 @@
   @apply mt-10 flex items-center gap-4 border-y-2 border-y-light-2 py-5 max-xs:flex-col !important;
 }
 
-.comment-form_btn {
+/* .comment-form_btn {
   @apply rounded-3xl bg-primary-500 px-8 py-2 !text-small-regular text-light-1 max-xs:w-full !important;
-}
+} */

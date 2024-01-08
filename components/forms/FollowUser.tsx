@@ -93,7 +93,7 @@ const FollowUser = ({
       <div className="relative">
         {followedUsersIds ? (
           <button
-            className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 text-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-light-2 hover:text-dark-1"
+            className="flex cursor-pointer gap-3 rounded-lg bg-dark-1 text-light-1 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold hover:bg-light-2 dark:hover:bg-green-1 hover:text-dark-1"
             onClick={handleModalQuestion}
             disabled={isButtonDisabled}
           >

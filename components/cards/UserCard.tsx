@@ -34,7 +34,7 @@ function UserCard({ id, name, username, imgUrl, personType }: Props) {
 
           <div className="flex-1 break-all">
             <h4 className="text-base-semibold text-light-1">{name}</h4>
-            <p className="text-small-medium text-light-2">{username}</p>
+            <p className="text-small-medium text-light-1">{username}</p>
           </div>
         </div>
       </Link>

@@ -69,7 +69,7 @@ function PostThread({ userId }: Props) {
             type="button"
             onClick={() => SpeechRecognition.startListening()}
             className={`absolute bottom-3 right-3 ${
-              listening ? "bg-green-600" : "bg-light-2"
+              listening ? "bg-green-700" : "bg-light-2 dark:bg-gray-400"
             } text-light-1 hover:text-dark-1 p-2 rounded-full`}
           >
             <img src="/assets/mike.svg" alt="microphone" />

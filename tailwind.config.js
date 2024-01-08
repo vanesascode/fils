@@ -7,6 +7,7 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
+  "darkMode": "class",
   theme: {
     container: {
       center: true,
@@ -223,20 +224,28 @@ module.exports = {
     },
     extend: {
       colors: {
-        "primary-500": "#877EFF",
-        "secondary-500": "#FFB620",
-        blue: "#000000",
-        "logout-btn": "#FF5A5A",
-        "navbar-menu": "rgba(16, 16, 18, 0.6)",
-        "dark-1": "#1c1313", /* black */
-        "dark-2": "#470707", /* dark red */
-        "dark-3": "#170101", /* red black */
-        "dark-4": "#530019",
-        "light-1": "#ede8e8", /* white */
-        "light-2": "#d9a9a9", /* light red */
-        "light-3": "#c13535", /* red */
-        "light-4": "#5C5C7B",
-        "gray-1": "#ec9d9d",
+        /* black*/
+        "dark-1": "#0e0e12",
+
+        /* white */
+        "light-1": "#ede8e8",
+
+        /*background dark colours*/
+        "dark-2": "#470707",
+        "green-2": "#5a7007",
+
+        /* color texts*/
+        "light-3": "#760734",
+        "green-3": "#5a7007",
+
+        /* menus colors*/
+        "light-2": "#d9a9a9",
+        "green-1": "#e5f2b4",
+        /* dark red  #470707 - purple #310557 - orange #702208 - blue #1d054d - green #5a7007 - pink #760734*
+       // "dark-3": "#170101", /* red black */
+        /* light red  #d9a9a9 - purple #7e42b2*/
+        /* red  #c13535 - purple #5b2986 - blue #411695 - green #5a7007 - pink #760734*/
+
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       fontFamily: {

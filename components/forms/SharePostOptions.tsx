@@ -92,7 +92,7 @@ function SharePostOptions({ threadId, isComment, text, authorName }: Props) {
           <div className="absolute max-sm2:right-[-30px] top-[30px] w-[180px] max-sm2:w-[170px] flex justify-center items-start flex-col z-50d  bg-light-1  rounded-lg box-shadow-small overflow-hidden z-50">
             {/*OPTIONS*/}
 
-            <button className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 w-[180px] max-sm2:w-[170px] hover:border-b-2 border-dark-1">
+            <button className="pt-[12px] pb-[8px] px-5 hover:bg-light-2 dark:hover:bg-green-1 w-[180px] max-sm2:w-[170px] hover:border-b-2 border-dark-1">
               {/*COPY LINK BUTTON*/}
               <div className="flex items-center" onClick={handleCopyLink}>
                 <Image
@@ -107,7 +107,7 @@ function SharePostOptions({ threadId, isComment, text, authorName }: Props) {
                 </div>
               </div>
             </button>
-            <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 w-[180px] max-sm2:w-[150px] hover:border-t-2 border-dark-1  ">
+            <div className=" pb-[12px] pt-[8px] px-5 hover:bg-light-2 dark:hover:bg-green-1 w-[180px] max-sm2:w-[150px] hover:border-t-2 border-dark-1  ">
               {/*SHARE BUTTON*/}
 
               <button

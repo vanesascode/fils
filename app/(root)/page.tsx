@@ -67,7 +67,7 @@ async function Home({
 
           {/*FOLLOWING USERS POSTS TAB: */}
 
-          <TabsContent value="following" className="w-full text-light-1">
+          <TabsContent value="following" className="w-full text-light-1 ">
             {/* @ts-ignore */}
             <section className="mt-5 flex flex-col gap-6">
               {resultFollowed.threads.length === 0 ? (

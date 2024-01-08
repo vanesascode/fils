@@ -27,7 +27,7 @@ function Bottombar() {
               }
             >
               <Image
-                src={isActive ? link.imgURLleftbar : link.imgURLbottombar}
+                src={isActive ? link.imgURLActive : link.imgURLnotActive}
                 alt={link.label}
                 width={22}
                 height={22}

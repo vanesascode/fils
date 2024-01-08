@@ -89,7 +89,7 @@ function Comment({
         
          z-50 "
         >
-          <div className="bg-light-2 px-[30px] py-[20px] rounded-lg shadow text-center flex gap-2 text-dark-1 text-base-semibold">
+          <div className="bg-light-2 dark:bg-green-1 px-[30px] py-[20px] rounded-lg shadow text-center flex gap-2 text-dark-1 text-base-semibold">
             <div>New Comment Added</div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { DataContextType } from "./types";
 
@@ -16,6 +16,9 @@ export const DataContext = React.createContext<DataContextType>({
 
   deleteThreadMode: false,
   setDeleteThreadMode: () => {},
+
+  colorMode: "red",
+  setColorMode: () => {},
 });
 
 export const DataContextProvider = (props: { children: React.ReactNode }) => {
@@ -23,6 +26,32 @@ export const DataContextProvider = (props: { children: React.ReactNode }) => {
   const [editThreadMode, setEditThreadMode] = useState(false);
   const [deleteThreadMode, setDeleteThreadMode] = useState(false);
   const [threadToBeEdited, setThreadToBeEdited] = useState<string>("");
+  // COLOR SWITCH CONFIGURATION:
+  const [colorMode, setColorMode] = useState(() => {
+    let initialColorMode = "light";
+    if (typeof localStorage !== "undefined") {
+      initialColorMode = localStorage.getItem("colorMode") || "light";
+    }
+    return initialColorMode;
+  });
+
+  useEffect(() => {
+    if (colorMode === "dark") {
+      const htmlElement = document.querySelector("html");
+      if (htmlElement) {
+        htmlElement.classList.add("dark");
+      }
+    } else {
+      const htmlElement = document.querySelector("html");
+      if (htmlElement) {
+        htmlElement.classList.remove("dark");
+      }
+    }
+
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("colorMode", colorMode);
+    }
+  }, [colorMode]);
 
   return (
     <DataContext.Provider
@@ -38,6 +67,9 @@ export const DataContextProvider = (props: { children: React.ReactNode }) => {
 
         threadToBeEdited,
         setThreadToBeEdited,
+
+        colorMode,
+        setColorMode,
       }}
     >
       {props.children}

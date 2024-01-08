@@ -113,7 +113,7 @@ const ThreadText = ({
 
           {/* Save and Cancel buttons */}
           <button
-            className="flex cursor-pointer gap-3 rounded-lg bg-dark-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 hover:text-dark-1"
+            className="flex cursor-pointer gap-3 rounded-lg bg-dark-2  dark:bg-green-2 px-4 py-2 items-center justify-center text box-shadow-small text-base-semibold text-light-1 hover:bg-light-2 dark:hover:bg-green-1 hover:text-dark-1"
             onClick={handleClick}
             disabled={isButtonDisabled}
           >
